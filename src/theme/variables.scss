@@ -22,8 +22,9 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
-
+ion-content.content.content-ios {
+  background-color: #222;
+}
 
 // Named Color Variables
 // --------------------------------------------------

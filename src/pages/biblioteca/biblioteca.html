@@ -1,0 +1,44 @@
+<!--
+  Generated template for the BibliotecaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>biblioteca</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <!-- recarregador da lista de hqs que o usuario tem -->
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- aqui começa a lista de hqs do usuario -->
+
+    <ion-item *ngFor="let hqs of hqsBiblioteca">
+        <div *ngIf="hqs != undefined" (click)="OpenHq()">
+        <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                  <img [src]="hqs.imagem">
+              </ion-col>
+              <ion-col size="8">
+                  <h2>Titulo:{{hqs.titulo}}</h2>
+                  <p>Edicao:{{hqs.edicao}}</p>
+                  <p>{{hqs.descricao}}</p>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+        </div> 
+    </ion-item>
+  
+</ion-content>
