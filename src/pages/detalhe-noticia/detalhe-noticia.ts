@@ -22,7 +22,6 @@ export class DetalheNoticiaPage {
 
   ionViewDidEnter() {
     this.noticia = this.navParams.get("cod");
-    console.log("noticia " + this.noticia);
   }
 
 }

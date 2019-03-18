@@ -73,8 +73,11 @@ FechaCarregador(){
   this.getRetornarHq();
 }
 
-  OpenHq():any{
-    this.navCtrl.push(HqviewPage);
+  OpenHq(codigo):any{
+    if(codigo != undefined){
+      console.log(codigo);
+      this.navCtrl.push(HqviewPage, {cod: codigo});
+    }
   }
 
   //Essa função é acionada ao recarregar a page

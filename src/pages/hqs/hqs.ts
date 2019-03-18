@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { HqviewPage } from '../hqview/hqview';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';

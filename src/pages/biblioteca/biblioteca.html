@@ -24,20 +24,20 @@
     </ion-refresher>
     <!-- aqui começa a lista de hqs do usuario -->
 
-    <ion-item *ngFor="let hqs of hqsBiblioteca">
-        <div *ngIf="hqs != undefined" (click)="OpenHq()">
-        <ion-grid>
-            <ion-row>
-              <ion-col size="4">
-                  <img [src]="hqs.imagem">
-              </ion-col>
-              <ion-col size="8">
-                  <h2>Titulo:{{hqs.titulo}}</h2>
-                  <p>Edicao:{{hqs.edicao}}</p>
-                  <p>{{hqs.descricao}}</p>
-              </ion-col>
-            </ion-row>
-        </ion-grid>
+    <ion-item *ngFor="let hqs of hqsBiblioteca" (click)="OpenHq(hqs.codigo)">
+        <div *ngIf="hqs != undefined">
+          <ion-grid>
+              <ion-row>
+                <ion-col size="4">
+                    <img [src]="hqs.imagem" class="imagehq">
+                </ion-col>
+                <ion-col size="8">
+                    <h2>Titulo:{{hqs.titulo}}</h2>
+                    <p>Edicao:{{hqs.edicao}}</p>
+                    <p>{{hqs.descricao}}</p>
+                </ion-col>
+              </ion-row>
+          </ion-grid>
         </div> 
     </ion-item>
   

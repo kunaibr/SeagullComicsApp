@@ -21,7 +21,7 @@
  <!-- Slides coletados do bd na tabela slide -->
     <ion-slides pager="true" (ionSlideDidChange)="slideChanged()" >
 
-        <ion-slide *ngFor="let slide of slidesnew">
+        <ion-slide *ngFor="let slide of slidesnew" (click)="openDetails(slide)">
           <img [src]="slide.image" alt="">
           <div class="myOverlay">
             <h2 class="textSlide">{{slide.titulo}}</h2>
