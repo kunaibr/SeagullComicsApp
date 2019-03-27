@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { SettingsProvider } from '../../providers/settings/settings';
 
-/**
- * Generated class for the AjustesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +10,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AjustesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  selectTheme: String;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private settings: SettingsProvider) {
+    this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AjustesPage');
+  ionViewDidLoad() {}
+
+  ToggleAppTheme(){
+    if(this.selectTheme == 'dark-theme'){
+      this.settings.SetActiveTheme('light-theme');
+    }else{
+      this.settings.SetActiveTheme('dark-theme'); 
+    }
+    console.log(this.selectTheme);
   }
 
 }

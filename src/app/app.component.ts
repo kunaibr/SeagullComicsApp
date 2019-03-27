@@ -10,6 +10,7 @@ import { NovidadesPage } from '../pages/novidades/novidades';
 import { PersonagensPage } from '../pages/personagens/personagens';
 import { ContatoPage } from '../pages/contato/contato';
 import { LoginPage } from '../pages/login/login';
+import { SettingsProvider } from '../providers/settings/settings';
 
 
 @Component({
@@ -24,8 +25,12 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  selectTheme:String;
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen, 
+    private settings:SettingsProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -41,9 +46,10 @@ export class MyApp {
   }
 
   initializeApp() {
+    this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
+    
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
