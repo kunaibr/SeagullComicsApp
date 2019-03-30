@@ -36,6 +36,7 @@ import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { DetalheNoticiaPageModule } from '../pages/detalhe-noticia/detalhe-noticia.module';
 import { SettingsProvider } from '../providers/settings/settings';
 
+
 @NgModule({
   declarations: [
     MyApp,

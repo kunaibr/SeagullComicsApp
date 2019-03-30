@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { NovidadesPage } from '../novidades/novidades';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { CadastroPage } from '../cadastro/cadastro';
 /**
  * Generated class for the LoginPage page.
  *
@@ -36,6 +37,10 @@ export class LoginPage {
   ionViewDidLoad() {
    
 
+  }
+
+  PushCadastro(){
+    this.navCtrl.push(CadastroPage);
   }
 
   EfetuarLogin(){

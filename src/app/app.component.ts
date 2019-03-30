@@ -11,6 +11,7 @@ import { PersonagensPage } from '../pages/personagens/personagens';
 import { ContatoPage } from '../pages/contato/contato';
 import { LoginPage } from '../pages/login/login';
 import { SettingsProvider } from '../providers/settings/settings';
+import { Storage } from '@ionic/Storage';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class MyApp {
     public platform: Platform, 
     public statusBar: StatusBar,
     public splashScreen: SplashScreen, 
-    private settings:SettingsProvider) {
+    private settings:SettingsProvider,
+    private storage: Storage,
+    ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -41,9 +44,19 @@ export class MyApp {
       { title: 'Minha biblioteca', component: BibliotecaPage },
       { title: 'Contato', component: ContatoPage },   
       { title: 'Ajustes', component: AjustesPage },
-    ];
+    ];  
 
+    
+    this.storage.get('session_storage').then((res) => {
+      if(res == null){
+        this.rootPage = LoginPage;
+     }else{
+       this.rootPage = NovidadesPage;
+     }
+    });
   }
+    
+  
 
   initializeApp() {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
@@ -54,6 +67,8 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+
+
 
   openPage(page) {
     // Reset the content nav to have just this page
