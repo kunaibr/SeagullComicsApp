@@ -55,12 +55,12 @@ export class MyApp {
      }
     });
   }
-    
+     
   
 
   initializeApp() {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
-    
+    this.settings.SetActiveTheme('light-theme');
     this.platform.ready().then(() => {
       
       this.statusBar.styleDefault();

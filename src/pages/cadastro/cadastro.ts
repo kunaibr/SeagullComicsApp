@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
@@ -21,52 +21,71 @@ export class CadastroPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public alertCtrl: AlertController,
     public servidor:ServidorProvider,
     public http: Http,
+    public toastCtrl: ToastController,
     ) {
       
   }
 
-  ionViewDidLoad() {
-  
-  }
-
   EfetuarCadastro(){  
-    if(this.nome == undefined || 
-      this.senha == undefined || 
-      this.email == undefined || 
-      this.senhaComfirm == undefined){
+    if(this.nome == "" || 
+      this.senha == "" || 
+      this.email == "" || 
+      this.senhaComfirm == ""){
+       
+          let toast = this.toastCtrl.create({
+            message: "Preencha todos os campos!",
+            duration: 3000,
+          })
 
-      let alert = this.alertCtrl.create({
-        title: "Atenção",
-        message: "Preencha todos os campos!",
-        buttons: ["OK"],
+          toast.present();
+      
+    }else if(this.senhaComfirm != this.senha){
+     
+      let toast = this.toastCtrl.create({
+        message: "As duas senhas não são iguais!",
+        duration: 3000,
       })
-      alert.present();
-    }else{
 
-      this.http.get(this.servidor.UrlGet()+'register.php?nome='+this.nome+'&senha='+this.senha+'&email='+this.email+'&senhaComfirm='+this.senhaComfirm).pipe(map(res => res.json()))
-      .subscribe(
-        dados => {
-          if(dados.msg.logado == "sim"){
-            
+      toast.present();
+    }else{
+      let body ={
+        nome: this.nome,
+        email: this.email,
+        senha: this.senha, 
+        aksi: 'add_register',
+      };
+      console.log('1');
+      //ERRO
+      this.servidor.PostData(body,'register.php').subscribe((data) =>{
+         var alertpesan = data.msg;
+         console.log('4');
+         if(data.sucess){
+           console.log('2');
+           this.navCtrl.pop();         
+
+           let toast = this.toastCtrl.create({
+            message: "Conta criada com sucesso!",
+            duration: 3000,
+          })
+    
+          toast.present();
           }else{
-            let alert = this.alertCtrl.create({
-              title: "Atenção",
-              message: "Usuario ou senha invalidos!",
-              buttons: ["OK"],
+            let toast = this.toastCtrl.create({
+              message: alertpesan,
+              duration: 3000,
             })
-            alert.present();
+      
+            toast.present();
           }
-        }
-      )
+      });   
     }
     
     
   }
 
   VoltarPage(){
-    
+    this.navCtrl.pop(); 
   }
 }

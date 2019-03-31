@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { map } from 'rxjs/operators';
 import { Http } from '@angular/http';
 import { ServidorProvider } from '../../providers/servidor/servidor';
@@ -20,13 +20,13 @@ import { CadastroPage } from '../cadastro/cadastro';
 })
 export class LoginPage {
 
-  nome: string;
-  senha: string;
+  nome: string = "";
+  senha: string = "";
 
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams, 
-     public alertCtrl: AlertController,
+     public toastCtrl: ToastController,
      public servidor:ServidorProvider,
      public http: Http,
      public globalvars: GlobalvarsProvider,
@@ -34,23 +34,17 @@ export class LoginPage {
      ) {
   }
 
-  ionViewDidLoad() {
-   
-
-  }
-
   PushCadastro(){
     this.navCtrl.push(CadastroPage);
   }
 
   EfetuarLogin(){
-    if(this.nome == undefined || this.senha == undefined){
-      let alert = this.alertCtrl.create({
-        title: "Atenção",
+    if(this.nome == ""|| this.senha == "" ){
+      let toast = this.toastCtrl.create({
         message: "Preencha todos os campos!",
-        buttons: ["OK"],
+        duration: 3000,
       })
-      alert.present();
+      toast.present();
     }else{
 
       this.http.get(this.servidor.UrlGet()+'login.php?nome='+this.nome+'&senha='+this.senha).pipe(map(res => res.json()))
@@ -60,12 +54,12 @@ export class LoginPage {
             this.globalvars.setUser(dados);
             this.navCtrl.setRoot(NovidadesPage);
           }else{
-            let alert = this.alertCtrl.create({
-              title: "Atenção",
+            let toast = this.toastCtrl.create({
+            
               message: "Usuario ou senha invalidos!",
-              buttons: ["OK"],
+              duration: 3000,
             })
-            alert.present();
+            toast.present();
           }
         }
       )

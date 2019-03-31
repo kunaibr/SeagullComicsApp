@@ -1,6 +1,9 @@
 
 
 <ion-content padding>
+<ion-label class="title">
+    CRIE SUA CONTA!
+</ion-label>
 
 <ion-item>
   <ion-label floating>Nome</ion-label>
@@ -19,10 +22,10 @@
   <ion-input type="password" [(ngModel)]="senhaComfirm" ></ion-input>
 </ion-item>
 <div>
-  <button ion-button full (click)="EfetuarCadastro()">Cadastrar</button>
+  <button class="Great" (click)="EfetuarCadastro()">CADASTRAR</button>
 </div>
 <div>
-  <button (click)="VoltarPage()">Voltar ao login</button>
+  <button class="Normal" (click)="VoltarPage()">Voltar ao login</button>
 </div>
 
 </ion-content>

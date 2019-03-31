@@ -35,6 +35,8 @@ import { ServidorProvider } from '../providers/servidor/servidor';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { DetalheNoticiaPageModule } from '../pages/detalhe-noticia/detalhe-noticia.module';
 import { SettingsProvider } from '../providers/settings/settings';
+import { IonicStorageModule} from '@ionic/Storage';
+
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { SettingsProvider } from '../providers/settings/settings';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     HttpModule,
     AjustesPageModule,
     BibliotecaPageModule,

@@ -1,6 +1,8 @@
 
 <ion-content padding>
-
+ 
+<img src="../../assets/images/logo-mini.png" class="logo" alt="">
+  
 <ion-item>
   <ion-label floating>Nome</ion-label>
   <ion-input type="text" [(ngModel)]="nome"></ion-input>
@@ -10,9 +12,9 @@
   <ion-input type="password" [(ngModel)]="senha" ></ion-input>
 </ion-item>
 <div>
-  <button ion-button full (click)="EfetuarLogin()">Logar</button>
+  <button class="Great" (click)="EfetuarLogin()">LOGAR</button>
 </div>
 <div>
-  <button ion-button full (click)="PushCadastro()">Criar uma conta</button>
+  <button class="Normal" (click)="PushCadastro()">Criar uma conta</button>
 </div>
 </ion-content>

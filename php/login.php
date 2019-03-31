@@ -17,7 +17,7 @@ if(isset($_GET["nome"]) || isset($_GET["senha"]) ){
 			$outp .= '{"codigo":"'  . $rs["iduser"] . '",';
             $outp .= '"email":"'   . $rs["email"]        . '",';
             $outp .= '"nome":"'   . $rs["nome"]        . '",';
-            $outp .= '"status":"'   . $rs["status"]        . '",';
+            $outp .= '"status":"'   . $rs["stats"]        . '",';
             $outp .= '"hqs":"'   . $rs["listahq"]        . '",';
             $outp .= '"senha":"'. $rs["senha"]     . '"}';
             
