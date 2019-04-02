@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ServidorProvider {
 
-  url: string = "http://localhost/SeagullComics/php/"
+  url: string = "http://localhost/SeagullComics/php/";
   
   constructor(public http: Http) {
   }
@@ -19,7 +19,7 @@ export class ServidorProvider {
     console.log('3');
 
     //ERRO
-    return this.http.post(this.url + file,JSON.stringify(body),options)
+    return this.http.post(this.url + file,  JSON.stringify(body),options)
     .map(res => res.json());
     
   }

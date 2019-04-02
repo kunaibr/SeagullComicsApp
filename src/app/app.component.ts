@@ -22,7 +22,7 @@ import { Storage } from '@ionic/Storage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
@@ -36,7 +36,7 @@ export class MyApp {
     ) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
+    
     this.pages = [
       { title: 'Novidades', component: NovidadesPage },
       { title: 'Personagens', component: PersonagensPage },
@@ -45,15 +45,6 @@ export class MyApp {
       { title: 'Contato', component: ContatoPage },   
       { title: 'Ajustes', component: AjustesPage },
     ];  
-
-    
-    this.storage.get('session_storage').then((res) => {
-      if(res == null){
-        this.rootPage = LoginPage;
-     }else{
-       this.rootPage = NovidadesPage;
-     }
-    });
   }
      
   
@@ -66,6 +57,15 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    this.storage.get('session_storage').then((res) => {
+      if(res == null){
+        this.rootPage = LoginPage;
+     }else{
+       this.rootPage = NovidadesPage;
+     }
+    });
+    
   }
 
 

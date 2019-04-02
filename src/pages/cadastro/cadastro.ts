@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
-import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -47,8 +46,8 @@ export class CadastroPage {
         message: "As duas senhas não são iguais!",
         duration: 3000,
       })
-
       toast.present();
+
     }else{
       let body ={
         nome: this.nome,
@@ -59,8 +58,10 @@ export class CadastroPage {
       console.log('1');
       //ERRO
       this.servidor.PostData(body,'register.php').subscribe((data) =>{
+
          var alertpesan = data.msg;
          console.log('4');
+         
          if(data.sucess){
            console.log('2');
            this.navCtrl.pop();         
