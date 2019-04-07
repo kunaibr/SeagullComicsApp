@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>detalheNoticia</ion-title>
+  
   </ion-navbar>
 
 </ion-header>
@@ -15,12 +15,11 @@
 
 <ion-content padding>
   <div *ngIf="noticia">
-    <h2>{{noticia.titulo}}</h2>
-    <img [src]="noticia.imagem">
-    
-    <p>{{noticia.data}}</p>
+    <h2  class="titleGreat">{{noticia.titulo}}</h2>
+    <p class="dataCard">{{noticia.data | date: 'dd/MM/yyyy'}}</p>
+    <img class="bigimg" [src]="noticia.imagem">
     <div>
-      <h4>{{noticia.texto}}</h4>
+      <h4 class="textCard">{{noticia.texto}}</h4>
     </div>
   </div>
 </ion-content>

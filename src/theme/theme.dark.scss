@@ -6,6 +6,9 @@
 
     .header .toolbar-title{
         color: #000000;
+        display: block;
+        vertical-align: 50%;
+        font-size: 20px;
     }
 
     .toolbar-background{
@@ -52,7 +55,7 @@
         width:60%;
     }
 
-    .title{
+    .titleGreat{
         font-size: 25px;
         display: block;
         margin-left: auto;
@@ -63,5 +66,55 @@
         font-weight: bolder;
     }
 
-    
+    .imgCp{
+        width: 150px;
+    }
+    .ion-item{
+        border: 0px;
+    }
+
+    .imgCard{
+        max-width: 100px;
+        float: left;
+        margin-right: 10px;
+        border: 1px solid #222222;
+        border-radius: 2px;
+        padding: 2px;
+      }
+
+      .bigimg{
+        border: 1px solid #191919;
+        border-radius: 4px;
+        padding: 5px;
+      }
+
+    .cardNews{
+        background-color: #191919;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        border-color: transparent;
+    }
+
+    .dataCard{
+        font-size: 13px;
+        color: #fcfcfc;
+        text-align: right;
+       
+    }
+
+    .textCard{
+        font-size: 15px;
+        color: #ffffff;
+        text-align: left, top;
+        white-space: pre-line;
+    }
+
+    .titleCard{
+        white-space: pre-line;
+        text-align: left, top;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
 }

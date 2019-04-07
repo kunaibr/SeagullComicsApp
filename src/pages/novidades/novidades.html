@@ -12,7 +12,7 @@
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>novidades</ion-title>
+    <ion-title>Novidades</ion-title>
   </ion-navbar>
     
 </ion-header>
@@ -22,7 +22,7 @@
     <ion-slides pager="true" (ionSlideDidChange)="slideChanged()" >
 
         <ion-slide *ngFor="let slide of slidesnew" (click)="openDetails(slide)">
-          <img [src]="slide.image" alt="">
+          <img [src]="slide.imagem" alt="">
           <div class="myOverlay">
             <h2 class="textSlide">{{slide.titulo}}</h2>
           </div>
@@ -31,13 +31,18 @@
 
      <!-- Lista de noticias coletados do bd na tabela noticia -->
       <ion-list>
-        <ion-item *ngFor="let noticia of noticias" (click)="openDetails(noticia)">
-          <img [src]="noticia.imagem">
-          <h2>{{noticia.titulo}}</h2>
-          <p>{{noticia.data}}</p>
-          <p>{{noticia.resumo}}</p>
+        <ion-item *ngFor="let noticia of noticias" (click)="openDetails(noticia)" class="cardNews">
+        
+                 <img class="imgCard" [src]="noticia.imagem">
+      
+                 <p class="dataCard">{{noticia.data | date: 'dd/MM/yyyy'}}</p>
+                 <p class="titleCard">{{noticia.titulo}}</p>
+                 <!-- <p class="textCard">{{noticia.resumo}}</p> -->
+              
         </ion-item>
       </ion-list>
+
+     
 
   </ion-content>
 

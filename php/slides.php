@@ -19,8 +19,12 @@ try {
 				$dados .= ",";
 			}
 			$dados .= '{"codigo": "'.$lista["idslide"].'",';
-			$dados .= '"image": "'.$lista["image"].'",';
+			$dados .= '"imagem": "'.$lista["image"].'",';
 			$dados .= '"titulo": "'.$lista["titulo"].'",';
+			$dados .= '"texto": "'.$lista["textoslide"].'",';
+			$dados .= '"data": "'.$lista["dataslide"].'",';
+			$dados .= '"idadm": "'.$lista["idadm"].'",';
+			
             $dados .= '"link": "'.$lista["link"].'"}';
 		}
 		$dados .= "]";
