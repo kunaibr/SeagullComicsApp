@@ -23,10 +23,13 @@
     .item-label-floating .text-input{
         background-color: #ffffff;
         color: #000000;
-        box-shadow: 0px 6px 6px 0px #838383;
-        box-lines: 2px;
-        height: 25px;
+        box-shadow: -6px 3px  #838383;
+        border: solid;
+        border-color:#838383;
+        border-radius: 8px;
+        height: 35px;
     }
+
   
     //BIG TEXT
     .Great{
@@ -64,7 +67,20 @@
 
     //CADASTRO PAGE
     .titleGreat{
-        font-size: 25px;
+        font-size: 28px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        color: #014a8e;
+        text-align: center;
+        font-weight: bold;
+        font-weight: bolder;
+
+        text-shadow: -1px 2px 0 #027def;
+    }
+
+    .titleNormal{
+        font-size: 28px;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -73,12 +89,15 @@
         font-weight: bold;
         font-weight: bolder;
     }
+    
+
 
     //HQ PAGE
     .imgCp{
         width: 150px;
     }
     .ion-item{
+        background-color: transparent;
         border: 0px;
     }
 
@@ -126,6 +145,25 @@
         font-weight: bold;
     }
 
+    .line{
+        border: 1px solid black;
+    }
+
+    ion-title{
+        text-align: left;
+    }
+
+    .item-ios {
+        padding-left: 16px;
+        padding-left: 16px;
+        border-radius: 0;
+        position: relative;
+        font-size: 1.7rem;
+        color: #000000;
+        background-color: transparent;
+        -webkit-transition: background-color 200ms linear;
+        transition: background-color 200ms linear;
+      }
 
 
 }

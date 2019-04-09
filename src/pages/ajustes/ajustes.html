@@ -12,8 +12,26 @@
 
 
 <ion-content padding>
-  <button ion-button full icon-left (click)="ToggleAppTheme()">
-    <ion-icon name="bulb"></ion-icon>Toggle Theme
-  </button>
-  
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+              <label class="textCard">Modo Claro/Escuro</label>
+          </ion-col>
+          <ion-col>
+              <ion-toggle (ionChange)="ToggleAppTheme()"></ion-toggle>        
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+              <label class="textCard">Versão</label>
+          </ion-col>
+          <ion-col>
+              <p>0.1v</p>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="line"></div>
+        
+    
 </ion-content>

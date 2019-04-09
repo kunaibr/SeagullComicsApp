@@ -1,17 +1,55 @@
-// http://ionicframework.com/docs/theming/
 
+$SIDEMENU_TOP: #014a8e;
+$SIDEMENU_BOTTOM: #014a8e;
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:60%;
+}
 
+.buttonMenu{
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    
+    color: #000000;
+}
+
+.menu {
+    background: -webkit-linear-gradient(left top, $SIDEMENU_TOP,$SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right,  $SIDEMENU_TOP,$SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP,$SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP,$SIDEMENU_BOTTOM);
+}
+
+//List
+.list-ios > .item-block:first-child {
+    border-top: 0px;
+  }
+  
+  .list-ios > .item-block:last-child,
+  .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: 0px;
+  }
+  
+  .list-ios > .item-block:last-child .item-inner,
+  .list-ios > .item-wrapper:last-child .item-block .item-inner {
+    border-bottom: 0;
+  }
+  
+  .list-ios .item-block .item-inner {
+    border-bottom: 0px;
+  }
+  
+  .list-ios .item[no-lines],
+  .list-ios .item[no-lines] .item-inner {
+    border-width: 0;
+  }
+  
+  .list-ios ion-item-options {
+    border-bottom: 0px;
+  }

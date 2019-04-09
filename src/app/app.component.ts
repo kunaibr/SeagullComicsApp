@@ -24,7 +24,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   selectTheme:String;
   constructor(
@@ -38,17 +38,16 @@ export class MyApp {
 
     
     this.pages = [
-      { title: 'Novidades', component: NovidadesPage },
-      { title: 'Personagens', component: PersonagensPage },
-      { title: 'HQs', component: HqsPage }, 
-      { title: 'Minha biblioteca', component: BibliotecaPage },
-      { title: 'Contato', component: ContatoPage },   
-      { title: 'Ajustes', component: AjustesPage },
+      { title: 'Novidades', component: NovidadesPage,icon: "home"},
+      { title: 'Personagens', component: PersonagensPage,icon:"people" },
+      { title: 'HQs', component: HqsPage,icon:"paper" }, 
+      { title: 'Minha biblioteca', component: BibliotecaPage,icon:"book"},
+      { title: 'Contato', component: ContatoPage,icon:"contacts" },   
+      { title: 'Ajustes', component: AjustesPage,icon:"bulb" },
+      { title: 'Sair', component: LoginPage,icon:"log-out" },
     ];  
   }
      
-  
-
   initializeApp() {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
     this.settings.SetActiveTheme('light-theme');
@@ -68,11 +67,7 @@ export class MyApp {
     
   }
 
-
-
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 

@@ -12,11 +12,12 @@ export class AjustesPage {
 
   selectTheme: String;
 
+  toggleValue: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private settings: SettingsProvider) {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
+    this.ToggleAppTheme();
   }
-
-  ionViewDidLoad() {}
 
   ToggleAppTheme(){
     if(this.selectTheme == 'dark-theme'){
@@ -24,7 +25,6 @@ export class AjustesPage {
     }else{
       this.settings.SetActiveTheme('dark-theme'); 
     }
-    console.log(this.selectTheme);
   }
 
 }
