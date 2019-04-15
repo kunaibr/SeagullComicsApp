@@ -10,24 +10,29 @@
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>contato</ion-title>
+    <ion-title>Contato</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div>
-  <a href="www.google.com"><ion-icon name="logo-facebook"></ion-icon></a>
-  <a href="www.google.com"> <ion-icon name="logo-instagram"></ion-icon></a>
-    <a href="www.google.com"><ion-icon name="mail"></ion-icon></a>
-      <a href="www.google.com"><ion-icon name="logo-whatsapp"></ion-icon></a>
-    </div>
-<div>
-      <label for="Email"></label>
-      <input type="text">
-      <label for="Mensagem"></label>
-      <input type="text">
-    </div>
+  <ion-label class="titleGreat">CONTATE-NOS!</ion-label>
+<p class="titleNormal">Elogios, sugestões, repotar algo, bugs, nos envie um email</p>
+    <ion-item>
+        <ion-label floating>Titulo</ion-label>
+        <ion-input type="text" [(ngModel)]="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Assunto</ion-label>
+        <ion-input type="text" [(ngModel)]="subject" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Mensagem</ion-label>
+        <ion-input class="big" type="text" [(ngModel)]="body" ></ion-input>
+      </ion-item>
+      <div>
+       <button class="Great" (click)="SendEmail()">ENVIAR</button>
+      </div>
 
 </ion-content>

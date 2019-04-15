@@ -36,6 +36,7 @@ import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { DetalheNoticiaPageModule } from '../pages/detalhe-noticia/detalhe-noticia.module';
 import { SettingsProvider } from '../providers/settings/settings';
 import { IonicStorageModule} from '@ionic/Storage';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 
 
@@ -81,6 +82,7 @@ import { IonicStorageModule} from '@ionic/Storage';
     StatusBar,
     SplashScreen,
     DatePipe,
+    EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServidorProvider,
     GlobalvarsProvider,

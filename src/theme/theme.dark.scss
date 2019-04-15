@@ -139,9 +139,12 @@
         border: 1px solid #ffffff;
     }
 
-    .imgLogoDev{
-        src: "/../assets/logoDev.png";
-
+    .imgLogodev{
+        display: block;
+        src: "../../assets/images/logodev.jpg";
+        align-content: center;
+        
+        
     }
 
     ion-title{
