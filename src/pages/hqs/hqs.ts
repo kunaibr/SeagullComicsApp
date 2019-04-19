@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 
 /**
  * Generated class for the HqsPage page.
@@ -18,6 +19,10 @@ import { map } from 'rxjs/operators';
 })
 export class HqsPage {
 
+  usuario:any;
+  hqsUser:string; 
+  hqsArrayUser:string[]; 
+
   hqlista:any[];
   searchHqs:any[];
 
@@ -25,7 +30,6 @@ export class HqsPage {
 
   public loader;
 
-  
   public refresher;
   public isRefreshing: boolean = false;
 
@@ -35,11 +39,15 @@ export class HqsPage {
     public navParams: NavParams,
     public servidor: ServidorProvider, 
     public http: Http,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public globalvars: GlobalvarsProvider,
     ) {
   }
 
   ionViewDidLoad() {
+    this.usuario = this.globalvars.getUser();
+    this.hqsUser = this.usuario.dados.hqs;
+
     this.getRetornarHq();
   }
 
@@ -74,6 +82,9 @@ export class HqsPage {
 
         this.searchHqs = this.hqlista;
 
+        this.isBuy();
+
+
         this.FechaCarregador();
         if(this.isRefreshing){
           this.refresher.complete();
@@ -89,6 +100,32 @@ export class HqsPage {
         }
       }
       );
+  }
+
+  isBuy(){
+      this.hqsArrayUser = this.hqsUser.split(",");
+
+      //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
+      //se nao é iguala-do a indefinido, entao não é colocado na lista
+      for(let i:number=0;i < this.hqlista.length ;i++){
+
+        this.hqlista[i].comprado = false;
+
+        for(let j:number=0;j < this.hqsArrayUser.length;j++){
+        
+          if(this.hqlista[i].codigo == parseInt(this.hqsArrayUser[j])){
+          this.hqlista[i].comprado = true;
+          j = this.hqsArrayUser.length;
+          }   
+        
+        }
+      }
+   }
+
+  OpenHq(codigo):any{
+    if(codigo != undefined){
+      //this.navCtrl.push(, {cod: codigo});
+    }
   }
 
   OnSearch(ev: any){

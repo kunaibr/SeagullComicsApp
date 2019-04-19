@@ -33,7 +33,7 @@
     <!-- aqui começa a lista de hqs do usuario -->
 
     
-    <ion-item *ngFor="let hqs of searchHqs">
+    <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
         <div *ngIf="hqs != undefined" (click)="OpenHq(hqs.codigo)">
           <ion-grid>
               <ion-row>
@@ -41,9 +41,10 @@
                     <img [src]="hqs.imagem" class="imgCp">
                 </ion-col>
                 <ion-col size="8">
-                    <h2>Titulo:{{hqs.titulo}}</h2>
-                    <p>Edicao:{{hqs.edicao}}</p>
-                    <p>{{hqs.descricao}}</p>
+                    
+                    <h2 class="titleCard">Titulo:{{hqs.titulo}}</h2>
+                    <p class="textCard">Edicao:{{hqs.edicao}}</p>
+                    <p class="textCard">{{hqs.descricao}}</p>
                 </ion-col>
               </ion-row>
           </ion-grid>

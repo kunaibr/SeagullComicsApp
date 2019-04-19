@@ -31,7 +31,7 @@
     </ion-refresher>
 <!-- Lista das hqs existentes no bd -->
 
-    <ion-item *ngFor="let hqs of searchHqs" >
+    <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
       <div *ngIf="hqs != undefined" (click)="OpenHq(hqs.codigo)">
         <ion-grid>
             <ion-row>
@@ -39,9 +39,13 @@
                   <img class="imgCp" [src]="hqs.imagem">
               </ion-col>
               <ion-col size="8">
-                  <h2>Titulo:{{hqs.titulo}}</h2>
-                  <p>Edicao:{{hqs.edicao}}</p>
-                  <p>{{hqs.descricao}}</p>
+                 
+                  <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
+                      <button class="precoCard" *ngIf="!hqs.comprado">R${{hqs.preco}}</button>
+                      <button class="precoCard" *ngIf="hqs.comprado"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
+                    
+                  <p class="textCard">Edicao:{{hqs.edicao}}</p>
+                  <p class="textCard">{{hqs.descricao}}</p>
               </ion-col>
             </ion-row>
         </ion-grid>

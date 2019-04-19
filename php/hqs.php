@@ -22,8 +22,10 @@ try {
 			$dados .= '"titulo": "'.$lista["titulodahq"].'",';
             $dados .= '"edicao": "'.$lista["numerodaedicao"].'",';
             $dados .= '"descricao": "'.$lista["descricao"].'",';
-            $dados .= '"idadm": "'.$lista["idadm"].'",';
-            $dados .= '"imagem": "'.$lista["imagem"].'"}';
+			$dados .= '"idadm": "'.$lista["idadm"].'",';
+			$dados .= '"imagem": "'.$lista["imagem"].'",';
+			$dados .= '"preco": "'.$lista["preco"].'",';
+            $dados .= '"comprado": "'.$lista["comprado"].'"}';
 		}
 		$dados .= "]";
 		echo utf8_encode($dados);

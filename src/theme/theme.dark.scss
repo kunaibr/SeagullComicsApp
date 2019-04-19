@@ -146,6 +146,21 @@
         font-size: 18px;
         font-weight: bold;
     }
+    
+    .precoCard{
+        align-items: right, top;
+        text-align: center;
+        color: #191919;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #014a8e;
+        float: right;
+        height: 25px;
+    }
+
+    .hqCard{
+        background-color: #191919;
+    }
 
     .line{
         border: 1px solid #ffffff;
@@ -164,8 +179,14 @@
         position: relative;
         font-size: 1.7rem;
         color: #ffffff;
-        background-color: transparent;
+        background-color: #191919;
         -webkit-transition: background-color 200ms linear;
         transition: background-color 200ms linear;
+      }
+
+      
+      .item-ios.item-block .item-inner {
+        padding-right: 8px;
+        padding-right: 8px;
       }
 }
