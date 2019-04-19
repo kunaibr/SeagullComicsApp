@@ -5,22 +5,18 @@
     CRIE SUA CONTA!
 </ion-label>
 
-<ion-item>
-  <ion-label floating>Nome</ion-label>
+  <ion-label >Nome</ion-label>
   <ion-input type="text" [(ngModel)]="nome"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label floating>Email</ion-label>
+
+  <ion-label >Email</ion-label>
   <ion-input type="text" [(ngModel)]="email" ></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label floating>Senha</ion-label>
+
+  <ion-label >Senha</ion-label>
   <ion-input type="password" [(ngModel)]="senha" ></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label floating>Comfirme a senha</ion-label>
+
+  <ion-label >Comfirme a senha</ion-label>
   <ion-input type="password" [(ngModel)]="senhaComfirm" ></ion-input>
-</ion-item>
+
 <div>
   <button class="Great" (click)="EfetuarCadastro()">CADASTRAR</button>
 </div>

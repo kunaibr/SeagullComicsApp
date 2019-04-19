@@ -15,7 +15,7 @@
         background-color: #014a8e;
     }
 
-    .item-label-floating .text-input{
+    .text-input{
         background-color: #222222;
         color: #ffffff;
         box-shadow: -6px 3px #c1c1c1;
@@ -23,6 +23,12 @@
         border-color:#c1c1c1;
         border-radius: 8px;
         height: 35px;
+    }
+
+    ion-label{
+        padding-left: 5px;
+        font-size: 15px;
+        color: #ffffff;
     }
     
   
@@ -68,6 +74,7 @@
         font-weight: bold;
         font-weight: bolder;
 
+        padding-bottom: 40px;
         text-shadow: -1px 2px 0 #027def;
     }
 
@@ -127,6 +134,11 @@
         white-space: pre-line;
     }
 
+    .textSpace{
+        font-size: 17px;
+        color: #ffffff;
+    }
+
     .titleCard{
         white-space: pre-line;
         text-align: left, top;
@@ -139,13 +151,7 @@
         border: 1px solid #ffffff;
     }
 
-    .imgLogodev{
-        display: block;
-        src: "../../assets/images/logodev.jpg";
-        align-content: center;
-        
-        
-    }
+
 
     ion-title{
         text-align: left;

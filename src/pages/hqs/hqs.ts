@@ -18,10 +18,14 @@ import { map } from 'rxjs/operators';
 })
 export class HqsPage {
 
-  hqlista:any;
+  hqlista:any[];
+  searchHqs:any[];
+
+  public isSearchOpen = false;
 
   public loader;
 
+  
   public refresher;
   public isRefreshing: boolean = false;
 
@@ -59,10 +63,6 @@ export class HqsPage {
     this.getRetornarHq();
   }
 
-  
-
-
-  
 // Buscando as hqs do bd na tabela hq e retornando os dados na lista para exibilas
   getRetornarHq(){
     this.AbreCarregador();
@@ -71,6 +71,9 @@ export class HqsPage {
     .subscribe( 
       data =>{ 
         this.hqlista = data;
+
+        this.searchHqs = this.hqlista;
+
         this.FechaCarregador();
         if(this.isRefreshing){
           this.refresher.complete();
@@ -88,6 +91,23 @@ export class HqsPage {
       );
   }
 
+  OnSearch(ev: any){
+   
+    this.searchHqs = this.hqlista;
+    
+    let searchWord = ev.target.value;
+   
+    if(searchWord && searchWord.trim() != ""){
+        this.searchHqs = this.searchHqs.filter((item) =>{
+        return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
+        }) 
+       
+    }else{
+      this.searchHqs = this.hqlista;
+      return this.searchHqs;
+    }
+
+  }
   
 
 }

@@ -15,7 +15,7 @@
     <ion-grid>
         <ion-row>
           <ion-col>
-              <label class="textCard">Modo Claro/Escuro</label>
+              <label class="textSpace">Modo Claro/Escuro</label>
           </ion-col>
           <ion-col>
               <ion-toggle (ionChange)="ToggleAppTheme()"></ion-toggle>        
@@ -23,10 +23,10 @@
         </ion-row>
         <ion-row>
           <ion-col>
-              <label class="textCard">Versão</label>
+              <label class="textSpace">Versão</label>
           </ion-col>
           <ion-col>
-              <p>0.1v</p>
+              <p class="textSpace"> 0.1v</p>
           </ion-col>
         </ion-row>
     </ion-grid>
@@ -35,7 +35,7 @@
 
     <div>
         <p class="titleNormal">Desenvolvido por</p>
-        <img class="imgLogodev">
+        <img [src]="imgSrc">
     </div>
         
     

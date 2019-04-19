@@ -6,15 +6,22 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title *ngIf="!isSearchOpen" >Comics</ion-title>
+      
+      <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)" (ionCancel)="!isSearchOpen=false"></ion-searchbar>
+      
+      <ion-buttons end>
+        <button ion-button icon-only *ngIf="!isSearchOpen" (click)="isSearchOpen=true">
+          <ion-icon name="search"></ion-icon>
         </button>
-    <ion-title>hqs</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
 
 <ion-content padding>
   <!-- Recarregador da page -->
@@ -24,8 +31,8 @@
     </ion-refresher>
 <!-- Lista das hqs existentes no bd -->
 
-    <ion-item *ngFor="let hqs of hqlista">
-        
+    <ion-item *ngFor="let hqs of searchHqs" >
+      <div *ngIf="hqs != undefined" (click)="OpenHq(hqs.codigo)">
         <ion-grid>
             <ion-row>
               <ion-col size="4">
@@ -38,7 +45,7 @@
               </ion-col>
             </ion-row>
         </ion-grid>
-              
+      </div> 
     </ion-item>
   
 </ion-content>

@@ -25,8 +25,10 @@ export class BibliotecaPage {
   hqsUser:string; 
   hqsArrayUser:string[]; 
   usuario:any;
-  hqsBiblioteca:any[10];
-    
+  hqsBiblioteca:any[];
+  searchHqs:any[];
+
+  public isSearchOpen = false;
 
   public loader;
 
@@ -49,21 +51,24 @@ export class BibliotecaPage {
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
     this.hqsUser = this.usuario.dados.hqs;
-    console.log(this.hqsUser);
+
     this.getRetornarHq();
+
+   
+
   }
 
 //Carrega a pagina
-AbreCarregador() {
-  this.loader = this.loadingCtrl.create({
-    content: "Carregando",
-  });
-  this.loader.present();
-}
+  AbreCarregador() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando",
+    });
+    this.loader.present();
+  }
 
-FechaCarregador(){
-  this.loader.dismiss();
-}
+  FechaCarregador(){
+    this.loader.dismiss();
+  }
 
  //Recarrega a pagina
  doRefresh(refresher) {
@@ -71,7 +76,7 @@ FechaCarregador(){
   this.isRefreshing = true;
 
   this.getRetornarHq();
-}
+  }
 
   OpenHq(codigo):any{
     if(codigo != undefined){
@@ -118,8 +123,9 @@ FechaCarregador(){
         
         }
         
+        this.searchHqs = this.hqsBiblioteca;
+      
         //Apos isso para de recarregar e no html recebe todas as hqs não indefinidas
-        console.log(this.hqsBiblioteca);
 
         this.FechaCarregador();
         if(this.isRefreshing){
@@ -137,6 +143,25 @@ FechaCarregador(){
       }
       );
   }
+
+  OnSearch(ev: any){
+   
+    this.searchHqs = this.hqsBiblioteca;
+
+    let searchWord = ev.target.value;
+   
+    if(searchWord && searchWord.trim() != ""){
+        this.searchHqs = this.searchHqs.filter((item) =>{
+        return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
+        }) 
+       
+    }else{
+      this.searchHqs = this.hqsBiblioteca;
+      return this.searchHqs;
+    }
+
+  }
+
 
 
 

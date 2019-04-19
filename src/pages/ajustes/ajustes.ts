@@ -14,16 +14,19 @@ export class AjustesPage {
 
   toggleValue: boolean = false;
 
+  imgSrc: String;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private settings: SettingsProvider) {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
-    this.ToggleAppTheme();
   }
 
   ToggleAppTheme(){
     if(this.selectTheme == 'dark-theme'){
       this.settings.SetActiveTheme('light-theme');
+      this.imgSrc = "../../assets/images/logodev2.jpg";
     }else{
       this.settings.SetActiveTheme('dark-theme'); 
+      this.imgSrc = "../../assets/images/logodev.jpg";
     }
   }
 

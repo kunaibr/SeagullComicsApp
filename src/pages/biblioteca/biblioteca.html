@@ -10,7 +10,15 @@
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>biblioteca</ion-title>
+    <ion-title *ngIf="!isSearchOpen" >Biblioteca</ion-title>
+    
+    <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)" (ionCancel)="!isSearchOpen=false"></ion-searchbar>
+    
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="!isSearchOpen" (click)="isSearchOpen=true">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -24,12 +32,13 @@
     </ion-refresher>
     <!-- aqui começa a lista de hqs do usuario -->
 
-    <ion-item *ngFor="let hqs of hqsBiblioteca" (click)="OpenHq(hqs.codigo)">
-        <div *ngIf="hqs != undefined">
+    
+    <ion-item *ngFor="let hqs of searchHqs">
+        <div *ngIf="hqs != undefined" (click)="OpenHq(hqs.codigo)">
           <ion-grid>
               <ion-row>
                 <ion-col size="4">
-                    <img [src]="hqs.imagem" class="imagehq">
+                    <img [src]="hqs.imagem" class="imgCp">
                 </ion-col>
                 <ion-col size="8">
                     <h2>Titulo:{{hqs.titulo}}</h2>
@@ -40,5 +49,6 @@
           </ion-grid>
         </div> 
     </ion-item>
-  
+
+
 </ion-content>
