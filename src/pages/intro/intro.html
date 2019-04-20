@@ -1,18 +1,30 @@
-<!--
-  Generated template for the IntroPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>intro</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content padding>
-
+  <ion-slides pager>
+    <ion-slide class="slideImg">
+      <img src="../../assets/images/logo-mini.png">
+      <h2>Bem vindo ao aplicativo da Seagull Comics</h2>
+      <br>
+      <p>Nele você vai conseguir fazer muitas coisas como: </p>
+    </ion-slide>
+    <ion-slide  class="slideImg">
+      <img src="../../assets/images/new.png">
+      <h2>Novidades</h2>
+      <br>
+      <p>Você vai poder acompanhar todas as novidades e lançamentos de todos os produtos da <strong>Seagull Comics</strong> </p>
+    </ion-slide>
+    <ion-slide  class="slideImg">
+        <img src="../../assets/images/quadroGnomo.png">
+        <h2>Personagens</h2>
+        <br>
+        <p>Alem de poder ler tudo sobre nossos personagens, caracteristicas, poderes e muito mais</p>
+    </ion-slide>
+    <ion-slide  class="slideImg">
+        <img src="../../assets/images/capa.jpg">
+        <h2>Diversão</h2>
+        <br>
+        <p>E acima de tudo se entreter vendo nossas hqs que irão lançar, tudo na palma da sua mão</p>
+        <a (click)="goToPage()">Continuar</a>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

@@ -12,6 +12,7 @@ import { ContatoPage } from '../pages/contato/contato';
 import { LoginPage } from '../pages/login/login';
 import { SettingsProvider } from '../providers/settings/settings';
 import { Storage } from '@ionic/Storage';
+import { IntroPage } from '../pages/intro/intro';
 
 
 @Component({
@@ -22,54 +23,54 @@ import { Storage } from '@ionic/Storage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = IntroPage;
 
-  pages: Array<{title: string, component: any, icon: string}>;
+  pages: Array<{ title: string, component: any, icon: string }>;
 
-  selectTheme:String;
+  selectTheme: String;
   constructor(
-    public platform: Platform, 
+    public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen, 
-    private settings:SettingsProvider,
+    public splashScreen: SplashScreen,
+    private settings: SettingsProvider,
     private storage: Storage,
-    ) {
+  ) {
     this.initializeApp();
 
-    
+
     this.pages = [
-      { title: 'Novidades', component: NovidadesPage,icon: "home"},
-      { title: 'Personagens', component: PersonagensPage,icon:"people" },
-      { title: 'HQs', component: HqsPage,icon:"paper" }, 
-      { title: 'Minha biblioteca', component: BibliotecaPage,icon:"book"},
-      { title: 'Contato', component: ContatoPage,icon:"contacts" },   
-      { title: 'Ajustes', component: AjustesPage,icon:"bulb" },
-      { title: 'Sair', component: LoginPage,icon:"log-out" },
-    ];  
+      { title: 'Novidades', component: NovidadesPage, icon: "home" },
+      { title: 'Personagens', component: PersonagensPage, icon: "people" },
+      { title: 'HQs', component: HqsPage, icon: "paper" },
+      { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
+      { title: 'Contato', component: ContatoPage, icon: "contacts" },
+      { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
+      { title: 'Sair', component: LoginPage, icon: "log-out" },
+    ];
   }
-     
+
   initializeApp() {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
     this.settings.SetActiveTheme('light-theme');
     this.platform.ready().then(() => {
-      
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
 
     this.storage.get('session_storage').then((res) => {
-      if(res == null){
+      if (res == null) {
         this.rootPage = LoginPage;
-     }else{
-       this.rootPage = NovidadesPage;
-     }
+      } else {
+        this.rootPage = NovidadesPage;
+      }
     });
-    
+
   }
 
   openPage(page) {
     this.nav.setRoot(page.component);
   }
 
- 
+
 }

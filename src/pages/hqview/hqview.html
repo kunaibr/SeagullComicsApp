@@ -12,12 +12,10 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-slides pager="false">
+<ion-content fullscreen="true">
 
-    <ion-slide *ngFor="let page of pages">
-        <img [src] = "page.imagem">
-    </ion-slide>
+  <div *ngFor="let page of pages">
+    <img [src]="page.imagem">
+  </div>
 
-  </ion-slides>
 </ion-content>
