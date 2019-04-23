@@ -55,15 +55,15 @@ export class CadastroPage {
         senha: this.senha, 
         aksi: 'add_register',
       };
-      console.log('1');
+   
       //ERRO
       this.servidor.PostData(body,'register.php').subscribe((data) =>{
 
          var alertpesan = data.msg;
-         console.log('4');
+        
          
          if(data.sucess){
-           console.log('2');
+           
            this.navCtrl.pop();         
 
            let toast = this.toastCtrl.create({

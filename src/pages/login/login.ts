@@ -6,12 +6,7 @@ import { ServidorProvider } from '../../providers/servidor/servidor';
 import { NovidadesPage } from '../novidades/novidades';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { CadastroPage } from '../cadastro/cadastro';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Storage } from '@ionic/Storage';
 
 @IonicPage()
 @Component({
@@ -30,8 +25,13 @@ export class LoginPage {
      public servidor:ServidorProvider,
      public http: Http,
      public globalvars: GlobalvarsProvider,
-     
+     public storage: Storage,
      ) {
+  }
+
+  ionViewDidEnter(){
+    this.globalvars.setUser(null);
+    this.storage.set('session_storage', null);
   }
 
   PushCadastro(){
@@ -52,7 +52,11 @@ export class LoginPage {
         dados => {
           if(dados.msg.logado == "sim"){
             this.globalvars.setUser(dados);
+            this.storage.set('session_storage', dados);
+
             this.navCtrl.setRoot(NovidadesPage);
+            
+            
           }else{
             let toast = this.toastCtrl.create({
             

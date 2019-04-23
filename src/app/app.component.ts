@@ -23,7 +23,7 @@ import { IntroPage } from '../pages/intro/intro';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = IntroPage;
+  rootPage: any;
 
   pages: Array<{ title: string, component: any, icon: string }>;
 
@@ -53,16 +53,22 @@ export class MyApp {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
     this.settings.SetActiveTheme('light-theme');
     this.platform.ready().then(() => {
-
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
 
+   
     this.storage.get('session_storage').then((res) => {
       if (res == null) {
         this.rootPage = LoginPage;
       } else {
         this.rootPage = NovidadesPage;
+      }
+    });
+
+    this.storage.get('intro_storage').then((int) => {
+      if(int == null){
+        this.rootPage = IntroPage;   
       }
     });
 
