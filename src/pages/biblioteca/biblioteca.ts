@@ -6,12 +6,6 @@ import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 
-/**
- * Generated class for the BibliotecaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -49,7 +43,7 @@ export class BibliotecaPage {
   
 
   ionViewDidLoad() {
-    this.usuario = this.globalvars.getUser();
+    this.usuario =  this.globalvars.getUser();
     this.hqsUser = this.usuario.dados.hqs;
 
     this.getRetornarHq();

@@ -13,6 +13,7 @@ import { LoginPage } from '../pages/login/login';
 import { SettingsProvider } from '../providers/settings/settings';
 import { Storage } from '@ionic/Storage';
 import { IntroPage } from '../pages/intro/intro';
+import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 
 
 @Component({
@@ -28,12 +29,14 @@ export class MyApp {
   pages: Array<{ title: string, component: any, icon: string }>;
 
   selectTheme: String;
+
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private settings: SettingsProvider,
     private storage: Storage,
+    private globalvars: GlobalvarsProvider,
   ) {
     this.initializeApp();
 
@@ -62,6 +65,8 @@ export class MyApp {
       if (res == null) {
         this.rootPage = LoginPage;
       } else {
+        this.globalvars.setUser(res);
+       
         this.rootPage = NovidadesPage;
       }
     });

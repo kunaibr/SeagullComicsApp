@@ -4,7 +4,8 @@ import { ServidorProvider } from '../../providers/servidor/servidor';
 import { map } from 'rxjs/operators';
 import { Http } from '@angular/http';
 import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
-
+import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { Storage } from '@ionic/Storage';
 
 
 /**
@@ -35,7 +36,9 @@ export class NovidadesPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public servidor: ServidorProvider, 
-    public http: Http
+    public http: Http,
+    public globalvars: GlobalvarsProvider,
+    public storage: Storage,
     ) {
 
     this.getRetornarNoticia();
@@ -62,6 +65,9 @@ export class NovidadesPage {
 
 
   ionViewDidEnter() {
+    this.storage.get('session_storage').then((res) => {
+        this.globalvars.setUser(res);
+    });
    this.goToSlide();
   }
 
