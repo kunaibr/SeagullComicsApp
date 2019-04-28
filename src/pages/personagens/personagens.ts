@@ -18,8 +18,8 @@ export class PersonagensPage {
     public navParams: NavParams) {
   }
 
-  OpenPage(): any {
-    this.navCtrl.push(PersonagensviewPage);
+  OpenPage(per:number) {
+    this.navCtrl.push(PersonagensviewPage,{cod: per});
   }
 
 }

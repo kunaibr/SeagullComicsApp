@@ -1,12 +1,11 @@
-
 <ion-header>
 
-  <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>Ajustes</ion-title>
-  </ion-navbar>
+        <ion-title>Ajustes</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
@@ -14,20 +13,23 @@
 <ion-content padding>
     <ion-grid>
         <ion-row>
-          <ion-col>
-              <label class="textSpace">Modo Claro/Escuro</label>
-          </ion-col>
-          <ion-col>
-              <ion-toggle (ionChange)="ToggleAppTheme()"></ion-toggle>        
-          </ion-col>
+            <ion-col>
+                <p class="textSpace">Modo Claro/Escuro</p>
+            </ion-col>
+            <ion-col>
+
+                <ion-toggle style="padding-top: 10px" (ionChange)="ToggleAppTheme()"></ion-toggle>
+            </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-              <label class="textSpace">Versão</label>
-          </ion-col>
-          <ion-col>
-              <p class="textSpace"> 0.1v</p>
-          </ion-col>
+            <ion-col>
+                <p class="textSpace">Versão</p>
+
+            </ion-col>
+            <ion-col>
+
+                <p class="textSpace"> 0.1v</p>
+            </ion-col>
         </ion-row>
     </ion-grid>
 
@@ -35,8 +37,9 @@
 
     <div>
         <p class="titleNormal">Desenvolvido por</p>
-        <img [src]="imgSrc">
+        <img class="img" [src]="imgSrc">
+        <p style="font-size: 25px" class="titleNormal">SEAGULL DEVELOPERS</p>
     </div>
-        
-    
+
+
 </ion-content>

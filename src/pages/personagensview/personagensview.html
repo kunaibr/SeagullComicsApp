@@ -1,23 +1,21 @@
-<ion-header>
+<ion-header >
 
   <ion-navbar>
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>personagensView</ion-title>
+    <ion-title>Personagens</ion-title>
   </ion-navbar>
 	<!-- Efeito do passador de slides de cada persongem -->
-          <ion-segment  class="SwipedTabs-tabs" >
+          <ion-segment  class="SwipedTabs-tabs"  >
             <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
             [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' >
-            <ion-icon [name]="tab"></ion-icon>
+            <ion-icon  style="color: #014a8e" [name]="tab"></ion-icon>
             </ion-segment-button>
           </ion-segment>
         
           <!-- Aqui é a linha do indicador dos slides-->
           <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
-    
-
 </ion-header>
 
 <ion-content>
@@ -31,7 +29,17 @@
 							
 				>
 		<ion-slide *ngFor="let per of personagens">
-			<h1>{{per.nome}}</h1>
+      <h1>{{per.nome}}</h1>
+      <img [src]="per.imagem">
+      <div class="line"></div>
+      <p>Descricão: <br> {{per.descricao}}</p>
+      <div class="line"></div>
+      <p>Caracteristicas: <br> {{per.caracteristicas}}</p>
+      <div class="line"></div>
+      <p>Poderes: <br> {{per.poderes}}</p>
+      <div class="line"></div>
+      <p>Artefatos: <br> {{per.armas}}</p>
+
 		</ion-slide>  
 
 	</ion-slides>

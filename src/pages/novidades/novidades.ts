@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { map } from 'rxjs/operators';
 import { Http } from '@angular/http';
@@ -7,13 +7,6 @@ import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { Storage } from '@ionic/Storage';
 
-
-/**
- * Generated class for the NovidadesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -31,6 +24,8 @@ export class NovidadesPage {
 
   public slidesnew:any;
   
+  public internet: boolean;
+
 
   constructor(
     public navCtrl: NavController, 
@@ -39,12 +34,15 @@ export class NovidadesPage {
     public http: Http,
     public globalvars: GlobalvarsProvider,
     public storage: Storage,
+  
     ) {
 
+    
     this.getRetornarNoticia();
     this.getRetornarSlides();
   }
 
+  
   //Coleta os dados do bd na tabela noticia pelo noticias.php e coloca em uma array
   getRetornarNoticia(){
     this.http.get(this.servidor.UrlGet()+'noticias.php').pipe(map(res => res.json()))

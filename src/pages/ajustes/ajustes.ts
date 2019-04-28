@@ -14,7 +14,7 @@ export class AjustesPage {
 
   toggleValue: boolean = false;
 
-  imgSrc: String;
+  imgSrc: String = "../../assets/images/logodev2.jpg";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private settings: SettingsProvider) {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);

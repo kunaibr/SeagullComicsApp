@@ -26,4 +26,19 @@ page-personagensview {
     {
     	border-bottom: solid 1px #e6e6e6  !important;
     }
+
+    p{
+        padding: 0px 15px 0px 15px;
+        text-align: left;
+    }
+
+    h1{
+        padding-top: 10px;
+    
+    }
+
+    .swiper-slide {
+        overflow-y: scroll;
+        display: block;
+    }
 }

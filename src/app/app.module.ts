@@ -39,7 +39,6 @@ import { IonicStorageModule} from '@ionic/Storage';
 import { EmailComposer } from '@ionic-native/email-composer';
 
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -86,7 +85,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServidorProvider,
     GlobalvarsProvider,
-    SettingsProvider,
+    SettingsProvider, 
   ]
 })
 export class AppModule {}
