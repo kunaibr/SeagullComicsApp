@@ -37,7 +37,7 @@ import { DetalheNoticiaPageModule } from '../pages/detalhe-noticia/detalhe-notic
 import { SettingsProvider } from '../providers/settings/settings';
 import { IonicStorageModule} from '@ionic/Storage';
 import { EmailComposer } from '@ionic-native/email-composer';
-
+import { Push, PushObject , PushOptions} from '@ionic-native/push/ngx';
 
 @NgModule({
   declarations: [
@@ -82,10 +82,13 @@ import { EmailComposer } from '@ionic-native/email-composer';
     SplashScreen,
     DatePipe,
     EmailComposer,
+    Push, 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServidorProvider,
     GlobalvarsProvider,
     SettingsProvider, 
+
+
   ]
 })
 export class AppModule {}

@@ -69,7 +69,9 @@ export class MyApp {
        
         this.rootPage = NovidadesPage;
       }
-    });
+      
+  });
+  
 
     this.storage.get('intro_storage').then((int) => {
       if(int == null){

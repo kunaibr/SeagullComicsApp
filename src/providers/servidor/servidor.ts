@@ -16,7 +16,6 @@ export class ServidorProvider {
     let type = "application/json; charset=UTF-8";
     let headers = new Headers({ 'Content-type': type });
     let options = new RequestOptions({headers: headers});
-    console.log('3');
 
     //ERRO
     return this.http.post(this.url + file,  JSON.stringify(body),options)

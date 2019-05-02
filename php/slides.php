@@ -6,14 +6,9 @@ $usuario = "root";
 $senha = "";
 try {
 	$conexao = new PDO($host, $usuario, $senha);
-
-
 	$sql = $conexao->prepare('SELECT * FROM `slides`');
-
 		$sql->execute();
-
 		$dados = "[";
-
 		while($lista = $sql->fetch()){
 			if ($dados != "[") {
 				$dados .= ",";
@@ -29,9 +24,6 @@ try {
 		}
 		$dados .= "]";
 		echo utf8_encode($dados);
-
-
-
 } catch (Exception $ex) {
 	echo "erro ao listar: ". $ex->getMessage();
 };

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "181474525512",
+    "firebase_url": "https://seagull-comics.firebaseio.com",
+    "project_id": "seagull-comics",
+    "storage_bucket": "seagull-comics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181474525512:android:6fcc33783dc85951",
+        "android_client_info": {
+          "package_name": "com.mascote.seagullcomics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181474525512-nj0gq1ofdv0vhevkt3n34ls45qn1jiel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArMqsRHg4x4poClD8ee9B7bclEbChvgBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181474525512-nj0gq1ofdv0vhevkt3n34ls45qn1jiel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
