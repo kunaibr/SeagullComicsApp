@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
-
+import { LanguageProvider } from '../../providers/language/language';
 
 @IonicPage()
 @Component({
@@ -16,7 +16,11 @@ export class AjustesPage {
 
   imgSrc: String = "../../assets/images/logodev2.jpg";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private settings: SettingsProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,private settings: SettingsProvider,
+    public languageProvider:LanguageProvider,
+    ) {
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
   }
 
@@ -30,4 +34,8 @@ export class AjustesPage {
     }
   }
 
+  SelectLanguage(ev){
+  this.languageProvider.setLanguage(ev);
+  }
+ 
 }

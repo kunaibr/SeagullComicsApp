@@ -7,9 +7,6 @@ $senha = "";
 try {
 	$conexao = new PDO($host, $usuario, $senha);
 
-	//$cod = $_GET["codigo"];
-
-	//$sql = $conexao->prepare('SELECT * FROM `paginas` WHERE idhq = '$cod' ');
 
 	$sql = $conexao->prepare('SELECT * FROM `paginas`');
 
@@ -23,13 +20,11 @@ try {
 			}
 			$dados .= '{"codigo": "'.$lista["idpaginas"].'",';
 			$dados .= '"numero": "'.$lista["numerodapagina"].'",';
-            $dados .= '"edicao": "'.$lista["idhq"].'",';
+			$dados .= '"idhq": "'.$lista["idhq"].'",';
             $dados .= '"imagem": "'.$lista["link"].'"}';
 		}
 		$dados .= "]";
 		echo utf8_encode($dados);
-
-
 
 } catch (Exception $ex) {
 	echo "erro ao listar: ". $ex->getMessage();

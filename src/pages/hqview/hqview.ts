@@ -4,13 +4,6 @@ import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 
-/**
- * Generated class for the HqviewPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-hqview',
@@ -18,8 +11,8 @@ import { map } from 'rxjs/operators';
 })
 export class HqviewPage {
   public codigo;
-  pages:any = [];
-  hqs:any;
+  pages:any[];
+  hqs:any[];
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
@@ -34,30 +27,29 @@ export class HqviewPage {
   }
 
   GetPages() {
-        this.http.get(this.servidor.UrlGet()+'pages.php').pipe(map(res => res.json()))
-        .subscribe(
-        data =>{
+    this.http.get(this.servidor.UrlGet() + 'pages.php').pipe(map(res => res.json()))
+      .subscribe(
+        data => {
           this.hqs = data;
 
           let ind = 0;
 
           for(let i:number=0;i < this.hqs.length ;i++)
-          {
-            if(this.hqs[i].edicao == this.codigo ){
-              this.pages[i-ind] = this.hqs[i];
-            }
-            else
-            {
-                ind++;
-            }
-            
-          }
-
-          console.log(data);
-      },
+                {
+                  if(this.hqs[i].edicao == this.codigo ){
+                    this.pages[i-ind] = this.hqs[i];
+                  }
+                  else
+                  {
+                      ind++;
+                  }
+                  
+                }
+        },
         err => {
           console.log(err);
         }
-    );
+      );
+ 
 }
 }

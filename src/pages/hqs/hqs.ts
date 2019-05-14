@@ -5,13 +5,6 @@ import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 
-/**
- * Generated class for the HqsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-hqs',

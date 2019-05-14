@@ -37,7 +37,15 @@ import { DetalheNoticiaPageModule } from '../pages/detalhe-noticia/detalhe-notic
 import { SettingsProvider } from '../providers/settings/settings';
 import { IonicStorageModule} from '@ionic/Storage';
 import { EmailComposer } from '@ionic-native/email-composer';
-import { Push, PushObject , PushOptions} from '@ionic-native/push/ngx';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { LanguageProvider } from '../providers/language/language';
+
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -60,7 +68,16 @@ import { Push, PushObject , PushOptions} from '@ionic-native/push/ngx';
     PersonagensviewPageModule,
     CadastroPageModule,
     DetalheNoticiaPageModule,
-    
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+  
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -82,13 +99,12 @@ import { Push, PushObject , PushOptions} from '@ionic-native/push/ngx';
     SplashScreen,
     DatePipe,
     EmailComposer,
-    Push, 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServidorProvider,
     GlobalvarsProvider,
-    SettingsProvider, 
-
-
+    SettingsProvider,
+    LanguageProvider,
+   
   ]
 })
 export class AppModule {}

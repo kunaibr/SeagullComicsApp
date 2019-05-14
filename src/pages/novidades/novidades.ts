@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { Storage } from '@ionic/Storage';
-import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+//import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 
 
 @IonicPage()
@@ -35,45 +35,45 @@ export class NovidadesPage {
     public http: Http,
     public globalvars: GlobalvarsProvider,
     public storage: Storage,
-    private push: Push,
+    //private push: Push,
   ) {
 
-    // to check if we have permission
-    this.push.hasPermission()
-      .then((res: any) => {
+  //   // to check if we have permission
+  //   this.push.hasPermission()
+  //     .then((res: any) => {
 
-        if (res.isEnabled) {
-          alert('tem permissao');
+  //       if (res.isEnabled) {
+  //         alert('tem permissao');
 
-          const options: PushOptions = {
-            android: {},
-            ios: {
-              alert: 'true',
-              badge: true,
-              sound: 'false'
-            },
-            windows: {},
-            browser: {
-              pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            }
-          }
+  //         const options: PushOptions = {
+  //           android: {},
+  //           ios: {
+  //             alert: 'true',
+  //             badge: true,
+  //             sound: 'false'
+  //           },
+  //           windows: {},
+  //           browser: {
+  //             pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+  //           }
+  //         }
 
-          const pushObject: PushObject = this.push.init(options);
+  //         const pushObject: PushObject = this.push.init(options);
 
 
-          pushObject.on('notification').subscribe((notification: any) => {
-            alert(notification.mensage);
-          });
+  //         pushObject.on('notification').subscribe((notification: any) => {
+  //           alert(notification.mensage);
+  //         });
 
-          pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+  //         pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
 
-          pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  //         pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
 
-        } else {
-          alert('nao tem permissao');
-        }
+  //       } else {
+  //         alert('nao tem permissao');
+  //       }
 
-      });
+  //     });
 
     this.getRetornarNoticia();
     this.getRetornarSlides();
@@ -96,6 +96,7 @@ export class NovidadesPage {
         data => this.slidesnew = data,
         err => console.log(err)
       );
+  
   }
 
 

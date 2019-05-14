@@ -14,6 +14,7 @@ import { SettingsProvider } from '../providers/settings/settings';
 import { Storage } from '@ionic/Storage';
 import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
+import { LanguageProvider } from '../providers/language/language';
 
 
 @Component({
@@ -35,12 +36,13 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private settings: SettingsProvider,
-    private storage: Storage,
+    public storage: Storage,
     private globalvars: GlobalvarsProvider,
+    public languageProvider : LanguageProvider,
+
   ) {
     this.initializeApp();
-
-
+    
     this.pages = [
       { title: 'Novidades', component: NovidadesPage, icon: "home" },
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
@@ -60,7 +62,6 @@ export class MyApp {
       this.splashScreen.hide();
     });
 
-   
     this.storage.get('session_storage').then((res) => {
       if (res == null) {
         this.rootPage = LoginPage;
@@ -78,6 +79,9 @@ export class MyApp {
         this.rootPage = IntroPage;   
       }
     });
+
+    
+    this.languageProvider.setInitialAppLanguage();
 
   }
 

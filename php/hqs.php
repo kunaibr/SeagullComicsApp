@@ -30,8 +30,6 @@ try {
 		$dados .= "]";
 		echo utf8_encode($dados);
 
-
-
 } catch (Exception $ex) {
 	echo "erro ao listar: ". $ex->getMessage();
 };
