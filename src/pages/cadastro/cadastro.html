@@ -5,23 +5,27 @@
     CRIE SUA CONTA!
 </ion-label>
 
-  <ion-label >Nome</ion-label>
-  <ion-input type="text" [(ngModel)]="nome"></ion-input>
-
-  <ion-label >Email</ion-label>
-  <ion-input type="text" [(ngModel)]="email" ></ion-input>
-
-  <ion-label >Senha</ion-label>
-  <ion-input type="password" [(ngModel)]="senha" ></ion-input>
-
-  <ion-label >Comfirme a senha</ion-label>
-  <ion-input type="password" [(ngModel)]="senhaComfirm" ></ion-input>
-
+<form novalidate [formGroup]="registerForm" (ngSubmit)="EfetuarCadastro()">
+  <ion-list>
+    <ion-item>
+     <ion-input type="text" formControlName="nome" placeholder="Nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-input type="password" formControlName="senhaConfirm" placeholder="Comfirme a senha" ></ion-input>
+    </ion-item>
+  </ion-list>
 <div>
-  <button class="Great" (click)="EfetuarCadastro()">CADASTRAR</button>
+  <button type="submit" class="Great" [disabled]="registerForm.invalid">CADASTRAR</button>
 </div>
+</form>
 <div>
-  <button class="Normal" (click)="VoltarPage()">Voltar ao login</button>
+  <button class="Normal" (click)="VoltarPage()" >Voltar ao login</button>
 </div>
 
 </ion-content>
