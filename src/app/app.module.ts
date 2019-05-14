@@ -41,6 +41,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageProvider } from '../providers/language/language';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -77,7 +81,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-  
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

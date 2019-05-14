@@ -5,6 +5,9 @@ import { Http } from '@angular/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidateConfirmPassword } from '../../validators/confirmPassword';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+
+
 @IonicPage()
 @Component({
   selector: 'page-cadastro',
@@ -28,6 +31,7 @@ export class CadastroPage {
     public http: Http,
     public toastCtrl: ToastController,
     public formbuilder: FormBuilder,
+    public afAuth: AngularFireAuth,
     ) {
 
       this.registerForm = this.formbuilder.group({
@@ -40,7 +44,18 @@ export class CadastroPage {
 
   EfetuarCadastro(){  
 
-console.log(this.registerForm.value);
+
+    this.afAuth.auth.createUserWithEmailAndPassword(
+      this.registerForm.value.email, 
+      this.registerForm.value.senha
+      ).then((response) => {
+
+      this.navCtrl.pop();  
+      this.Toast();
+      })
+      .catch((error) => {
+        console.log("Deu Erro!",error);
+      });
 
     //Antigo
     // if(this.nome == "" || 
@@ -99,6 +114,15 @@ console.log(this.registerForm.value);
     // }
     
     
+  }
+
+  Toast(){
+    let toast = this.toastCtrl.create({
+      message: "Conta criada com sucesso!",
+      duration: 3000,
+    })
+
+    toast.present();
   }
 
   VoltarPage(){
