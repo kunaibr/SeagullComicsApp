@@ -1,0 +1,60 @@
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title> 
+             {{ 'SETTING.title' | translate }}
+        </ion-title>
+       
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <p class="textSpace">Modo Claro/Escuro</p>
+            </ion-col>
+            <ion-col>
+
+                <ion-toggle style="padding-top: 10px" (ionChange)="ToggleAppTheme()"></ion-toggle>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <p class="textSpace">Versão</p>
+
+            </ion-col>
+            <ion-col>
+
+                <p class="textSpace"> 0.1v</p>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+                <ion-col>
+                    <p class="textSpace">Idioma</p>
+    
+                </ion-col>
+                <ion-col>
+                        <ion-select class="textSpace" (ionChange)="SelectLanguage($event)">
+                                <ion-option value="pt"> Portugues</ion-option>
+                                <ion-option value="en"> English</ion-option>
+                        </ion-select>
+                </ion-col>
+            </ion-row>
+    </ion-grid>
+    
+
+    <div class="line"></div>
+
+    <div>
+        <p class="titleNormal">Desenvolvido por</p>
+        <img class="img" [src]="imgSrc">
+        <p style="font-size: 25px" class="titleNormal">SEAGULL DEVELOPERS</p>
+    </div>
+
+</ion-content>

@@ -1,0 +1,31 @@
+
+
+<ion-content padding>
+<ion-label class="titleGreat">
+    CRIE SUA CONTA!
+</ion-label>
+
+<form novalidate [formGroup]="registerForm" (ngSubmit)="EfetuarCadastro()">
+  <ion-list>
+    <ion-item>
+     <ion-input type="text" formControlName="nome" placeholder="Nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-input type="password" formControlName="senhaConfirm" placeholder="Comfirme a senha" ></ion-input>
+    </ion-item>
+  </ion-list>
+<div>
+  <button type="submit" class="Great" [disabled]="registerForm.invalid">CADASTRAR</button>
+</div>
+</form>
+<div>
+  <button class="Normal" (click)="VoltarPage()" >Voltar ao login</button>
+</div>
+
+</ion-content>

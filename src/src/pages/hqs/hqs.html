@@ -1,0 +1,55 @@
+<!--
+  Generated template for the HqsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title *ngIf="!isSearchOpen" >Comics</ion-title>
+      
+      <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)" (ionCancel)="!isSearchOpen=false"></ion-searchbar>
+      
+      <ion-buttons end>
+        <button ion-button icon-only *ngIf="!isSearchOpen" (click)="isSearchOpen=true">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+
+<ion-content>
+  <!-- Recarregador da page -->
+  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+<!-- Lista das hqs existentes no bd -->
+
+    <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
+      <div *ngIf="hqs != undefined" (click)="OpenHq(hqs.codigo)">
+        <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                  <img class="imgCp" [src]="hqs.imagem">
+              </ion-col>
+              <ion-col size="8">
+                 
+                  <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
+                      <button class="precoCard" *ngIf="!hqs.comprado">R${{hqs.preco}}</button>
+                      <button class="precoCard" *ngIf="hqs.comprado"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
+                    
+                  <p class="textCard">Edicao:{{hqs.edicao}}</p>
+                  <p class="textCard">{{hqs.descricao}}</p>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </div> 
+    </ion-item>
+  
+</ion-content>

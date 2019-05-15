@@ -1,0 +1,12 @@
+{
+    "SETTING": {
+        "title": "Ajustes",
+        "greeting": "Ola {{name}}! Bem vindo!",
+        "withcode": "<br><br>Voce é <b>epico</b>!",
+        "btn": "Mostrar Alerta"
+    },
+    "ALERT": {
+        "header": "Erro",
+        "msg": "Há um problema com sua aplicação"
+    }
+}
