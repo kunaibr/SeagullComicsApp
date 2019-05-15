@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import { map } from 'rxjs/operators';
 import { Http } from '@angular/http';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { NovidadesPage } from '../novidades/novidades';
@@ -48,12 +47,13 @@ export class LoginPage {
 
   EfetuarLogin(){
     this.afAuth.auth.signInWithEmailAndPassword(
-      this.loginForm.value.email, 
-      this.loginForm.value.senha
-      ).then(() =>{
-        this.globalvars.setUser(this.loginForm.value);
-          this.storage.set('session_storage', this.loginForm.value);
-          this.navCtrl.setRoot(NovidadesPage);
+      this.loginForm.value.email, this.loginForm.value.senha
+      ).then((response) =>{
+          this.globalvars.setUser(response.user.uid);
+          this.storage.set('user', response.user.uid)
+          .then(() => {
+            this.navCtrl.setRoot(NovidadesPage);
+          });
       }).catch((error) =>{
         
         switch (error.code){

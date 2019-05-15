@@ -44,6 +44,8 @@ import { LanguageProvider } from '../providers/language/language';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AdministradorPageModule } from '../pages/administrador/administrador.module';
+import { AdministradorPage } from '../pages/administrador/administrador';
 
 
 
@@ -60,6 +62,7 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpModule,
+    AdministradorPageModule,
     AjustesPageModule,
     BibliotecaPageModule,
     ContatoPageModule,
@@ -87,6 +90,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    AdministradorPage,
     AjustesPage,
     BibliotecaPage,
     ContatoPage,

@@ -1,0 +1,13 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Administrador</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-input type="text" placeholder="Digite o titulo da Noticia" [(ngModel)]="tituloNoticia"></ion-input>
+  </ion-item>
+ <button class="Great" (click)="AddNews(tituloNoticia)" [disabled]="!titulo || tituloNoticia.length < 3">Adicionar Noticia</button>
+</ion-content>

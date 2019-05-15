@@ -15,6 +15,7 @@ import { Storage } from '@ionic/Storage';
 import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
+import { AdministradorPage } from '../pages/administrador/administrador';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class MyApp {
       { title: 'Contato', component: ContatoPage, icon: "contacts" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
+      { title: 'Administrador', component: AdministradorPage, icon: "" },
     ];
   }
 
@@ -62,7 +64,7 @@ export class MyApp {
       this.splashScreen.hide();
     });
 
-    this.storage.get('session_storage').then((res) => {
+    this.storage.get('user').then((res) => {
       if (res == null) {
         this.rootPage = LoginPage;
       } else {
