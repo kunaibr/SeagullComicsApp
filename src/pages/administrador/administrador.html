@@ -1,13 +1,26 @@
 
 <ion-header>
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>Administrador</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-item>
-    <ion-input type="text" placeholder="Digite o titulo da Noticia" [(ngModel)]="tituloNoticia"></ion-input>
+    <ion-input type="text" placeholder="titulo da Noticia" [(ngModel)]="tituloNoticia"></ion-input>
   </ion-item>
- <button class="Great" (click)="AddNews(tituloNoticia)" [disabled]="!titulo || tituloNoticia.length < 3">Adicionar Noticia</button>
+  <ion-item>
+    <ion-input type="text" placeholder="texto da Noticia" [(ngModel)]="textoNoticia"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="data da Noticia" [(ngModel)]="dataNoticia"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="imagem da Noticia" [(ngModel)]="imagemNoticia"></ion-input>
+  </ion-item>
+ <button class="Great" (click)="AddNews(tituloNoticia,textoNoticia,dataNoticia,imagemNoticia)"
+  [disabled]="!tituloNoticia || !textoNoticia || !dataNoticia || !imagemNoticia || tituloNoticia.length < 3">Adicionar Noticia</button>
 </ion-content>

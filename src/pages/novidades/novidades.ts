@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { Storage } from '@ionic/Storage';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @IonicPage()
@@ -16,8 +17,6 @@ import { Storage } from '@ionic/Storage';
 export class NovidadesPage {
 
   @ViewChild(Slides) slides: Slides;
-
-  imageSlide: string;
 
   public noticias: any;
 
@@ -34,30 +33,27 @@ export class NovidadesPage {
     public http: Http,
     public globalvars: GlobalvarsProvider,
     public storage: Storage,
+    public db: AngularFireDatabase,
 
-  ) {
-
+  ) { 
     this.getRetornarNoticia();
     this.getRetornarSlides();
-  }
-
+   }
 
   //Coleta os dados do bd na tabela noticia pelo noticias.php e coloca em uma array
   getRetornarNoticia() {
-    // this.http.get(this.servidor.UrlGet() + 'noticias.php').pipe(map(res => res.json()))
-    //   .subscribe(
-    //     data => this.noticias = data,
-    //     err => console.log(err)
-    //   );
+    let listnews = this.db.database.ref('/noticias');
+    listnews.on('value', (snapshot) =>{
+      const items = snapshot.val();
+      if(items){
+        this.noticias = Object.keys(items).map(i => items[i]);
+      }
+    })
+   
   }
 
   //Coleta os dados do bd na tabela slide pelo slides.php e coloca em uma array
   getRetornarSlides() {
-    // this.http.get(this.servidor.UrlGet() + 'slides.php').pipe(map(res => res.json()))
-    //   .subscribe(
-    //     data => this.slidesnew = data,
-    //     err => console.log(err)
-    //   );
   
   }
 

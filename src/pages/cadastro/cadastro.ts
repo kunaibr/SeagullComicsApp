@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidateConfirmPassword } from '../../validators/confirmPassword';
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @IonicPage()
@@ -25,108 +26,64 @@ export class CadastroPage {
   // senhaComfirm:String = "";
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public servidor:ServidorProvider,
+    public servidor: ServidorProvider,
     public http: Http,
     public toastCtrl: ToastController,
     public formbuilder: FormBuilder,
     public afAuth: AngularFireAuth,
-    ) {
+    public db: AngularFireDatabase,
+  ) {
 
-      this.registerForm = this.formbuilder.group({
-        nome: [null,[Validators.required, Validators.minLength(5)]],
-        email: [null,[Validators.required, Validators.email]],
-        senha: [null,[Validators.required, Validators.minLength(5)]],
-        senhaConfirm: [null,[Validators.required, Validators.minLength(5), ValidateConfirmPassword]],
-      });
+    this.registerForm = this.formbuilder.group({
+      nome: [null, [Validators.required, Validators.minLength(5)]],
+      email: [null, [Validators.required, Validators.email]],
+      senha: [null, [Validators.required, Validators.minLength(5)]],
+      senhaConfirm: [null, [Validators.required, Validators.minLength(5), ValidateConfirmPassword]],
+    });
   }
 
-  EfetuarCadastro(){  
+  EfetuarCadastro() {
 
 
     this.afAuth.auth.createUserWithEmailAndPassword(
-      this.registerForm.value.email, 
+      this.registerForm.value.email,
       this.registerForm.value.senha
-      ).then((response) => {
+    ).then((response) => {
 
-      this.navCtrl.pop();  
-      this.Toast("Conta criada com sucesso!");
+      this.db.database.ref('/usuarios').child(response.user.uid).push({
+        nome: this.registerForm.value.nome,
+        status: 'Ativo',
+        desconto: '',
+        hqs: '',
       })
+        .then(() => {
+          this.navCtrl.pop();
+          this.Toast("Conta criada com sucesso!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    })
       .catch((error) => {
-        switch (error.code){
-            case 'auth/email-already-in-use':
+        switch (error.code) {
+          case 'auth/email-already-in-use':
             this.Toast("Esse e-mail já foi cadastrado");
             break;
-            case 'auth/invalid-email':
+          case 'auth/invalid-email':
             this.Toast("Esse e-mail é invalido");
             break;
-            case 'auth/weak-password':
+          case 'auth/weak-password':
             this.Toast("Essa senha é muito fraca");
             break;
         }
       });
 
-    //Antigo
-    // if(this.nome == "" || 
-    //   this.senha == "" || 
-    //   this.email == "" || 
-    //   this.senhaComfirm == ""){
-       
-    //       let toast = this.toastCtrl.create({
-    //         message: "Preencha todos os campos!",
-    //         duration: 3000,
-    //       })
-
-    //       toast.present();
-      
-    // }else if(this.senhaComfirm != this.senha){
-     
-    //   let toast = this.toastCtrl.create({
-    //     message: "As duas senhas não são iguais!",
-    //     duration: 3000,
-    //   })
-    //   toast.present();
-
-    // }else{
-    //   let body ={
-    //     nome: this.nome,
-    //     email: this.email,
-    //     senha: this.senha, 
-    //     aksi: 'add_register',
-    //   };
-   
-    //   //ERRO
-    //   this.servidor.PostData(body,'register.php').subscribe((data) =>{
-
-    //      var alertpesan = data.msg;
-        
-         
-    //      if(data.sucess){
-           
-    //        this.navCtrl.pop();         
-
-    //        let toast = this.toastCtrl.create({
-    //         message: "Conta criada com sucesso!",
-    //         duration: 3000,
-    //       })
-    
-    //       toast.present();
-    //       }else{
-    //         let toast = this.toastCtrl.create({
-    //           message: alertpesan,
-    //           duration: 3000,
-    //         })
-      
-    //         toast.present();
-    //       }
-    //   });   
-    // }
-    
-    
   }
 
-  Toast(text: string){
+  Toast(text: string) {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
@@ -135,7 +92,7 @@ export class CadastroPage {
     toast.present();
   }
 
-  VoltarPage(){
-    this.navCtrl.pop(); 
+  VoltarPage() {
+    this.navCtrl.pop();
   }
 }

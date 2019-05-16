@@ -43,9 +43,10 @@ import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageProvider } from '../providers/language/language';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AdministradorPageModule } from '../pages/administrador/administrador.module';
 import { AdministradorPage } from '../pages/administrador/administrador';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 
@@ -113,6 +114,8 @@ export function createTranslateLoader(http: HttpClient) {
     GlobalvarsProvider,
     SettingsProvider,
     LanguageProvider,
+    AngularFireDatabase,
+    AngularFireAuth,
    
   ]
 })

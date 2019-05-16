@@ -38,7 +38,7 @@ export class LoginPage {
 
   ionViewDidEnter(){
     this.globalvars.setUser(null);
-    this.storage.set('session_storage', null);
+    this.storage.set('user', null);
   }
 
   PushCadastro(){
@@ -67,36 +67,6 @@ export class LoginPage {
       }
       }
       );
-
-    // if(this.nome == ""|| this.senha == "" ){
-    //   let toast = this.toastCtrl.create({
-    //     message: "Preencha todos os campos!",
-    //     duration: 3000,
-    //   })
-    //   toast.present();
-    // }else{
-
-    //   this.http.get(this.servidor.UrlGet()+'login.php?nome='+this.nome+'&senha='+this.senha).pipe(map(res => res.json()))
-    //   .subscribe(
-    //     dados => {
-    //       if(dados.msg.logado == "sim"){
-    //         this.globalvars.setUser(dados);
-    //         this.storage.set('session_storage', dados);
-
-    //         this.navCtrl.setRoot(NovidadesPage);
-            
-            
-    //       }else{
-    //         let toast = this.toastCtrl.create({
-            
-    //           message: "Usuario ou senha invalidos!",
-    //           duration: 3000,
-    //         })
-    //         toast.present();
-    //       }
-    //     }
-    //   )
-    // }
   }
 
   Toast(text: string){
