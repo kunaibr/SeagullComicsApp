@@ -3,11 +3,14 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
 import { LanguageProvider } from '../../providers/language/language';
 
-@IonicPage()
+@IonicPage({
+  name: 'page-ajustes'
+})
 @Component({
   selector: 'page-ajustes',
   templateUrl: 'ajustes.html',
 })
+
 export class AjustesPage {
 
   selectTheme: String;
