@@ -51,14 +51,25 @@ export class AdministradorPage {
 
   }
 
-  AddComic() {
 
-  }
 
   AddSlide() {
 
   }
 
+  AddComic(){
+
+  //uploads img to firebase storage
+  this.dataProvider.UploadHqs(this.imgPath)
+  .then(photoURL => {
+
+    let toast = this.toastCtrl.create({
+      message: 'Image was updated successfully',
+      duration: 3000
+    });
+    toast.present();
+    })
+  }
   EscolherFoto(){
       const options: CameraOptions = {
         quality: 100,
