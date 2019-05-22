@@ -6,7 +6,7 @@ import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { Storage } from '@ionic/Storage';
 import { AngularFireDatabase } from '@angular/fire/database';
-
+import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
@@ -34,28 +34,15 @@ export class NovidadesPage {
     public globalvars: GlobalvarsProvider,
     public storage: Storage,
     public db: AngularFireDatabase,
-
+    private dataProvider: DatabaseProvider,
   ) { 
-    this.getRetornarNoticia();
-    this.getRetornarSlides();
+    this.noticias = this.dataProvider.getRetornarNoticia(this.noticias);
+    this.slidesnew = this.dataProvider.getRetornarSlides();
+    console.log(this.noticias);
+    
    }
 
-  //Coleta os dados do bd na tabela noticia pelo noticias.php e coloca em uma array
-  getRetornarNoticia() {
-    let listnews = this.db.database.ref('/noticias');
-    listnews.on('value', (snapshot) =>{
-      const items = snapshot.val();
-      if(items){
-        this.noticias = Object.keys(items).map(i => items[i]);
-      }
-    })
-   
-  }
 
-  //Coleta os dados do bd na tabela slide pelo slides.php e coloca em uma array
-  getRetornarSlides() {
-  
-  }
 
 
   ionViewDidLoad() {

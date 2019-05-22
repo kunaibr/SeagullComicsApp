@@ -3,9 +3,7 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
 import { LanguageProvider } from '../../providers/language/language';
 
-@IonicPage({
-  name: 'page-ajustes'
-})
+@IonicPage()
 @Component({
   selector: 'page-ajustes',
   templateUrl: 'ajustes.html',

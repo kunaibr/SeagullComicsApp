@@ -23,4 +23,17 @@
   </ion-item>
  <button class="Great" (click)="AddNews(tituloNoticia,textoNoticia,dataNoticia,imagemNoticia)"
   [disabled]="!tituloNoticia || !textoNoticia || !dataNoticia || !imagemNoticia || tituloNoticia.length < 3">Adicionar Noticia</button>
+
+
+  <ion-item>
+      <ion-input type="text" placeholder="key" [(ngModel)]="hqNome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="nome" [(ngModel)]="hqKey"></ion-input>
+  </ion-item>
+
+ 
+      <img src="{{ imgPath }}" alt="" />
+   <button class="Great" (click)="EscolherFoto()">Escolher</button>
+      
 </ion-content>

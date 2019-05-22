@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
-import { map } from 'rxjs/operators';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
@@ -16,8 +16,8 @@ export class HqsPage {
   hqsUser: string;
   hqsArrayUser: string[];
 
-  hqlista: any[];
-  searchHqs: any[];
+  hqlista: any;
+  searchHqs: any;
 
   public isSearchOpen = false;
 
@@ -34,12 +34,13 @@ export class HqsPage {
     public http: Http,
     public loadingCtrl: LoadingController,
     public globalvars: GlobalvarsProvider,
+    private dataProvider: DatabaseProvider,
   ) {
   }
 
   ionViewDidLoad() {
-    this.usuario =  this.globalvars.getUser();
-    this.hqsUser = this.usuario.dados.hqs;
+    //this.usuario =  this.globalvars.getUser();
+    //this.hqsUser = this.usuario.dados.hqs;
 
     this.getRetornarHq();
   }
@@ -61,38 +62,41 @@ export class HqsPage {
     this.refresher = refresher;
     this.isRefreshing = true;
 
+    this.searchHqs = this.dataProvider.GetAllHqs();
+    
     this.getRetornarHq();
   }
 
   // Buscando as hqs do bd na tabela hq e retornando os dados na lista para exibilas
   getRetornarHq() {
-    this.AbreCarregador();
+    console.log(this.searchHqs);
+    // this.AbreCarregador();
 
-    this.http.get(this.servidor.UrlGet() + 'hqs.php').pipe(map(res => res.json()))
-      .subscribe(
-        data => {
-          this.hqlista = data;
+    // this.http.get(this.servidor.UrlGet() + 'hqs.php').pipe(map(res => res.json()))
+    //   .subscribe(
+    //     data => {
+    //       this.hqlista = data;
 
-          this.searchHqs = this.hqlista;
+    //       this.searchHqs = this.hqlista;
 
-          this.isBuy();
+    //       this.isBuy();
 
 
-          this.FechaCarregador();
-          if (this.isRefreshing) {
-            this.refresher.complete();
-            this.isRefreshing = false;
-          }
-        },
-        err => {
-          console.log(err);
-          this.FechaCarregador();
-          if (this.isRefreshing) {
-            this.refresher.complete();
-            this.isRefreshing = false;
-          }
-        }
-      );
+    //       this.FechaCarregador();
+    //       if (this.isRefreshing) {
+    //         this.refresher.complete();
+    //         this.isRefreshing = false;
+    //       }
+    //     },
+    //     err => {
+    //       console.log(err);
+    //       this.FechaCarregador();
+    //       if (this.isRefreshing) {
+    //         this.refresher.complete();
+    //         this.isRefreshing = false;
+    //       }
+    //     }
+    //   );
   }
 
   isBuy() {
@@ -117,7 +121,7 @@ export class HqsPage {
 
   OpenHq(codigo): any {
     if (codigo != undefined) {
-      //this.navCtrl.push(, {cod: codigo});
+    
     }
   }
 

@@ -42,12 +42,24 @@ import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageProvider } from '../providers/language/language';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
+//import { environment } from '../environments/environment';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AdministradorPageModule } from '../pages/administrador/administrador.module';
 import { AdministradorPage } from '../pages/administrador/administrador';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { DatabaseProvider } from '../providers/database/database';
+import { Camera} from '@ionic-native/camera';
 
+var firebaseConfig = {
+  apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
+  authDomain: "seagull-comics.firebaseapp.com",
+  databaseURL: "https://seagull-comics.firebaseio.com",
+  projectId: "seagull-comics",
+  storageBucket: "seagull-comics.appspot.com",
+  messagingSenderId: "181474525512",
+  appId: "1:181474525512:web:ba0e0ba18b949964"
+};
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -85,8 +97,10 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -116,7 +130,9 @@ export function createTranslateLoader(http: HttpClient) {
     LanguageProvider,
     AngularFireDatabase,
     AngularFireAuth,
-   
+    DatabaseProvider,
+    Camera,
+
   ]
 })
 export class AppModule {}
