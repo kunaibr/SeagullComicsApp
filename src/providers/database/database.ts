@@ -4,16 +4,24 @@ import { AngularFireDatabase } from '@angular/fire/database';
 //import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 
+
 @Injectable()
 export class DatabaseProvider {
 
+
+  capa: string = '';
+  nome: string = '';
+  numero: string = '';
+  fullPath: string = '';
+
+
   constructor(private db: AngularFireDatabase,
-    //  private afStorage: AngularFireStorage,
-    ) {
+    //private afStorage: AngularFireStorage,
+  ) {
 
   }
 
-  GetAllHqs(){
+  GetAllHqs() {
     return this.db.database.ref('/comics');
   }
 
@@ -29,27 +37,27 @@ export class DatabaseProvider {
 
   }
 
-  UploadHqs(imageURI) {
+  UploadHqs(imageURI, titulo) {
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child('imageName');
-      this.encodeImageUri(imageURI, function(image64){
+      let imageRef = storageRef.child('image').child('titulo');
+      this.EncodeImageUri(imageURI, function (image64) {
         imageRef.putString(image64, 'data_url')
-        .then(snapshot => {
-          resolve(snapshot.downloadURL)
-        }, err => {
-          reject(err);
-        })
+          .then(snapshot => {
+            resolve(snapshot.downloadURL)
+          }, err => {
+            reject(err);
+          })
       })
     })
   }
 
-  encodeImageUri(imageUri, callback) {
+  EncodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
     var img = new Image();
     img.onload = function () {
-      var aux:any = this;
+      var aux: any = this;
       c.width = aux.width;
       c.height = aux.height;
       ctx.drawImage(img, 0, 0);
@@ -57,37 +65,68 @@ export class DatabaseProvider {
       callback(dataURL);
     };
     img.src = imageUri;
-  };
-  
-SaveHqs() {
 
+
+    this.nome = img.title;
+    this.numero = '1';
+  };
+
+  SaveHqs(numPagina: string, imgpath: string, data: string) {
+    this.numero = numPagina;
+    this.fullPath = imgpath;
+
+    return this.db.database.ref('/noticias').push({
+      fullPath: this.fullPath,
+      titulo: this.nome,
+      numero: numPagina,
+      data: data,
+      imagem: imgpath,
+      descricao: '',
+    });
   }
+
+
   Remove() {
-   
+
   }
 
   getRetornarNoticia(noticias) {
     let listnews = this.db.database.ref('/noticias');
 
 
-   listnews.on('value', (snapshot) => {
+    listnews.on('value', (snapshot) => {
       const items = snapshot.val();
 
       if (items) {
         noticias = Object.keys(items).map(i => items[i]);
       }
     });
-    
+
     return noticias;
   }
 
+  getRetornarHqs(hqs) {
+    let listhqs = this.db.database.ref('/comics');
+
+
+    listhqs.on('value', (snapshot) => {
+      const items = snapshot.val();
+
+      if (items) {
+        hqs = Object.keys(items).map(i => items[i]);
+      }
+    });
+
+    return hqs;
+  }
+
   getRetornarSlides() {
-      
+
   }
 
   RemoveFile(fullPath: string) {
-   
+
   }
 
-  
+
 }

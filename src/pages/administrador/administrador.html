@@ -26,15 +26,15 @@
 
 
   <ion-item>
-      <ion-input type="text" placeholder="key" [(ngModel)]="hqNome"></ion-input>
+      <ion-input type="text" placeholder="titulo" [(ngModel)]="titulo"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="text" placeholder="nome" [(ngModel)]="hqKey"></ion-input>
+      <ion-input type="text" placeholder="data" [(ngModel)]="data"></ion-input>
   </ion-item>
 
  
       
    <button class="Great" (click)="EscolherFoto()">Escolher</button>
    <img src="{{ imgPath }}" alt="" />
-   <button class="Great" (click)="AddComic()">Lançar</button>
+   <button class="Great" (click)="AddComic(titulo,data)">Lançar</button>
 </ion-content>

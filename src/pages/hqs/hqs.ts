@@ -70,33 +70,37 @@ export class HqsPage {
   // Buscando as hqs do bd na tabela hq e retornando os dados na lista para exibilas
   getRetornarHq() {
     console.log(this.searchHqs);
-    // this.AbreCarregador();
+    this.AbreCarregador();
 
     // this.http.get(this.servidor.UrlGet() + 'hqs.php').pipe(map(res => res.json()))
     //   .subscribe(
     //     data => {
     //       this.hqlista = data;
 
-    //       this.searchHqs = this.hqlista;
+    this.searchHqs = this.hqlista;
 
-    //       this.isBuy();
+    this.searchHqs = this.dataProvider.getRetornarHqs(this.searchHqs);
+
+          
+
+          //this.isBuy();
 
 
-    //       this.FechaCarregador();
-    //       if (this.isRefreshing) {
-    //         this.refresher.complete();
-    //         this.isRefreshing = false;
-    //       }
-    //     },
-    //     err => {
-    //       console.log(err);
-    //       this.FechaCarregador();
-    //       if (this.isRefreshing) {
-    //         this.refresher.complete();
-    //         this.isRefreshing = false;
-    //       }
-    //     }
-    //   );
+          this.FechaCarregador();
+          if (this.isRefreshing) {
+            this.refresher.complete();
+            this.isRefreshing = false;
+          }
+      //   },
+      //   err => {
+      //     console.log(err);
+      //     this.FechaCarregador();
+      //     if (this.isRefreshing) {
+      //       this.refresher.complete();
+      //       this.isRefreshing = false;
+      //     }
+      //   }
+      // );
   }
 
   isBuy() {

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, LoadingController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
@@ -26,6 +26,8 @@ export class NovidadesPage {
 
   uid: string;
 
+  public loader;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -35,14 +37,10 @@ export class NovidadesPage {
     public storage: Storage,
     public db: AngularFireDatabase,
     private dataProvider: DatabaseProvider,
-  ) { 
-    this.noticias = this.dataProvider.getRetornarNoticia(this.noticias);
-    this.slidesnew = this.dataProvider.getRetornarSlides();
-    console.log(this.noticias);
+    public loadingCtrl: LoadingController,
+  ) {
     
    }
-
-
 
 
   ionViewDidLoad() {
@@ -51,6 +49,14 @@ export class NovidadesPage {
       this.globalvars.setUser(res);
       this.uid = res;
     });
+
+    this.AbreCarregador();
+
+    this.noticias = this.dataProvider.getRetornarNoticia(this.noticias);
+    this.slidesnew = this.dataProvider.getRetornarSlides();
+
+    this.FechaCarregador();
+
     this.goToSlide();
   }
 
@@ -76,5 +82,17 @@ export class NovidadesPage {
 
   openDetails(noticia: any) {
     this.navCtrl.push(DetalheNoticiaPage, { cod: noticia });
+  }
+
+   //Carrega a pagina
+   AbreCarregador() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando",
+    });
+    this.loader.present();
+  }
+
+  FechaCarregador() {
+    this.loader.dismiss();
   }
 }
