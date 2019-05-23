@@ -12,8 +12,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'administrador.html',
 })
 export class AdministradorPage {
-  titulo: string;
-  data: string;
+
   imgPath: string;
   fileToUpload: any;
 
@@ -62,6 +61,10 @@ export class AdministradorPage {
       title: '',
       inputs: [
         {
+          name: 'info',
+          placeholder: 'Escreva aqui o informação',
+        },
+        {
           name: 'titulo',
           placeholder: 'Escreva aqui o titulo',
         },
@@ -69,6 +72,7 @@ export class AdministradorPage {
           name: 'texto',
           placeholder: 'Escreva aqui o texto',
         },
+
       ],
       buttons: [
         {
@@ -78,7 +82,8 @@ export class AdministradorPage {
         {
           text: 'Salvar',
           handler: data => {
-            this.UploadNoticia(data.info);
+
+            this.UploadNoticia(data.info,data.titulo,data.texto);
           }
         }
       ]
@@ -87,15 +92,17 @@ export class AdministradorPage {
 
   }
 
-  UploadNoticia(info){
+  UploadNoticia(info,titulo,texto){
 
     this.AbreCarregador();
 
     let upload = this.dataProvider.UploadToStoregedNews(info,this.imgPath);
 
+    console.log('upload' + upload);
+
     upload.then().then(res => {
-      console.log('res' + res);
-      this.dataProvider.SaveToDatabaseNews(this.imgPath,res.metadata).then(() => {
+      console.log('res' + res.metadata);
+      this.dataProvider.SaveToDatabaseNews(this.imgPath,res.metadata,titulo,texto).then(() => {
         let toast = this.toastCtrl.create({
               message: "Seu envio foi um Suceso",
               duration: 3000
@@ -115,7 +122,7 @@ export class AdministradorPage {
 
     this.AbreCarregador();
     //uploads img to firebase storage
-    this.dataProvider.UploadToStoregedHqs(this.imgPath, this.titulo)
+    this.dataProvider.UploadToStoregedHqs(this.imgPath,'1')
       .then(photoURL => {
         this.hqPath = photoURL;
         let toast = this.toastCtrl.create({
@@ -128,7 +135,7 @@ export class AdministradorPage {
       });
 
 
-    this.Save('1', this.hqPath, this.data);
+    this.Save('1', this.hqPath,'01/01/2019');
 
     this.FechaCarregador();
   }

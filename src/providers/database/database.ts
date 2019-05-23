@@ -29,11 +29,12 @@ export class DatabaseProvider {
 
     new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child(newName);
+      let imageRef = storageRef.child('noticias').child(newName);
       this.EncodeImageUri(imageURI, function (image64) {
         imageRef.putString(image64, 'data_url')
           .then(snapshot => {
-            resolve(snapshot.downloadURL)
+            resolve(snapshot.downloadURL);
+            console.log("snapshot" + snapshot.downloadURL);
           }, err => {
             reject(err);
           })
@@ -99,15 +100,16 @@ export class DatabaseProvider {
     // });
   }
 
-  SaveToDatabaseNews(imagemNoticia: string,metainfo) {
+  SaveToDatabaseNews(imagemNoticia: string,metainfo,titulo,texto) {
 
     let toSave = {
-      titulo: metainfo.titulo,
-      texto: metainfo.texto,
+      titulo: titulo,
+      texto: texto,
       data: metainfo.timeCreated,
+      fullPath: metainfo.fullPath,
       imagem: imagemNoticia,
-    }
-
+    };
+    
     return this.db.list('noticias').push(toSave); 
   }
 
@@ -133,18 +135,6 @@ export class DatabaseProvider {
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-      // let listnews = this.db.database.ref('noticias');
-
-
-    // listnews.on('value', (snapshot) => {
-    //   const items = snapshot.val();
-
-    //   if (items) {
-    //     noticias = Object.keys(items).map(i => items[i]);
-    //   }
-    // });
-
-    // return noticias;
   
   }
 
