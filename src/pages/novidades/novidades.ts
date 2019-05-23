@@ -5,8 +5,8 @@ import { Http } from '@angular/http';
 import { DetalheNoticiaPage } from '../detalhe-noticia/detalhe-noticia';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { Storage } from '@ionic/Storage';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseProvider } from '../../providers/database/database';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -18,9 +18,8 @@ export class NovidadesPage {
 
   @ViewChild(Slides) slides: Slides;
 
-  public noticias: any;
-
-  public slidesnew: any;
+  public noticias: Observable<any[]>;
+  public slidesnew: Observable<any[]>;
 
   public internet: boolean;
 
@@ -35,7 +34,6 @@ export class NovidadesPage {
     public http: Http,
     public globalvars: GlobalvarsProvider,
     public storage: Storage,
-    public db: AngularFireDatabase,
     private dataProvider: DatabaseProvider,
     public loadingCtrl: LoadingController,
   ) {
@@ -52,16 +50,15 @@ export class NovidadesPage {
 
     this.AbreCarregador();
 
-    this.noticias = this.dataProvider.getRetornarNoticia(this.noticias);
-    this.slidesnew = this.dataProvider.getRetornarSlides();
+    this.noticias = this.dataProvider.GetAllNoticia();
 
     this.FechaCarregador();
 
-    this.goToSlide();
+    //this.goToSlide();
   }
 
   slideChanged() {
-    this.goToSlide();
+    //this.goToSlide();
   }
 
 

@@ -9,32 +9,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    <ion-input type="text" placeholder="titulo da Noticia" [(ngModel)]="tituloNoticia"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input type="text" placeholder="texto da Noticia" [(ngModel)]="textoNoticia"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input type="text" placeholder="data da Noticia" [(ngModel)]="dataNoticia"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input type="text" placeholder="imagem da Noticia" [(ngModel)]="imagemNoticia"></ion-input>
-  </ion-item>
- <button class="Great" (click)="AddNews(tituloNoticia,textoNoticia,dataNoticia,imagemNoticia)"
-  [disabled]="!tituloNoticia || !textoNoticia || !dataNoticia || !imagemNoticia || tituloNoticia.length < 3">Adicionar Noticia</button>
-
-
-  <ion-item>
-      <ion-input type="text" placeholder="titulo" [(ngModel)]="titulo"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" placeholder="data" [(ngModel)]="data"></ion-input>
-  </ion-item>
-
- 
       
    <button class="Great" (click)="EscolherFoto()">Escolher</button>
    <img src="{{ imgPath }}" alt="" />
-   <button class="Great" (click)="AddComic(titulo,data)">Lançar</button>
+   <button class="Great" (click)="AddComic()">Lançar</button>
+
+   <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="AddNews()">
+        <ion-icon name="paper"></ion-icon>
+      </button>
+   </ion-fab>
 </ion-content>

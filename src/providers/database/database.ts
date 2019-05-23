@@ -1,46 +1,35 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-//import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 
 
 @Injectable()
 export class DatabaseProvider {
 
-
-  capa: string = '';
-  nome: string = '';
-  numero: string = '';
-  fullPath: string = '';
-
-
   constructor(private db: AngularFireDatabase,
-    //private afStorage: AngularFireStorage,
+    private afStorage: AngularFireStorage,
   ) {
 
   }
 
   GetAllHqs() {
-    return this.db.database.ref('/comics');
-  }
+    let ref = this.db.list('comics');
 
-
-  AddNews(tituloNoticia: string, textoNoticia: string, dataNoticia: string, imagemNoticia: string) {
-
-    return this.db.database.ref('/noticias').push({
-      titulo: tituloNoticia,
-      texto: textoNoticia,
-      data: dataNoticia,
-      imagem: imagemNoticia,
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-
   }
 
-  UploadHqs(imageURI, titulo) {
-    return new Promise<any>((resolve, reject) => {
+
+  UploadToStoregedNews(info,imageURI): AngularFireUploadTask {
+
+    let newName = `${new Date().getTime()}.txt`;
+
+    new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child('titulo');
+      let imageRef = storageRef.child('image').child(newName);
       this.EncodeImageUri(imageURI, function (image64) {
         imageRef.putString(image64, 'data_url')
           .then(snapshot => {
@@ -49,8 +38,30 @@ export class DatabaseProvider {
             reject(err);
           })
       })
-    })
+    });
+
+
+  return this.afStorage.ref(`noticias/${newName}`).putString(info);
   }
+
+
+  UploadToStoregedHqs(imageURI, titulo) {
+    return new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('image').child(titulo);
+      this.EncodeImageUri(imageURI, function (image64) {
+        imageRef.putString(image64, 'data_url')
+          .then(snapshot => {
+            resolve(snapshot.downloadURL)
+          }, err => {
+            reject(err);
+          })
+      })
+    });
+
+  }
+
+
 
   EncodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
@@ -65,24 +76,49 @@ export class DatabaseProvider {
       callback(dataURL);
     };
     img.src = imageUri;
-
-
-    this.nome = img.title;
-    this.numero = '1';
   };
 
-  SaveHqs(numPagina: string, imgpath: string, data: string) {
-    this.numero = numPagina;
-    this.fullPath = imgpath;
+  SaveToDatabaseHqs(metainfo) {
 
-    return this.db.database.ref('/noticias').push({
-      fullPath: this.fullPath,
-      titulo: this.nome,
-      numero: numPagina,
-      data: data,
-      imagem: imgpath,
-      descricao: '',
-    });
+    let toSave = {
+      datacreate: metainfo.timeCreated,
+      url: metainfo.downloadURLs[0],
+      fullPath: metainfo.fullPath,
+      contentType: metainfo.contentType,
+    }
+
+    return this.db.list('comics').push(toSave); 
+    // this.numero = numPagina;
+
+    // return this.db.database.ref('comics').push({
+    //   titulo: this.nome,
+    //   numero: numPagina,
+    //   data: data,
+    //   imagem: imgpath,
+    //   descricao: '',
+    // });
+  }
+
+  SaveToDatabaseNews(imagemNoticia: string,metainfo) {
+
+    let toSave = {
+      titulo: metainfo.titulo,
+      texto: metainfo.texto,
+      data: metainfo.timeCreated,
+      imagem: imagemNoticia,
+    }
+
+    return this.db.list('noticias').push(toSave); 
+  }
+
+  DeleteToStorageAndDatabase(file){
+    let key = file.key;
+    let storagedPath = file.fullPath;
+
+    //Remove from database
+    this.db.list('comics').remove(key);
+    //Remove from storage
+    return this.afStorage.ref(storagedPath).delete();
   }
 
 
@@ -90,35 +126,29 @@ export class DatabaseProvider {
 
   }
 
-  getRetornarNoticia(noticias) {
-    let listnews = this.db.database.ref('/noticias');
+  GetAllNoticia() {
 
+    let ref = this.db.list('noticias');
 
-    listnews.on('value', (snapshot) => {
-      const items = snapshot.val();
-
-      if (items) {
-        noticias = Object.keys(items).map(i => items[i]);
-      }
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+      // let listnews = this.db.database.ref('noticias');
 
-    return noticias;
+
+    // listnews.on('value', (snapshot) => {
+    //   const items = snapshot.val();
+
+    //   if (items) {
+    //     noticias = Object.keys(items).map(i => items[i]);
+    //   }
+    // });
+
+    // return noticias;
+  
   }
 
-  getRetornarHqs(hqs) {
-    let listhqs = this.db.database.ref('/comics');
-
-
-    listhqs.on('value', (snapshot) => {
-      const items = snapshot.val();
-
-      if (items) {
-        hqs = Object.keys(items).map(i => items[i]);
-      }
-    });
-
-    return hqs;
-  }
+  
 
   getRetornarSlides() {
 

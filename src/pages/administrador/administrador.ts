@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase } from '@angular/fire/database';
-// import { Observable } from 'rxjs/Observable';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Observable } from 'rxjs/Observable';
+
 
 @IonicPage()
 @Component({
@@ -11,7 +12,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   templateUrl: 'administrador.html',
 })
 export class AdministradorPage {
-
+  titulo: string;
+  data: string;
   imgPath: string;
   fileToUpload: any;
 
@@ -20,6 +22,8 @@ export class AdministradorPage {
   imageResponse: any;
   options: any;
 
+  filehq: Observable<any[]>;
+  filenews: Observable<any[]>;
   public loader;
 
   constructor(
@@ -27,12 +31,15 @@ export class AdministradorPage {
     public navParams: NavParams,
     public db: AngularFireDatabase,
     public dataProvider: DatabaseProvider,
-    //private AlertCtrl: AlertController,
+    private AlertCtrl: AlertController,
     private toastCtrl: ToastController,
     private camera: Camera,
     public loadingCtrl: LoadingController,
 
   ) {
+
+    this.filehq = this.dataProvider.GetAllHqs();
+    this.filenews = this.dataProvider.GetAllNoticia();
   }
 
   //Carrega a pagina
@@ -48,36 +55,67 @@ export class AdministradorPage {
   }
 
 
-  AddNews(tituloNoticia: string, textoNoticia: string, dataNoticia: string, imagemNoticia: string) {
-    this.AbreCarregador();
+  AddNews() {
+  
 
-    this.dataProvider.AddNews(tituloNoticia, textoNoticia, dataNoticia, imagemNoticia).
-      then(() => {
-        let toast = this.toastCtrl.create({
-          message: "Seu envio foi um Suceso",
-          duration: 3000
-        });
-        toast.present();
-
-      }).catch((error) => {
-        console.log(error);
-      });
-
-    this.FechaCarregador();
+    let inputAlert = this.AlertCtrl.create({
+      title: '',
+      inputs: [
+        {
+          name: 'titulo',
+          placeholder: 'Escreva aqui o titulo',
+        },
+        {
+          name: 'texto',
+          placeholder: 'Escreva aqui o texto',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.UploadNoticia(data.info);
+          }
+        }
+      ]
+    });
+    inputAlert.present();
 
   }
 
+  UploadNoticia(info){
 
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStoregedNews(info,this.imgPath);
+
+    upload.then().then(res => {
+      console.log('res' + res);
+      this.dataProvider.SaveToDatabaseNews(this.imgPath,res.metadata).then(() => {
+        let toast = this.toastCtrl.create({
+              message: "Seu envio foi um Suceso",
+              duration: 3000
+            });
+            toast.present();
+      });
+    });
+
+    this.FechaCarregador();
+  }
 
   AddSlide() {
 
   }
 
-  AddComic(titulo,data) {
+  AddComic() {
 
     this.AbreCarregador();
     //uploads img to firebase storage
-    this.dataProvider.UploadHqs(this.imgPath,titulo)
+    this.dataProvider.UploadToStoregedHqs(this.imgPath, this.titulo)
       .then(photoURL => {
         this.hqPath = photoURL;
         let toast = this.toastCtrl.create({
@@ -89,11 +127,28 @@ export class AdministradorPage {
         console.log("Erro no Add Comics" + error);
       });
 
-      
-      this.Save('1', this.hqPath, data);
+
+    this.Save('1', this.hqPath, this.data);
 
     this.FechaCarregador();
   }
+
+
+  Save(numero: string, photoURL, data) {
+
+    // this.dataProvider.SaveToDatabaseHqs(numero, photoURL, data).
+    //   then(() => {
+    //     let toast = this.toastCtrl.create({
+    //       message: "Seu envio foi um Sucesso",
+    //       duration: 3000
+    //     });
+    //     toast.present();
+    //     console.log('oi');
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
+  }
+
   EscolherFoto() {
     const options: CameraOptions = {
       quality: 100,
@@ -111,21 +166,17 @@ export class AdministradorPage {
     });
   }
 
+  Delete(file) {
+    this.dataProvider.DeleteToStorageAndDatabase(file).subscribe(() => {
+      let toast = this.toastCtrl.create({
+              message: "Seu delete foi um Sucesso",
+              duration: 3000
+            });
+            toast.present();
+    });
 
-  Save(numero: string, photoURL, data) {
-
-      this.dataProvider.SaveHqs(numero, photoURL, data).
-      then(() => {
-        let toast = this.toastCtrl.create({
-          message: "Seu envio foi um Suceso",
-          duration: 3000
-        });
-        toast.present();
-        console.log('oi');
-      }).catch((error) => {
-        console.log(error);
-      });
   }
+
 }
 
 

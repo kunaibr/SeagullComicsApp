@@ -4,6 +4,7 @@ import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class HqsPage {
   hqsArrayUser: string[];
 
   hqlista: any;
-  searchHqs: any;
+  searchHqs: Observable<any[]>;
 
   public isSearchOpen = false;
 
@@ -77,9 +78,9 @@ export class HqsPage {
     //     data => {
     //       this.hqlista = data;
 
-    this.searchHqs = this.hqlista;
+    // this.searchHqs = this.hqlista;
 
-    this.searchHqs = this.dataProvider.getRetornarHqs(this.searchHqs);
+    this.searchHqs = this.dataProvider.GetAllHqs();
 
           
 
@@ -131,19 +132,19 @@ export class HqsPage {
 
   OnSearch(ev: any) {
 
-    this.searchHqs = this.hqlista;
+    // this.searchHqs = this.hqlista;
 
-    let searchWord = ev.target.value;
+    // let searchWord = ev.target.value;
 
-    if (searchWord && searchWord.trim() != "") {
-      this.searchHqs = this.searchHqs.filter((item) => {
-        return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
-      })
+    // if (searchWord && searchWord.trim() != "") {
+    //   this.searchHqs = this.searchHqs.filter((item) => {
+    //     return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
+    //   })
 
-    } else {
-      this.searchHqs = this.hqlista;
-      return this.searchHqs;
-    }
+    // } else {
+    //   this.searchHqs = this.hqlista;
+    //   return this.searchHqs;
+    // }
 
   }
 
