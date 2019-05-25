@@ -52,27 +52,28 @@ export class NovidadesPage {
 
     this.noticias = this.dataProvider.GetAllNoticia();
 
-    this.FechaCarregador();
+    this.slidesnew = this.dataProvider.GetAllSlides();
 
-    //this.goToSlide();
+    this.FechaCarregador();
+    
+    this.goToSlide();
   }
 
   slideChanged() {
-    //this.goToSlide();
+    this.goToSlide();
   }
-
 
   //aqui é a passagem automatico dos slides 
   goToSlide() {
     //Demora de 5 seg para passar de slide e 0,5 de transição
     setTimeout(() => {
 
-      if (this.slides.isEnd()) {
-        this.slides.slideTo(0, 500, true);
-      } else {
+       if (this.slides.isEnd() == true) {
+      this.slides.slideTo(0, 500, true);
+       } else {
         this.slides.slideNext(500, true);
-      }
-
+       }
+      
     }, 5000);
   }
 

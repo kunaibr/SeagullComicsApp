@@ -49,7 +49,7 @@ export class MyApp {
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
       { title: 'HQs', component: HqsPage, icon: "paper" },
       { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
-      { title: 'Contato', component: ContatoPage, icon: "contacts" },
+      { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
       { title: 'Administrador', component: AdministradorPage, icon: "" },

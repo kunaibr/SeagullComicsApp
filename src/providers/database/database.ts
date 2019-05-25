@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
+import { GlobalvarsProvider } from '../globalvars/globalvars';
 
 
 @Injectable()
@@ -10,18 +11,22 @@ export class DatabaseProvider {
 
   constructor(private db: AngularFireDatabase,
     private afStorage: AngularFireStorage,
+    private globalvars: GlobalvarsProvider,
   ) {
 
   }
 
-  GetAllHqs() {
-    let ref = this.db.list('comics');
+  //------------------------------------------------NOTICIAS
+
+  GetAllNoticia() {
+
+    let ref = this.db.list('noticias');
 
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+  
   }
-
 
   UploadToStoregedNews(info,imageURI): AngularFireUploadTask {
 
@@ -45,24 +50,128 @@ export class DatabaseProvider {
   return this.afStorage.ref(`noticias/${newName}`).putString(info);
   }
 
+  SaveToDatabaseNews(imagemNoticia: string,metainfo,titulo,texto) {
 
-  UploadToStoregedHqs(imageURI, titulo) {
-    return new Promise<any>((resolve, reject) => {
+    let toSave = {
+      titulo: titulo,
+      texto: texto,
+      data: metainfo.timeCreated,
+      fullPath: metainfo.fullPath,
+      imagem: imagemNoticia,
+    };
+    
+    return this.db.list('noticias').push(toSave); 
+  }
+
+
+  //------------------------------------------------COMICS
+
+  GetAllComics() {
+
+    let ref = this.db.list('comics');
+
+    return ref;
+    // return ref.snapshotChanges().map(changes => {
+    //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    // });
+  
+  }
+
+  UploadToStoregedComics(info,imageURI): AngularFireUploadTask {
+
+    let newName = `${new Date().getTime()}.txt`;
+
+    new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child(titulo);
+      let imageRef = storageRef.child('comics').child(newName);
       this.EncodeImageUri(imageURI, function (image64) {
         imageRef.putString(image64, 'data_url')
           .then(snapshot => {
-            resolve(snapshot.downloadURL)
+            resolve(snapshot.downloadURL);
+            console.log("snapshot" + snapshot.downloadURL);
           }, err => {
             reject(err);
           })
       })
     });
 
+
+  return this.afStorage.ref(`comics/${newName}`).putString(info);
+  }
+
+  SaveToDatabaseComics(imagemComics: string,metainfo,titulo,texto,preco,edicao) {
+
+    let toSave = {
+      titulo: titulo,
+      descricao: texto,
+      data: metainfo.timeCreated,
+      fullPath: metainfo.fullPath,
+      imagem: imagemComics,
+      preco: preco,
+      edicao:edicao,
+      comprado:'',
+    };
+    
+    return this.db.list('comics').push(toSave); 
+  }
+
+  GetAllPagesComics(comics){
+    let ref = this.db.list('comics/' + comics + '/');
+
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+  }
+
+  //------------------------------------------------SLIDES
+
+  GetAllSlides() {
+
+    let ref = this.db.list('slides');
+
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+  
+  }
+
+  UploadToStoregedSlides(info,imageURI): AngularFireUploadTask {
+
+    let newName = `${new Date().getTime()}.txt`;
+
+    new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('slides').child(newName);
+      this.EncodeImageUri(imageURI, function (image64) {
+        imageRef.putString(image64, 'data_url')
+          .then(snapshot => {
+            resolve(snapshot.downloadURL);
+            console.log("snapshot" + snapshot.downloadURL);
+          }, err => {
+            reject(err);
+          })
+      })
+    });
+
+
+  return this.afStorage.ref(`slides/${newName}`).putString(info);
+  }
+
+  SaveToDatabaseSlides(imagemSlide: string,metainfo,titulo,texto) {
+
+    let toSave = {
+      titulo: titulo,
+      texto: texto,
+      data: metainfo.timeCreated,
+      fullPath: metainfo.fullPath,
+      imagem: imagemSlide,
+    };
+    
+    return this.db.list('slides').push(toSave); 
   }
 
 
+  //------------------------------------------------IMAGENS
 
   EncodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
@@ -100,18 +209,6 @@ export class DatabaseProvider {
     // });
   }
 
-  SaveToDatabaseNews(imagemNoticia: string,metainfo,titulo,texto) {
-
-    let toSave = {
-      titulo: titulo,
-      texto: texto,
-      data: metainfo.timeCreated,
-      fullPath: metainfo.fullPath,
-      imagem: imagemNoticia,
-    };
-    
-    return this.db.list('noticias').push(toSave); 
-  }
 
   DeleteToStorageAndDatabase(file){
     let key = file.key;
@@ -122,31 +219,74 @@ export class DatabaseProvider {
     //Remove from storage
     return this.afStorage.ref(storagedPath).delete();
   }
-
-
-  Remove() {
-
-  }
-
-  GetAllNoticia() {
-
-    let ref = this.db.list('noticias');
-
-    return ref.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
-  
-  }
-
-  
-
-  getRetornarSlides() {
-
-  }
+ 
 
   RemoveFile(fullPath: string) {
 
   }
 
 
+  //------------------------------------------------USER
+
+  GetComicsUser(uid){
+    let ref = this.db.list('usuarios/'+uid);
+
+    console.log(ref);
+    return ref;
+  }
+
+  AddNewComicsForUser(titulo,uid){
+
+    
+    let hqProcurada = this.GetAllComics().valueChanges();
+    hqProcurada.subscribe(res => { 
+
+       let User: any[];
+       let hqlista: any[];
+       hqlista = res;
+   
+       
+           let aux = this.GetComicsUser(uid).valueChanges();
+           
+         
+           aux.subscribe(res => {
+             console.log(res[0]); 
+             User = res;
+   
+       for (let i = 0; i < hqlista.length; i++) {
+         if(hqlista[i].titulo == titulo){
+   
+           console.log('01');
+             if(User[0].hqs == ""){
+               console.log('03');
+               return this.db.database.ref('usuarios').child(uid).push({
+                 nome: User[0].nome,
+                 status: 'Ativo',
+                 desconto: User[0].desconto,
+                 hqs: titulo,
+               });
+               i = hqlista.length;
+             }else{
+               console.log('03');
+               return this.db.database.ref('usuarios').child(uid).push({
+                 nome: User[0].nome,
+                 status: 'Ativo',
+                 desconto: User[0].desconto,
+                 hqs: User[0].hqs + ',' + titulo,
+               }); 
+               i = hqlista.length;
+             }
+           }
+         }
+       });    
+
+    },error => {
+      return null;
+    });
+    
+   
+  } 
+
 }
+
+

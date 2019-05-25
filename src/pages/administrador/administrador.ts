@@ -37,7 +37,7 @@ export class AdministradorPage {
 
   ) {
 
-    this.filehq = this.dataProvider.GetAllHqs();
+   
     this.filenews = this.dataProvider.GetAllNoticia();
   }
 
@@ -53,12 +53,13 @@ export class AdministradorPage {
     this.loader.dismiss();
   }
 
+   //-----------------------------------------------------------NOTICIAS
 
   AddNews() {
   
 
     let inputAlert = this.AlertCtrl.create({
-      title: '',
+      title: 'Criar Noticias',
       inputs: [
         {
           name: 'info',
@@ -104,57 +105,148 @@ export class AdministradorPage {
       console.log('res' + res.metadata);
       this.dataProvider.SaveToDatabaseNews(this.imgPath,res.metadata,titulo,texto).then(() => {
         let toast = this.toastCtrl.create({
-              message: "Seu envio foi um Suceso",
+              message: "Seu envio de Noticia foi um Sucesso",
               duration: 3000
             });
             toast.present();
+            this.FechaCarregador();
       });
     });
 
-    this.FechaCarregador();
   }
 
-  AddSlide() {
+  //-----------------------------------------------------------SLIDES
+
+  AddSlides() {
+  
+
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Criar Slides',
+      inputs: [
+        {
+          name: 'info',
+          placeholder: 'Escreva aqui o informação',
+        },
+        {
+          name: 'titulo',
+          placeholder: 'Escreva aqui o titulo',
+        },
+        {
+          name: 'texto',
+          placeholder: 'Escreva aqui o texto',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+
+            this.UploadSlides(data.info,data.titulo,data.texto);
+          }
+        }
+      ]
+    });
+    inputAlert.present();
 
   }
 
-  AddComic() {
+  UploadSlides(info,titulo,texto){
 
     this.AbreCarregador();
-    //uploads img to firebase storage
-    this.dataProvider.UploadToStoregedHqs(this.imgPath,'1')
-      .then(photoURL => {
-        this.hqPath = photoURL;
+
+    let upload = this.dataProvider.UploadToStoregedSlides(info,this.imgPath);
+
+    upload.then().then(res => {
+      console.log('res' + res.metadata);
+      this.dataProvider.SaveToDatabaseSlides(this.imgPath,res.metadata,titulo,texto).then(() => {
         let toast = this.toastCtrl.create({
-          message: 'Image was updated successfully',
-          duration: 3000
-        });
-        toast.present();
-      }).catch((error) => {
-        console.log("Erro no Add Comics" + error);
+              message: "Seu envio de Slide foi um Sucesso",
+              duration: 3000
+            });
+            toast.present();
+            this.FechaCarregador();
       });
+    });
 
+  }
 
-    this.Save('1', this.hqPath,'01/01/2019');
+   //-----------------------------------------------------------COMICS
 
-    this.FechaCarregador();
+  AddComics() {
+
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Criar Comics',
+      inputs: [
+        {
+          name: 'info',
+          placeholder: 'Escreva aqui o informação',
+        },
+        {
+          name: 'titulo',
+          placeholder: 'Escreva aqui o titulo',
+        },
+        {
+          name: 'texto',
+          placeholder: 'Escreva aqui o descricao',
+        },
+        {
+          name: 'preco',
+          placeholder: 'Escreva aqui o preco',
+        },
+        {
+          name: 'edicao',
+          placeholder: 'Escreva aqui o numero da edição',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+
+            this.UploadComics(data.info,data.titulo,data.texto,data.preco,data.edicao);
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
+
+  UploadComics(info,titulo,texto,preco,edicao){
+
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStoregedComics(info,this.imgPath);
+
+    console.log('upload' + upload);
+
+    upload.then().then(res => {
+      console.log('res' + res.metadata);
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,preco,edicao).then(() => {
+        let toast = this.toastCtrl.create({
+              message: "Seu envio de Comic foi um Sucesso",
+              duration: 3000
+            });
+            toast.present();
+            this.FechaCarregador();
+      });
+    });
+
+    
   }
 
 
-  Save(numero: string, photoURL, data) {
-
-    // this.dataProvider.SaveToDatabaseHqs(numero, photoURL, data).
-    //   then(() => {
-    //     let toast = this.toastCtrl.create({
-    //       message: "Seu envio foi um Sucesso",
-    //       duration: 3000
-    //     });
-    //     toast.present();
-    //     console.log('oi');
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
-  }
+  //-------------------------------------------------------------IMAGENS
 
   EscolherFoto() {
     const options: CameraOptions = {
@@ -184,6 +276,55 @@ export class AdministradorPage {
 
   }
 
+  //-------------------------------------------------------------USER
+
+AddUser(){
+  let inputAlert = this.AlertCtrl.create({
+    title: 'Add Comics para o Usuario',
+    inputs: [
+      {
+        name: 'titulo',
+        placeholder: 'Escreva aqui o titulo da hq',
+      },
+      {
+        name: 'uid',
+        placeholder: 'Escreva aqui a uid do usuario',
+      },
+
+    ],
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'Cancel',
+      },
+      {
+        text: 'Salvar',
+        handler: data => {
+
+          this.AddComicsForUser(data.titulo,data.uid);
+        }
+      }
+    ]
+  });
+  inputAlert.present();
+
+}
+
+  AddComicsForUser(titulo,uid){
+
+    this.AbreCarregador();
+
+   let cont = this.dataProvider.AddNewComicsForUser(titulo,uid);
+  console.log(cont);
+    let toast = this.toastCtrl.create({
+      message: "Foi add " + titulo + " para o usuario",
+      duration: 3000
+    });
+
+    toast.present();
+    this.FechaCarregador();
+
+  }
 }
 
 

@@ -18,6 +18,7 @@ export class HqsPage {
   hqsArrayUser: string[];
 
   hqlista: any;
+
   searchHqs: Observable<any[]>;
 
   public isSearchOpen = false;
@@ -40,10 +41,10 @@ export class HqsPage {
   }
 
   ionViewDidLoad() {
-    //this.usuario =  this.globalvars.getUser();
-    //this.hqsUser = this.usuario.dados.hqs;
+    this.usuario = this.globalvars.getUser();
+    console.log("user: " + this.usuario);
 
-    this.getRetornarHq();
+    this.GetRetornarComics();
   }
 
   //Carrega a pagina
@@ -63,70 +64,65 @@ export class HqsPage {
     this.refresher = refresher;
     this.isRefreshing = true;
 
-    this.searchHqs = this.dataProvider.GetAllHqs();
-    
-    this.getRetornarHq();
+    this.GetRetornarComics();
   }
 
   // Buscando as hqs do bd na tabela hq e retornando os dados na lista para exibilas
-  getRetornarHq() {
-    console.log(this.searchHqs);
+  GetRetornarComics() {
+
     this.AbreCarregador();
 
-    // this.http.get(this.servidor.UrlGet() + 'hqs.php').pipe(map(res => res.json()))
-    //   .subscribe(
-    //     data => {
-    //       this.hqlista = data;
+    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+    this.hqlista.subscribe(res => this.hqsUser = res[0].hqs);
 
-    // this.searchHqs = this.hqlista;
+    this.isBuy();
 
-    this.searchHqs = this.dataProvider.GetAllHqs();
+    this.FechaCarregador();
 
-          
+    if (this.isRefreshing) {
+      this.refresher.complete();
+      this.isRefreshing = false;
+    }
 
-          //this.isBuy();
 
+    this.searchHqs = this.dataProvider.GetAllComics().valueChanges();
+    this.searchHqs.subscribe(res => console.log(res));
 
-          this.FechaCarregador();
-          if (this.isRefreshing) {
-            this.refresher.complete();
-            this.isRefreshing = false;
-          }
-      //   },
-      //   err => {
-      //     console.log(err);
-      //     this.FechaCarregador();
-      //     if (this.isRefreshing) {
-      //       this.refresher.complete();
-      //       this.isRefreshing = false;
-      //     }
-      //   }
-      // );
   }
 
   isBuy() {
-    this.hqsArrayUser = this.hqsUser.split(",");
 
-    //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
-    //se nao é iguala-do a indefinido, entao não é colocado na lista
-    for (let i: number = 0; i < this.hqlista.length; i++) {
+    if(this.hqsUser != undefined){
+      this.hqsArrayUser = this.hqsUser.split(",");
 
-      this.hqlista[i].comprado = false;
-
-      for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
-
-        if (this.hqlista[i].codigo == parseInt(this.hqsArrayUser[j])) {
-          this.hqlista[i].comprado = true;
-          j = this.hqsArrayUser.length;
+      //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
+      //se nao é iguala-do a indefinido, entao não é colocado na lista
+      for (let i: number = 0; i < this.hqlista.length; i++) {
+  
+        this.searchHqs[i].comprado = 'false';
+  
+        for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
+  
+          if (this.hqlista[i].titulo == this.hqsArrayUser[j]) {
+            this.searchHqs[i].comprado = 'true';
+            j = this.hqsArrayUser.length;
+          }
+  
         }
-
       }
+    }else{
+        //se nao é iguala-do a indefinido, entao não é colocado na lista
+        for (let i: number = 0; this.hqlista.length; i++) {
+  
+          this.searchHqs[i].comprado = 'false';
+        }
     }
+   
   }
 
   OpenHq(codigo): any {
     if (codigo != undefined) {
-    
+
     }
   }
 

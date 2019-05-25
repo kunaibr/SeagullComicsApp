@@ -12,15 +12,15 @@
 
 <ion-content>
  <!-- Slides coletados do bd na tabela slide -->
-    <!-- <ion-slides pager="true" (ionSlideDidChange)="slideChanged()" >
+    <ion-slides pager="true" (ionSlideDidChange)="slideChanged()" >
 
-        <ion-slide *ngFor="let slide of slidesnew" (click)="openDetails(slide)">
+        <ion-slide *ngFor="let slide of slidesnew | async" (click)="openDetails(slide)">
           <img [src]="slide.imagem" alt="">
           <div class="myOverlay">
             <h2 class="textSlide">{{slide.titulo}}</h2>
           </div>
         </ion-slide>
-      </ion-slides> -->
+      </ion-slides>
 
      <!-- Lista de noticias coletados do bd na tabela noticia -->
       <ion-list>

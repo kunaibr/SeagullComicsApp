@@ -10,13 +10,30 @@
 
 <ion-content padding>
       
-   <button class="Great" (click)="EscolherFoto()">Escolher</button>
+   <button class="Great" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>Escolher Imagens</button>
    <img src="{{ imgPath }}" alt="" />
-   <button class="Great" (click)="AddComic()">Lançar</button>
 
    <ion-fab right bottom>
       <button ion-fab color="primary" (click)="AddNews()">
         <ion-icon name="paper"></ion-icon>
       </button>
    </ion-fab>
+
+   <ion-fab center bottom>
+    <button ion-fab color="primary" (click)="AddComics()">
+      <ion-icon name="ios-book"></ion-icon>
+    </button>-
+ </ion-fab>
+
+ <ion-fab left bottom>
+  <button ion-fab color="primary" (click)="AddSlides()">
+    <ion-icon name="ios-happy"></ion-icon>
+  </button>
+</ion-fab>
+
+<ion-fab left top>
+  <button ion-fab color="primary" (click)="AddUser()">
+    <ion-icon name="paper"></ion-icon>
+  </button>
+</ion-fab>
 </ion-content>
