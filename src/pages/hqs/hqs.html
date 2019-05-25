@@ -36,7 +36,7 @@
               <ion-col size="8">
                  
                   <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
-                      <button class="precoCard" *ngIf="hqs.comprado == 'false'">R${{hqs.preco}}</button>
+                      <button class="precoCard" *ngIf="hqs.comprado != 'true'">R${{hqs.preco}}</button>
                       <button class="precoCard" *ngIf="hqs.comprado == 'true'"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
                     
                   <p class="textCard">Edição:{{hqs.edicao}}</p>

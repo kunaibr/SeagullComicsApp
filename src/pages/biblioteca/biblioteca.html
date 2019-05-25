@@ -32,7 +32,7 @@
     </ion-refresher>
     <!-- aqui começa a lista de hqs do usuario -->
 
-    
+   
     <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
         <div *ngIf="hqs != undefined && hqs.comprado == 'true'"(click)="OpenHq(hqs.codigo)">
           <ion-grid>
@@ -51,6 +51,7 @@
           </ion-grid>
         </div> 
     </ion-item>
+  
 
 
 </ion-content>

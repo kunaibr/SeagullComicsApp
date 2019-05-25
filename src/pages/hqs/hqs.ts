@@ -127,7 +127,7 @@ export class HqsPage {
         //se nao é iguala-do a indefinido, entao não é colocado na lista
         for (let i: number = 0; this.hqlista.length; i++) {
   
-          aux[i].comprado = 'false';
+          aux[i].comprado = '';
 
         }
     }
