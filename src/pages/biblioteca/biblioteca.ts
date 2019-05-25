@@ -5,6 +5,8 @@ import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { DatabaseProvider } from '../../providers/database/database';
+import { Observable } from 'rxjs/Observable';
 
 
 @IonicPage()
@@ -15,13 +17,15 @@ import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 
 @Injectable()
 export class BibliotecaPage {
-  hqlista:any[];
+  hqlista:any;
   hqsUser:string; 
   hqsArrayUser:string[]; 
   usuario:any;
   hqsBiblioteca:any[];
   searchHqs:any[];
 
+  auxHq: Observable<any[]>;
+  
   public isSearchOpen = false;
 
   public loader;
@@ -36,6 +40,7 @@ export class BibliotecaPage {
     public http: Http,
     public loadingCtrl: LoadingController,
     public globalvars: GlobalvarsProvider,
+    private dataProvider: DatabaseProvider,
     ) {
       
   }
@@ -44,12 +49,9 @@ export class BibliotecaPage {
 
   ionViewDidLoad() {
     this.usuario =  this.globalvars.getUser();
-    this.hqsUser = this.usuario.dados.hqs;
 
-    this.getRetornarHq();
 
-   
-
+    this.GetRetornarComics();
   }
 
 //Carrega a pagina
@@ -69,73 +71,76 @@ export class BibliotecaPage {
   this.refresher = refresher;
   this.isRefreshing = true;
 
-  this.getRetornarHq();
+  this.GetRetornarComics();
   }
 
-  OpenHq(codigo):any{
-    if(codigo != undefined){
-      console.log(codigo);
-      this.navCtrl.push(HqviewPage, {cod: codigo});
-    }
-  }
-
+  
   //Essa função é acionada ao recarregar a page
-  getRetornarHq(){
+  GetRetornarComics() {
+
     this.AbreCarregador();
 
-    //aqui esta buscando as hqs no banco na tabela hqs pelo hqs.php 
-    //colocando os dados das hqs no hqlistas e hqsBiblioteca para a verificação
-    this.http.get(this.servidor.UrlGet()+'hqs.php').pipe(map(res => res.json()))
-    .subscribe(
-      data =>{
-        this.hqlista = data;
-        this.hqsBiblioteca = data;
-        //Aqui separa as id das hqs do usuario em uma array para poder verificar
-        this.hqsArrayUser = this.hqsUser.split(",");
+    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+    this.hqlista.subscribe(res => {
+   
+    this.hqsUser = res[1];
+    console.log(this.hqsUser);
+    });
+   
+    let aux: any[];
 
-        let index:number = 0;
-
-        //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
-        //se nao é iguala-do a indefinido, entao não é colocado na lista
-        for(let i:number=0;i < this.hqlista.length ;i++){
-
-          let encontrou:boolean = false;
-
-          for(let j:number=0;j < this.hqsArrayUser.length;j++){
-           
-            if(this.hqlista[i].codigo == parseInt(this.hqsArrayUser[j])){
-            index++;
-            encontrou = true;
-            j = this.hqsArrayUser.length;
-            }   
-          }
-
-          if(encontrou == false){
-            this.hqsBiblioteca[index] = undefined;
-            index++;
-          }
-        
-        }
-        
-        this.searchHqs = this.hqsBiblioteca;
+    this.auxHq = this.dataProvider.GetAllComics().valueChanges();
+    this.auxHq.subscribe(res => {
+      aux = res;
+      this.isBuy(aux);
       
-        //Apos isso para de recarregar e no html recebe todas as hqs não indefinidas
+      this.FechaCarregador();
 
-        this.FechaCarregador();
-        if(this.isRefreshing){
-          this.refresher.complete();
-          this.isRefreshing = false;
-        }
-      },
-      err => {
-        console.log(err);
-        this.FechaCarregador();
-        if(this.isRefreshing){
-          this.refresher.complete();
-          this.isRefreshing = false;
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
+    });
+
+  }
+
+  isBuy(aux: any[]) {
+
+    if(this.hqsUser != undefined){
+      
+      this.hqsArrayUser = this.hqsUser.split(',');
+
+   
+
+      //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
+      //se nao é iguala-do a indefinido, entao não é colocado na lista
+
+      for (let i = 0; i < this.hqsArrayUser.length; i++) {
+       
+  
+        aux[i].comprado = 'false';
+        
+        for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
+    
+          if (aux[i].titulo == this.hqsArrayUser[j]) {
+            aux[i].comprado = 'true';
+            j = this.hqsArrayUser.length;
+ 
+          }
+  
         }
       }
-      );
+    }else{
+        //se nao é iguala-do a indefinido, entao não é colocado na lista
+        for (let i: number = 0; this.hqlista.length; i++) {
+  
+          aux[i].comprado = 'false';
+
+        }
+    }
+
+    this.searchHqs = aux;
+   
   }
 
   OnSearch(ev: any){
@@ -156,6 +161,12 @@ export class BibliotecaPage {
 
   }
 
+  OpenHq(codigo):any{
+    if(codigo != undefined){
+      console.log(codigo);
+      this.navCtrl.push(HqviewPage, {cod: codigo});
+    }
+  }
 
 
 

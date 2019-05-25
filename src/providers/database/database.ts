@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 import { GlobalvarsProvider } from '../globalvars/globalvars';
+import { updateImgs } from 'ionic-angular/umd/components/content/content';
 
 
 @Injectable()
@@ -250,37 +251,37 @@ export class DatabaseProvider {
            
          
            aux.subscribe(res => {
-             console.log(res[0]); 
+            
              User = res;
-   
-       for (let i = 0; i < hqlista.length; i++) {
-         if(hqlista[i].titulo == titulo){
-   
-           console.log('01');
-             if(User[0].hqs == ""){
-               console.log('03');
-               return this.db.database.ref('usuarios').child(uid).push({
-                 nome: User[0].nome,
-                 status: 'Ativo',
-                 desconto: User[0].desconto,
-                 hqs: titulo,
-               });
-               i = hqlista.length;
-             }else{
-               console.log('03');
-               return this.db.database.ref('usuarios').child(uid).push({
-                 nome: User[0].nome,
-                 status: 'Ativo',
-                 desconto: User[0].desconto,
-                 hqs: User[0].hqs + ',' + titulo,
-               }); 
-               i = hqlista.length;
+             console.log('User ' + User[0]); 
+
+             for(let i = 0; i <hqlista.length; i++){
+              console.log('titluo: ' + hqlista[i].titulo);
+              
+              if(hqlista[i].titulo == titulo){
+                console.log('sim');
+                console.log( this.db.database.ref('usuarios').child(uid).child('hqs').set(titulo));
+                
+                this.db.database.ref('usuarios').child(uid).child('hqs').set(titulo)
+                  .then(() => {
+                    console.log("Criado");
+                    return null;
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+             
+                return null;
+              }else{
+                console.log('não');
+              }
+
              }
-           }
-         }
+
        });    
 
     },error => {
+      console.log("HQ ano encontrada");
       return null;
     });
     

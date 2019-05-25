@@ -51,14 +51,14 @@ export class CadastroPage {
       this.registerForm.value.email,
       this.registerForm.value.senha
     ).then((response) => {
-
+      
       this.db.database.ref('/usuarios').child(response.user.uid).push({
         nome: this.registerForm.value.nome,
         status: 'Ativo',
         desconto: '',
-        hqs: '',
       })
         .then(() => {
+
           this.navCtrl.pop();
           this.Toast("Conta criada com sucesso!");
         })

@@ -19,7 +19,8 @@ export class HqsPage {
 
   hqlista: any;
 
-  searchHqs: Observable<any[]>;
+  searchHqs: any[];
+  auxHq: Observable<any[]>;
 
   public isSearchOpen = false;
 
@@ -73,39 +74,51 @@ export class HqsPage {
     this.AbreCarregador();
 
     this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
-    this.hqlista.subscribe(res => this.hqsUser = res[0].hqs);
+    this.hqlista.subscribe(res => {
+   
+    this.hqsUser = res[1];
+    console.log(this.hqsUser);
+    });
+   
+    let aux: any[];
 
-    this.isBuy();
+    this.auxHq = this.dataProvider.GetAllComics().valueChanges();
+    this.auxHq.subscribe(res => {
+      aux = res;
+      this.isBuy(aux);
+      
+      this.FechaCarregador();
 
-    this.FechaCarregador();
-
-    if (this.isRefreshing) {
-      this.refresher.complete();
-      this.isRefreshing = false;
-    }
-
-
-    this.searchHqs = this.dataProvider.GetAllComics().valueChanges();
-    this.searchHqs.subscribe(res => console.log(res));
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
+    });
 
   }
 
-  isBuy() {
+  isBuy(aux: any[]) {
 
     if(this.hqsUser != undefined){
-      this.hqsArrayUser = this.hqsUser.split(",");
+      
+      this.hqsArrayUser = this.hqsUser.split(',');
+
+   
 
       //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
       //se nao é iguala-do a indefinido, entao não é colocado na lista
-      for (let i: number = 0; i < this.hqlista.length; i++) {
+
+      for (let i = 0; i < this.hqsArrayUser.length; i++) {
+       
   
-        this.searchHqs[i].comprado = 'false';
-  
+        aux[i].comprado = 'false';
+        
         for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
-  
-          if (this.hqlista[i].titulo == this.hqsArrayUser[j]) {
-            this.searchHqs[i].comprado = 'true';
+    
+          if (aux[i].titulo == this.hqsArrayUser[j]) {
+            aux[i].comprado = 'true';
             j = this.hqsArrayUser.length;
+ 
           }
   
         }
@@ -114,9 +127,12 @@ export class HqsPage {
         //se nao é iguala-do a indefinido, entao não é colocado na lista
         for (let i: number = 0; this.hqlista.length; i++) {
   
-          this.searchHqs[i].comprado = 'false';
+          aux[i].comprado = 'false';
+
         }
     }
+
+    this.searchHqs = aux;
    
   }
 
