@@ -26,10 +26,10 @@ export class DatabaseProvider {
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-  
+
   }
 
-  UploadToStoregedNews(info,imageURI): AngularFireUploadTask {
+  UploadToStoregedNews(info, imageURI): AngularFireUploadTask {
 
     let newName = `${new Date().getTime()}.txt`;
 
@@ -48,10 +48,10 @@ export class DatabaseProvider {
     });
 
 
-  return this.afStorage.ref(`noticias/${newName}`).putString(info);
+    return this.afStorage.ref(`noticias/${newName}`).putString(info);
   }
 
-  SaveToDatabaseNews(imagemNoticia: string,metainfo,titulo,texto) {
+  SaveToDatabaseNews(imagemNoticia: string, metainfo, titulo, texto) {
 
     let toSave = {
       titulo: titulo,
@@ -60,8 +60,8 @@ export class DatabaseProvider {
       fullPath: metainfo.fullPath,
       imagem: imagemNoticia,
     };
-    
-    return this.db.list('noticias').push(toSave); 
+
+    return this.db.list('noticias').push(toSave);
   }
 
 
@@ -75,10 +75,10 @@ export class DatabaseProvider {
     // return ref.snapshotChanges().map(changes => {
     //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     // });
-  
+
   }
 
-  UploadToStoregedComics(info,imageURI): AngularFireUploadTask {
+  UploadToStoregedComics(info, imageURI): AngularFireUploadTask {
 
     let newName = `${new Date().getTime()}.txt`;
 
@@ -97,10 +97,10 @@ export class DatabaseProvider {
     });
 
 
-  return this.afStorage.ref(`comics/${newName}`).putString(info);
+    return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string,metainfo,titulo,texto,preco,edicao) {
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, preco, edicao) {
 
     let toSave = {
       titulo: titulo,
@@ -109,14 +109,14 @@ export class DatabaseProvider {
       fullPath: metainfo.fullPath,
       imagem: imagemComics,
       preco: preco,
-      edicao:edicao,
-      comprado:'',
+      edicao: edicao,
+      comprado: '',
     };
-    
-    return this.db.list('comics').push(toSave); 
+
+    return this.db.list('comics').push(toSave);
   }
 
-  GetAllPagesComics(comics){
+  GetAllPagesComics(comics) {
     let ref = this.db.list('comics/' + comics + '/');
 
     return ref.snapshotChanges().map(changes => {
@@ -133,10 +133,10 @@ export class DatabaseProvider {
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-  
+
   }
 
-  UploadToStoregedSlides(info,imageURI): AngularFireUploadTask {
+  UploadToStoregedSlides(info, imageURI): AngularFireUploadTask {
 
     let newName = `${new Date().getTime()}.txt`;
 
@@ -155,10 +155,10 @@ export class DatabaseProvider {
     });
 
 
-  return this.afStorage.ref(`slides/${newName}`).putString(info);
+    return this.afStorage.ref(`slides/${newName}`).putString(info);
   }
 
-  SaveToDatabaseSlides(imagemSlide: string,metainfo,titulo,texto) {
+  SaveToDatabaseSlides(imagemSlide: string, metainfo, titulo, texto) {
 
     let toSave = {
       titulo: titulo,
@@ -167,8 +167,8 @@ export class DatabaseProvider {
       fullPath: metainfo.fullPath,
       imagem: imagemSlide,
     };
-    
-    return this.db.list('slides').push(toSave); 
+
+    return this.db.list('slides').push(toSave);
   }
 
 
@@ -198,20 +198,11 @@ export class DatabaseProvider {
       contentType: metainfo.contentType,
     }
 
-    return this.db.list('comics').push(toSave); 
-    // this.numero = numPagina;
-
-    // return this.db.database.ref('comics').push({
-    //   titulo: this.nome,
-    //   numero: numPagina,
-    //   data: data,
-    //   imagem: imgpath,
-    //   descricao: '',
-    // });
+    return this.db.list('comics').push(toSave);
   }
 
 
-  DeleteToStorageAndDatabase(file){
+  DeleteToStorageAndDatabase(file) {
     let key = file.key;
     let storagedPath = file.fullPath;
 
@@ -220,7 +211,7 @@ export class DatabaseProvider {
     //Remove from storage
     return this.afStorage.ref(storagedPath).delete();
   }
- 
+
 
   RemoveFile(fullPath: string) {
 
@@ -229,64 +220,65 @@ export class DatabaseProvider {
 
   //------------------------------------------------USER
 
-  GetComicsUser(uid){
-    let ref = this.db.list('usuarios/'+uid);
+  GetComicsUser(uid) {
+    let ref = this.db.list('usuarios/' + uid);
 
     console.log(ref);
     return ref;
   }
 
-  AddNewComicsForUser(titulo,uid){
+  AddNewComicsForUser(titulo, uid) {
+    let UserHQ: any;
+    let hqlista: any[];
 
-    
-    let hqProcurada = this.GetAllComics().valueChanges();
-    hqProcurada.subscribe(res => { 
+    this.GetAllComics().valueChanges().subscribe(res => {
 
-       let User: any[];
-       let hqlista: any[];
-       hqlista = res;
-   
-       
-           let aux = this.GetComicsUser(uid).valueChanges();
-           
-         
-           aux.subscribe(res => {
-            
-             User = res;
-             console.log('User ' + User[0]); 
+      hqlista = res;
 
-             for(let i = 0; i <hqlista.length; i++){
-              console.log('titluo: ' + hqlista[i].titulo);
-              
-              if(hqlista[i].titulo == titulo){
-                console.log('sim');
-                console.log( this.db.database.ref('usuarios').child(uid).child('hqs').set(titulo));
-                
-                this.db.database.ref('usuarios').child(uid).child('hqs').set(titulo)
-                  .then(() => {
-                    console.log("Criado");
-                    return null;
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-             
-                return null;
-              }else{
-                console.log('não');
-              }
 
-             }
+      console.log('Lista de Hqs: ' + hqlista);
 
-       });    
+      this.GetComicsUser(uid).valueChanges().subscribe(rese => {
 
-    },error => {
+        UserHQ = rese[1];
+        console.log('Hqs do usuario: ' + UserHQ);
+
+
+      for (let i = 0; i < hqlista.length; i++) {
+
+        console.log('titluo da hq: ' + hqlista[i].titulo);
+
+        if (hqlista[i].titulo == titulo) {
+
+          let plus = "";
+
+          if (UserHQ != undefined && UserHQ != '') {
+            plus = UserHQ + ",";
+          }
+          this.db.database.ref('usuarios/').child(uid).child('hqs').set("");
+          return this.db.database.ref('usuarios/').child(uid).child('hqs').set(plus + titulo);
+
+          i = hqlista.length;
+
+        } else {
+          console.log('não');
+        }
+
+      }
+
+    }, error => {
       console.log("HQ ano encontrada");
-      return null;
+
     });
-    
-   
-  } 
+
+    }, error => {
+      console.log("HQ ano encontrada");
+
+    });
+    return null;
+
+  }
+
 
 }
 

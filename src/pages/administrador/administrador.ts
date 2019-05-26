@@ -314,14 +314,16 @@ AddUser(){
 
     this.AbreCarregador();
 
-   let cont = this.dataProvider.AddNewComicsForUser(titulo,uid);
-  console.log(cont);
+    this.dataProvider.AddNewComicsForUser(titulo,uid);
+   
+
     let toast = this.toastCtrl.create({
       message: "Foi add " + titulo + " para o usuario",
       duration: 3000
     });
-
     toast.present();
+
+   
     this.FechaCarregador();
 
   }
