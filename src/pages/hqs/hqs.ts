@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
+import { PagamentoPage } from '../pagamento/pagamento';
 
 @IonicPage()
 @Component({
@@ -140,6 +141,10 @@ export class HqsPage {
     if (codigo != undefined) {
 
     }
+  }
+
+  OpenPagamento(){
+    this.navCtrl.push(PagamentoPage);
   }
 
   OnSearch(ev: any) {

@@ -50,6 +50,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DatabaseProvider } from '../providers/database/database';
 import { Camera} from '@ionic-native/camera';
+import { PagamentoPage } from '../pages/pagamento/pagamento';
+import { PagamentoPageModule } from '../pages/pagamento/pagamento.module';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
@@ -84,6 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     IntroPageModule,
     LoginPageModule,
     NovidadesPageModule,
+    PagamentoPageModule,
     PersonagensPageModule,
     PersonagensviewPageModule,
     CadastroPageModule,
@@ -117,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     PersonagensPage,
     PersonagensviewPage,
     CadastroPage,
+    PagamentoPage,
   ],
   providers: [
     StatusBar,

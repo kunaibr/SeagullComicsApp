@@ -1,0 +1,39 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h1 class="Normal">Escolha uma das opções abaixo para pagar a sua assinatura</h1>
+<ion-grid>
+   
+    <ion-row>
+
+        <ion-col>
+            <button (click)="PagarPicPay()">
+                <img src="../../assets/images/ppay-icon.png"> 
+               <h2> PIC PAY</h2>
+              </button>
+             
+            
+        </ion-col>
+
+        <ion-col>
+
+            <button (click)="PagarBoletoFacil()">
+                <img src="../../assets/images/logoboletofacil.jpg">
+               <h2> BOLETO FACIL</h2>
+              </button>
+             
+
+        </ion-col>
+    </ion-row>
+  
+</ion-grid>
+
+ 
+  
+  
+</ion-content>

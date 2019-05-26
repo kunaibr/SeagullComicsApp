@@ -31,7 +31,6 @@ export class ContatoPage {
   }
 
   public SendEmail(){
-    console.log("oi");
     let email = {
       to: this.to,
       cc: [],
