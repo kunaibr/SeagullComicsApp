@@ -20,19 +20,19 @@
     </button>
     <ion-fab-list side="top">
 
-      <button ion-fab color="primary" (click)="AddNews()">
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddNews()">
         <ion-icon name="paper"></ion-icon>
       </button>
 
-      <button ion-fab color="primary" (click)="AddComics()">
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComics()">
         <ion-icon name="ios-book"></ion-icon>
       </button>
 
-      <button ion-fab color="primary" (click)="AddComicsPage()">
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsPage()">
         <ion-icon name="md-document"></ion-icon>
       </button>
     
-      <button ion-fab color="primary" (click)="AddSlides()">
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddSlides()">
           <ion-icon name="md-albums"></ion-icon>
         </button>
 

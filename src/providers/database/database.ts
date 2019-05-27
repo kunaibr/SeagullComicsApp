@@ -138,15 +138,13 @@ export class DatabaseProvider {
   SaveToDatabaseComicsPage(key: string, imgPath) {
   
       let aux: any;
-      let plus: string;
+      let plus: string = "";
       
       aux = this.db.list('comics/'+ key +'/pages').valueChanges();
       aux.subscribe((r) => plus = r.pages);
-      // this.db.list('comics/' + key).valueChanges().subscribe((r) => {
-      //   aux = r;
-      //   plus = aux.pages + ",";
-        return this.db.database.ref('comics/' + key + '/pages').set(plus + imgPath);
-      // });
+     
+      return this.db.database.ref('comics/' + key + '/pages').set(plus + imgPath);
+
 
 
     
