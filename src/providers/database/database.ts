@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
-import { GlobalvarsProvider } from '../globalvars/globalvars';
-import { updateImgs } from 'ionic-angular/umd/components/content/content';
+import { Storage } from '@ionic/Storage';
 
 
 @Injectable()
@@ -12,7 +11,7 @@ export class DatabaseProvider {
 
   constructor(private db: AngularFireDatabase,
     private afStorage: AngularFireStorage,
-    private globalvars: GlobalvarsProvider,
+    private storage: Storage,
   ) {
 
   }
@@ -72,9 +71,6 @@ export class DatabaseProvider {
     let ref = this.db.list('comics');
 
     return ref;
-    // return ref.snapshotChanges().map(changes => {
-    //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    // });
 
   }
 
@@ -111,18 +107,55 @@ export class DatabaseProvider {
       preco: preco,
       edicao: edicao,
       comprado: '',
+      pages: imagemComics,
     };
 
     return this.db.list('comics').push(toSave);
   }
 
-  GetAllPagesComics(comics) {
-    let ref = this.db.list('comics/' + comics + '/');
+  UploadToStorageComicsPage(info, imageURI) {
 
-    return ref.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    let newName = `${new Date().getTime()}.txt`;
+
+    new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('comics/pages').child(newName);
+      this.EncodeImageUri(imageURI, function (image64) {
+        imageRef.putString(image64, 'data_url')
+          .then(snapshot => {
+            resolve(snapshot.downloadURL);
+            console.log("snapshot" + snapshot.downloadURL);
+          }, err => {
+            reject(err);
+          })
+      })
     });
+
+
+    return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
+
+  SaveToDatabaseComicsPage(key: string, imgPath) {
+  
+      let aux: any;
+      let plus: string;
+      
+      aux = this.db.list('comics/'+ key +'/pages').valueChanges();
+      aux.subscribe((r) => plus = r.pages);
+      // this.db.list('comics/' + key).valueChanges().subscribe((r) => {
+      //   aux = r;
+      //   plus = aux.pages + ",";
+        return this.db.database.ref('comics/' + key + '/pages').set(plus + imgPath);
+      // });
+
+
+    
+
+  }
+
+
+
+
 
   //------------------------------------------------SLIDES
 
@@ -159,6 +192,7 @@ export class DatabaseProvider {
   }
 
   SaveToDatabaseSlides(imagemSlide: string, metainfo, titulo, texto) {
+
 
     let toSave = {
       titulo: titulo,
@@ -223,7 +257,7 @@ export class DatabaseProvider {
   GetUser(uid) {
     let ref = this.db.list('usuarios/' + uid).valueChanges();
 
-console.log(ref);
+    console.log(ref);
     return ref;
   }
 
@@ -250,32 +284,29 @@ console.log(ref);
         console.log('Hqs do usuario: ' + UserHQ);
 
 
-      for (let i = 0; i < hqlista.length; i++) {
+        for (let i = 0; i < hqlista.length; i++) {
 
-        console.log('titluo da hq: ' + hqlista[i].titulo);
+          console.log('titluo da hq: ' + hqlista[i].titulo);
 
-        if (hqlista[i].titulo == titulo) {
+          if (hqlista[i].titulo == titulo) {
 
-          let plus = "";
+            let plus = "";
 
-          if (UserHQ != undefined && UserHQ != '') {
-            plus = UserHQ + ",";
+            if (UserHQ != undefined && UserHQ != '') {
+              plus = UserHQ + ",";
+            }
+            this.db.database.ref('usuarios/').child(uid).child('hqs').set("");
+            return this.db.database.ref('usuarios/').child(uid).child('hqs').set(plus + titulo);
+          } else {
+            console.log('não');
           }
-          this.db.database.ref('usuarios/').child(uid).child('hqs').set("");
-          return this.db.database.ref('usuarios/').child(uid).child('hqs').set(plus + titulo);
 
-          i = hqlista.length;
-
-        } else {
-          console.log('não');
         }
 
-      }
+      }, error => {
+        console.log("HQ ano encontrada");
 
-    }, error => {
-      console.log("HQ ano encontrada");
-
-    });
+      });
 
     }, error => {
       console.log("HQ ano encontrada");

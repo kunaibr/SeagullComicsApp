@@ -4,7 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
-
+import { Storage } from '@ionic/Storage';
 
 @IonicPage()
 @Component({
@@ -23,6 +23,8 @@ export class AdministradorPage {
 
   filehq: Observable<any[]>;
   filenews: Observable<any[]>;
+
+  keyComics:string;
   public loader;
 
   constructor(
@@ -34,9 +36,10 @@ export class AdministradorPage {
     private toastCtrl: ToastController,
     private camera: Camera,
     public loadingCtrl: LoadingController,
+    private storage: Storage,
 
   ) {
-
+    console.log('Key Comics : ' + this.storage.get('keyComic'));
    
     this.filenews = this.dataProvider.GetAllNoticia();
   }
@@ -110,6 +113,7 @@ export class AdministradorPage {
             });
             toast.present();
             this.FechaCarregador();
+            this.imgPath = "";
       });
     });
 
@@ -170,6 +174,7 @@ export class AdministradorPage {
             });
             toast.present();
             this.FechaCarregador();
+            this.imgPath = "";
       });
     });
 
@@ -232,19 +237,80 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,preco,edicao).then(() => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,preco,edicao).then((response) => {
         let toast = this.toastCtrl.create({
-              message: "Seu envio de Comic foi um Sucesso",
+              message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
             });
             toast.present();
+           
+            this.keyComics = response.key;
+            this.storage.set('KeyComic',response.key);
             this.FechaCarregador();
+
+            this.imgPath = "";
+           
       });
     });
-
     
   }
 
+  AddComicsPage(){
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Criar Comics',
+      inputs: [
+        {
+          name: 'info',
+          placeholder: 'Escreva aqui o informação',
+        },
+        {
+          name: 'numerodapagina',
+          placeholder: 'Escreva aqui o numero da pagina',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.UploadComicsPage(data.info,data.numero);
+          
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
+
+  UploadComicsPage(info,numero){
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStorageComicsPage(info,this.imgPath);
+
+    console.log('upload' + upload);
+
+    upload.then().then(res => {
+      console.log('res' + res.metadata);
+      this.dataProvider.SaveToDatabaseComicsPage(this.keyComics,this.imgPath).then(() => {
+        let toast = this.toastCtrl.create({
+              message: "Seu envio da Pagina foi um Sucesso",
+              duration: 3000
+            });
+            toast.present();
+
+            this.FechaCarregador();
+
+            this.imgPath = "";
+      });
+    });
+    
+  }
+ 
 
   //-------------------------------------------------------------IMAGENS
 
