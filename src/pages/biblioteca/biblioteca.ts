@@ -162,10 +162,9 @@ export class BibliotecaPage {
 
   }
 
-  OpenHq(codigo):any{
-    if(codigo != undefined){
-      console.log(codigo);
-      this.navCtrl.push(HqviewPage, {cod: codigo});
+  OpenHq(key):any{
+    if(key != undefined){
+      this.navCtrl.push(HqviewPage, {key: key});
     }
   }
 

@@ -87,6 +87,7 @@ export class HqsPage {
     this.auxHq.subscribe(res => {
       aux = res;
       this.isBuy(aux);
+      this.searchHqs = aux;
       
       this.FechaCarregador();
 
@@ -112,12 +113,12 @@ export class HqsPage {
       for (let i = 0; i < this.hqsArrayUser.length; i++) {
        
   
-        aux[i].comprado = 'false';
+        aux[i].comprado = "";
         
         for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
     
           if (aux[i].titulo == this.hqsArrayUser[j]) {
-            aux[i].comprado = 'true';
+            aux[i].comprado = "true";
             j = this.hqsArrayUser.length;
  
           }
@@ -128,7 +129,7 @@ export class HqsPage {
         //se nao é iguala-do a indefinido, entao não é colocado na lista
         for (let i: number = 0; this.hqlista.length; i++) {
   
-          aux[i].comprado = '';
+          aux[i].comprado = "";
 
         }
     }

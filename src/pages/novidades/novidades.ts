@@ -19,7 +19,7 @@ export class NovidadesPage {
   @ViewChild(Slides) slides: Slides;
 
   public noticias: Observable<any[]>;
-  public slidesnew: Observable<any[]>;
+    public slidesnew: Observable<any[]>;
 
   public internet: boolean;
 
