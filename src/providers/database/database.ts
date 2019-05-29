@@ -314,6 +314,10 @@ export class DatabaseProvider {
 
   }
 
+  GetToAdm(){
+  return this.storage.get('user');
+
+  }
 
 }
 

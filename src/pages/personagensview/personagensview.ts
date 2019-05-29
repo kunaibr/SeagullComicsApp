@@ -28,7 +28,7 @@ export class PersonagensviewPage {
       {
         'nome': 'Estrela Fria',
         'imagem':'../../assets/personagens/Estrela.jpg',
-        'descricao': '',
+        'descricao': 'Estrela fria possui um anel que da poderes de manipular o gelo, mas antes de consegui tal poder as pessoas o consideravam muito um amigo e uma pessoa que ardia inspiração e compaixão, porem agora ele é apenas alguém que só pensa em si mesmo e busca uma resposta sobre esses poderes. O que será que irá acontecer no futuro, ele continuara sendo essa pessoa que era ou se tornara um nova pessoa.',
         'poderes': 'Abaixar a temperatura, congelar o ar, manipular o gelo',
         'armas': '',
         'caracteristicas': '',
