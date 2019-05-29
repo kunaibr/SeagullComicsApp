@@ -1,9 +1,8 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { DatabaseProvider } from '../../providers/database/database';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -12,26 +11,45 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class HqviewPage {
   public codigo;
-  key: any;
-  hqslist: Observable<any[]>;
-
+  pages:any[];
+  hqs:any[];
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
      public servidor: ServidorProvider,
      public http: Http,
-     private dataProvider: DatabaseProvider,
      ) {
   }
 
   ionViewDidEnter() {
-    this.key = this.navParams.get("key");
-      console.log(this.key.key);
-      this.GetPages();
-    
+    this.codigo = this.navParams.get("cod");
+    this.GetPages();
   }
 
   GetPages() {
-    this.hqslist = this.dataProvider.GetAllComisPages(this.key.key);
-  }
+    this.http.get(this.servidor.UrlGet() + 'pages.php').pipe(map(res => res.json()))
+      .subscribe(
+        data => {
+          this.hqs = data;
+
+          let ind = 0;
+
+          for(let i:number=0;i < this.hqs.length ;i++)
+                {
+                  if(this.hqs[i].edicao == this.codigo ){
+                    this.pages[i-ind] = this.hqs[i];
+                  }
+                  else
+                  {
+                      ind++;
+                  }
+                  
+                }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+ 
+}
 }

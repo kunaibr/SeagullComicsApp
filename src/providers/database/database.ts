@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
+import { Storage } from '@ionic/Storage';
 
 
 @Injectable()
@@ -10,6 +11,7 @@ export class DatabaseProvider {
 
   constructor(private db: AngularFireDatabase,
     private afStorage: AngularFireStorage,
+    private storage: Storage,
   ) {
 
   }
@@ -95,9 +97,8 @@ export class DatabaseProvider {
   }
 
   SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, preco, edicao) {
-   
+
     let toSave = {
-      key: '',
       titulo: titulo,
       descricao: texto,
       data: metainfo.timeCreated,
@@ -106,20 +107,11 @@ export class DatabaseProvider {
       preco: preco,
       edicao: edicao,
       comprado: '',
+      pages: imagemComics,
     };
 
-    let ref = this.db.list('comics').push(toSave);
-    this.db.database.ref('comics/'+ ref.key + '/key').set(ref.key);
-    return ref;
+    return this.db.list('comics').push(toSave);
   }
-
-  GetAllComisPages(key) {
-    let ref = this.db.list('comics/' + key + '/pages');
-    return ref.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
-  }
-
 
   UploadToStorageComicsPage(info, imageURI) {
 
@@ -143,17 +135,20 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsPage(key: string, imagem: string,numero:string, metainfo) {
+  SaveToDatabaseComicsPage(key: string, imgPath) {
   
-    let toSave = {
-      numero: numero,
-      //fullPath: metainfo.fullPath,
-      imagem: imagem,
-    };
-
-    return this.db.list('comics/'+key+'/pages').push(toSave);
+      let aux: any;
+      let plus: string = "";
+      
+      aux = this.db.list('comics/'+ key +'/pages').valueChanges();
+      aux.subscribe((r) => plus = r.pages);
      
-       
+      return this.db.database.ref('comics/' + key + '/pages').set(plus + imgPath);
+
+
+
+    
+
   }
 
 
@@ -318,13 +313,6 @@ export class DatabaseProvider {
     return null;
 
   }
-
-
-
-
-
-
-
 
 
 }
