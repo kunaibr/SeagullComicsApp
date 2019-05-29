@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
 import { LanguageProvider } from '../../providers/language/language';
-//import { AdministradorPage } from '../administrador/administrador';
 import { DatabaseProvider } from '../../providers/database/database';
 import { AdministradorPage } from '../administrador/administrador';
 
@@ -61,10 +60,6 @@ export class AjustesPage {
    });
 
   
- // if (user[0].status == "Adm") {
 
-          //   this.navCtrl.push(AdministradorPage);
-
-          // }
   }
 }

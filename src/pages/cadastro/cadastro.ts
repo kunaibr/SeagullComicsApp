@@ -7,6 +7,7 @@ import { ValidateConfirmPassword } from '../../validators/confirmPassword';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { PdfPage } from '../pdf/pdf';
 
 
 @IonicPage()
@@ -20,10 +21,7 @@ export class CadastroPage {
 
   usuarios: any;
 
-  // nome:String = "";
-  // senha:String = "";
-  // email:String = "";
-  // senhaComfirm:String = "";
+  check = false;
 
   constructor(
     public navCtrl: NavController,
@@ -34,6 +32,7 @@ export class CadastroPage {
     public formbuilder: FormBuilder,
     public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
+ 
   ) {
 
     this.registerForm = this.formbuilder.group({
@@ -46,7 +45,7 @@ export class CadastroPage {
 
   EfetuarCadastro() {
 
-
+if(this.check == true){
     this.afAuth.auth.createUserWithEmailAndPassword(
       this.registerForm.value.email,
       this.registerForm.value.senha
@@ -80,7 +79,7 @@ export class CadastroPage {
             break;
         }
       });
-
+    }
   }
 
   Toast(text: string) {
@@ -94,5 +93,9 @@ export class CadastroPage {
 
   VoltarPage() {
     this.navCtrl.pop();
+  }
+
+  OpenPdf(){
+   this.navCtrl.push(PdfPage);
   }
 }

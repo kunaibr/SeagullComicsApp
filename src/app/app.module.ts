@@ -52,6 +52,8 @@ import { DatabaseProvider } from '../providers/database/database';
 import { Camera} from '@ionic-native/camera';
 import { PagamentoPage } from '../pages/pagamento/pagamento';
 import { PagamentoPageModule } from '../pages/pagamento/pagamento.module';
+import { PdfPage } from '../pages/pdf/pdf';
+import { PdfPageModule } from '../pages/pdf/pdf.module';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
@@ -91,6 +93,7 @@ export function createTranslateLoader(http: HttpClient) {
     PersonagensviewPageModule,
     CadastroPageModule,
     DetalheNoticiaPageModule,
+    PdfPageModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
@@ -121,6 +124,7 @@ export function createTranslateLoader(http: HttpClient) {
     PersonagensviewPage,
     CadastroPage,
     PagamentoPage,
+    PdfPage,
   ],
   providers: [
     StatusBar,
@@ -136,7 +140,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireAuth,
     DatabaseProvider,
     Camera,
-
+    
   ]
 })
 export class AppModule {}

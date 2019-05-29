@@ -21,11 +21,17 @@
     </ion-item>
   </ion-list>
 <div>
-  <button type="submit" class="Great" [disabled]="registerForm.invalid">CADASTRAR</button>
+  <button type="submit" class="Great" [disabled]="registerForm.invalid || check == false">CADASTRAR</button>
 </div>
 </form>
+
+<h4>
+    <ion-checkbox [(ngModel)]="check" color="primary"></ion-checkbox> Li e concordo com os <a (click)="OpenPdf()">Termos de Uso</a></h4>
 <div>
   <button class="Normal" (click)="VoltarPage()" >Voltar ao login</button>
 </div>
+
+
+
 
 </ion-content>
