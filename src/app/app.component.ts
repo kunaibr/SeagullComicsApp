@@ -16,6 +16,8 @@ import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
 import { AdministradorPage } from '../pages/administrador/administrador';
+import { DatabaseProvider } from '../providers/database/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class MyApp {
 
   rootPage: any;
 
-  pages: Array<{ title: string, component: any, icon: string }>;
+  public pages: Array<{ title: string, component: any, icon: string }>;
 
   selectTheme: String;
 
@@ -40,10 +42,11 @@ export class MyApp {
     public storage: Storage,
     private globalvars: GlobalvarsProvider,
     public languageProvider : LanguageProvider,
+    private dataProvider: DatabaseProvider,
+
 
   ) {
-    this.initializeApp();
-    
+   
     this.pages = [
       { title: 'Novidades', component: NovidadesPage, icon: "home" },
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
@@ -52,8 +55,31 @@ export class MyApp {
       { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
-      { title: 'Administrador', component: AdministradorPage, icon: "" },
     ];
+
+   this.storage.get('user').then((res) => {
+    this.dataProvider.GetUser(res).subscribe((user) =>{
+
+     if(user[0].status == "Adm"){
+      this.pages = [
+        { title: 'Novidades', component: NovidadesPage, icon: "home" },
+        { title: 'Personagens', component: PersonagensPage, icon: "people" },
+        { title: 'HQs', component: HqsPage, icon: "paper" },
+        { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
+        { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
+        { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
+        { title: 'Sair', component: LoginPage, icon: "log-out" },
+        { title: 'Administrador', component: AdministradorPage, icon: "md-construct" },
+      ];
+     }
+
+     this.initializeApp();
+    });
+    
+   });
+
+   
+
   }
 
   initializeApp() {

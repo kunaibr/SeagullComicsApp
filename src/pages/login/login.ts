@@ -49,10 +49,11 @@ export class LoginPage {
     this.afAuth.auth.signInWithEmailAndPassword(
       this.loginForm.value.email, this.loginForm.value.senha
       ).then((response) =>{
-          this.globalvars.setUser(response.user.uid);
-          this.storage.set('user', response.user.uid)
+          this.globalvars.setUser(response.user.uid.toString());
+          this.storage.set('user', response.user.uid.toString())
           .then(() => {
             this.navCtrl.setRoot(NovidadesPage);
+            
           });
       }).catch((error) =>{
         
