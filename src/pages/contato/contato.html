@@ -19,15 +19,12 @@
 <ion-content padding>
   <ion-label class="titleGreat">CONTATE-NOS!</ion-label>
 <p class="titleNormal">Elogios, sugestões, repotar algo, bugs, nos envie um email</p>
-  
-        <ion-label >Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="title"></ion-input>
+
+        <ion-input type="text" placdholder="Titulo" [(ngModel)]="title"></ion-input>
       
-        <ion-label >Assunto</ion-label>
-        <ion-input type="text" [(ngModel)]="subject" ></ion-input>
-     
-        <ion-label >Mensagem</ion-label>
-        <ion-input class="big" type="text" [(ngModel)]="body" ></ion-input>
+        <ion-input type="text" placdholder="Assunto" [(ngModel)]="subject" ></ion-input>
+
+        <ion-input class="big" type="text" placdholder="Mensagem" [(ngModel)]="body" ></ion-input>
      
       <div>
        <button class="Great" (click)="SendEmail()">ENVIAR</button>

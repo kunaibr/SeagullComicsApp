@@ -9,7 +9,7 @@
 
 <ion-content fullscreen="true">
 
-  <div *ngFor="let page of pages">
+  <div *ngFor="let page of hqslist | async">
     <img [src]="page.imagem">
   </div>
 

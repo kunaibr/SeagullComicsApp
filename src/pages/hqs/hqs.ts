@@ -104,6 +104,7 @@ export class HqsPage {
       
       this.hqsArrayUser = this.hqsUser.split(',');
 
+      
    
 
       //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
@@ -112,7 +113,7 @@ export class HqsPage {
       for (let i = 0; i < this.hqsArrayUser.length; i++) {
        
   
-        aux[i].comprado = 'false';
+        aux[i].comprado = '';
         
         for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
     

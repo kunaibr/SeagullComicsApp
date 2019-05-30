@@ -247,8 +247,8 @@ export class AdministradorPage {
             this.keyComics = response.key;
             this.storage.set('KeyComic',response.key);
             this.FechaCarregador();
-
-            this.imgPath = "";
+            this.UploadComicsPage(info,'1');
+           
            
       });
     });
@@ -296,7 +296,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsPage(this.keyComics,this.imgPath).then(() => {
+      this.dataProvider.SaveToDatabaseComicsPage(this.keyComics,this.imgPath,info,numero).then(() =>{
         let toast = this.toastCtrl.create({
               message: "Seu envio da Pagina foi um Sucesso",
               duration: 3000

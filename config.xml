@@ -89,7 +89,6 @@
     <platform name="android">
         <resource-file src="google-services.json" target="app/google-services.json" />
     </platform>
-    <engine name="android" spec="~5.2.2" />
     <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
     <plugin name="cordova-plugin-telerik-imagepicker" spec="~2.3.2" />
     <plugin name="cordova-plugin-camera" spec="~2.4.1" />
