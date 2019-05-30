@@ -145,19 +145,19 @@ export class BibliotecaPage {
 
   OnSearch(ev: any){
    
-    this.searchHqs = this.hqsBiblioteca;
+    // this.searchHqs = this.hqsBiblioteca;
 
-    let searchWord = ev.target.value;
+    // let searchWord = ev.target.value;
    
-    if(searchWord && searchWord.trim() != ""){
-        this.searchHqs = this.searchHqs.filter((item) =>{
-        return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
-        }) 
+    // if(searchWord && searchWord.trim() != ""){
+    //     this.searchHqs = this.searchHqs.filter((item) =>{
+    //     return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
+    //     }) 
        
-    }else{
-      this.searchHqs = this.hqsBiblioteca;
-      return this.searchHqs;
-    }
+    // }else{
+    //   this.searchHqs = this.hqsBiblioteca;
+    //   return this.searchHqs;
+    // }
 
   }
 

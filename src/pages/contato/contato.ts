@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EmailComposer } from '@ionic-native/email-composer';
 
 
-/**
- * Generated class for the ContatoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -27,7 +21,7 @@ export class ContatoPage {
      public navParams: NavParams,
      public emailComposer: EmailComposer,
      ) {
-     
+   
   }
 
   public SendEmail(){

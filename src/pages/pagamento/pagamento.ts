@@ -17,7 +17,7 @@ export class PagamentoPage {
  body: string = '';
 
  usuario: any;
-
+uid:any;
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
@@ -26,6 +26,8 @@ export class PagamentoPage {
      private dataProvider:DatabaseProvider,
      private globalvars: GlobalvarsProvider,
      ) {
+      this.uid = this.globalvars.getUser();
+      console.log("user: " + this.uid);
   }
 
   ionViewDidLoad() {
@@ -37,7 +39,7 @@ export class PagamentoPage {
 
   PagarBoletoFacil(){
     this.title = 'Assinatura Seagull Comics: ' + this.usuario.nome;
-    this.body = 'Eu ' + this.usuario.nome + ' gostaria de comprar a assinatura da Seagull Comics pelo meio do Boleto Facil';
+    this.body =  'Eu ' + this.usuario.nome + ': ' + this.uid +' gostaria de comprar a assinatura da Seagull Comics pelo meio do Boleto Facil';
     this.subject = 'Assinatura por Boleto Facil';
 
     let email = {
@@ -75,7 +77,7 @@ export class PagamentoPage {
 
   PagarPicPay(){
     this.title = 'Assinatura Seagull Comics: ' + this.usuario.nome;
-    this.body = 'Eu ' + this.usuario.nome + ' Gostaria de comprar a assinatura da Seagull Comics pelo meio do PicPay';
+    this.body = 'Eu ' + this.usuario.nome + ': ' + this.uid + ' gostaria de comprar a assinatura da Seagull Comics pelo meio do PicPay';
     this.subject = 'Assinatura por Picpay';
 
 
