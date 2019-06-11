@@ -117,7 +117,7 @@ export class BibliotecaPage {
       for (let i = 0; i < this.hqsArrayUser.length; i++) {
        
   
-        aux[i].comprado = 'false';
+        aux[i].comprado = '';
         
         for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
     
