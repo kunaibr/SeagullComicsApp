@@ -31,13 +31,14 @@
         <ion-grid>
             <ion-row>
               <ion-col size="4">
-                  <img class="imgCp" [src]="hqs.imagem">
+                  <img class="imgCp" [src]="hqs.imagem" *ngIf="hqsUser != 'True'" (click)="OpenPagamento()">
+                  <img class="imgCp" [src]="hqs.imagem" *ngIf="hqsUser == 'True'" (click)="OpenBiblioteca()">
               </ion-col>
               <ion-col size="8">
                  
                   <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
-                      <button class="precoCard" *ngIf="hqs.comprado != 'true'" (click)="OpenPagamento()" >R${{hqs.preco}}</button>
-                      <button class="precoCard" *ngIf="hqs.comprado == 'true'" (click)="OpenPagamento()"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
+                      <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="OpenPagamento()" >R${{hqs.preco}}</button>
+                      <button class="precoCard" *ngIf="hqsUser == 'True'" (click)="OpenBiblioteca()"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
                     
                   <p class="textCard">Edição:{{hqs.edicao}}</p>
                   <p class="textCard">{{hqs.descricao}}</p>

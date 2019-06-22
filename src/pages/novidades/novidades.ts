@@ -69,9 +69,9 @@ export class NovidadesPage {
     setTimeout(() => {
 
        if (this.slides.isEnd() == true) {
-      this.slides.slideTo(0, 500, true);
+      this.slides.slideTo(0, 1000, true);
        } else {
-        this.slides.slideNext(500, true);
+        this.slides.slideNext(1000, true);
        }
       
     }, 5000);

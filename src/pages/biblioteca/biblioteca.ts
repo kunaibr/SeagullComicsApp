@@ -105,59 +105,58 @@ export class BibliotecaPage {
 
   isBuy(aux: any[]) {
 
-    if(this.hqsUser != undefined){
+    // if(this.hqsUser != undefined){
       
-      this.hqsArrayUser = this.hqsUser.split(',');
+    //   this.hqsArrayUser = this.hqsUser.split(',');
 
    
 
-      //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
-      //se nao é iguala-do a indefinido, entao não é colocado na lista
+    //   //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
+    //   //se nao é iguala-do a indefinido, entao não é colocado na lista
 
-      for (let i = 0; i < this.hqsArrayUser.length; i++) {
+    //   for (let i = 0; i < this.hqsArrayUser.length; i++) {
        
   
-        aux[i].comprado = '';
+    //     aux[i].comprado = '';
         
-        for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
+    //     for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
     
-          if (aux[i].titulo == this.hqsArrayUser[j]) {
-            aux[i].comprado = 'true';
-            j = this.hqsArrayUser.length;
+    //       if (aux[i].titulo == this.hqsArrayUser[j]) {
+    //         aux[i].comprado = 'true';
+    //         j = this.hqsArrayUser.length;
  
-          }
+    //       }
 
         
-        }
-      }
-    }else{
-        //se nao é iguala-do a indefinido, entao não é colocado na lista
-        for (let i: number = 0; this.hqlista.length; i++) {
+    //     }
+    //   }
+    // }else{
+    //     //se nao é iguala-do a indefinido, entao não é colocado na lista
+    //     for (let i: number = 0; this.hqlista.length; i++) {
   
-          aux[i].comprado = '';
+    //       aux[i].comprado = '';
 
-        }
-    }
+    //     }
+    // }
+
+
 
     this.searchHqs = aux;
-   
+    
   }
 
   OnSearch(ev: any){
+    let searchWord = ev.target.value;
    
-    // this.searchHqs = this.hqsBiblioteca;
-
-    // let searchWord = ev.target.value;
-   
-    // if(searchWord && searchWord.trim() != ""){
-    //     this.searchHqs = this.searchHqs.filter((item) =>{
-    //     return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
-    //     }) 
+    if(searchWord && searchWord.trim() != ""){
+        this.searchHqs = this.searchHqs.filter((item) =>{
+        return (item.titulo.toLowerCase().indexOf(searchWord.toLowerCase()) > -1)
+        }) 
        
-    // }else{
-    //   this.searchHqs = this.hqsBiblioteca;
-    //   return this.searchHqs;
-    // }
+    }else{
+      this.searchHqs = this.hqsBiblioteca;
+      return this.searchHqs;
+    }
 
   }
 
