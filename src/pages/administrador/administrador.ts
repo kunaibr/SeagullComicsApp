@@ -349,8 +349,8 @@ AddUser(){
     title: 'Add Comics para o Usuario',
     inputs: [
       {
-        name: 'titulo',
-        placeholder: 'Escreva aqui o titulo da hq',
+        name: 'assinado',
+        placeholder: 'Escreva aqui o True ou False',
       },
       {
         name: 'uid',
@@ -367,7 +367,7 @@ AddUser(){
         text: 'Salvar',
         handler: data => {
 
-          this.AddComicsForUser(data.titulo,data.uid);
+          this.AddComicsForUser(data.assinado,data.uid);
         }
       }
     ]
@@ -376,15 +376,15 @@ AddUser(){
 
 }
 
-  AddComicsForUser(titulo,uid){
+  AddComicsForUser(texto,uid){
 
     this.AbreCarregador();
 
-    this.dataProvider.AddNewComicsForUser(titulo,uid);
+    this.dataProvider.AddNewComicsForUser(texto,uid);
    
 
     let toast = this.toastCtrl.create({
-      message: "Foi add " + titulo + " para o usuario",
+      message: "Assinatura " + texto + " para o usuario",
       duration: 3000
     });
     toast.present();

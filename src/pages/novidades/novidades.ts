@@ -53,8 +53,11 @@ export class NovidadesPage {
     this.noticias = this.dataProvider.GetAllNoticia();
 
     this.slidesnew = this.dataProvider.GetAllSlides();
-
-    this.FechaCarregador();
+    
+    this.noticias.subscribe(() => {
+      this.FechaCarregador();
+    });
+    
     
     this.goToSlide();
   }

@@ -275,53 +275,9 @@ export class DatabaseProvider {
     return ref;
   }
 
-  AddNewComicsForUser(titulo, uid) {
-    let UserHQ: any;
-    let hqlista: any[];
-
-    this.GetAllComics().valueChanges().subscribe(res => {
-
-      hqlista = res;
-
-
-      console.log('Lista de Hqs: ' + hqlista);
-
-      this.GetComicsUser(uid).valueChanges().subscribe(rese => {
-
-        UserHQ = rese[1];
-        console.log('Hqs do usuario: ' + UserHQ);
-
-
-        for (let i = 0; i < hqlista.length; i++) {
-
-          console.log('titluo da hq: ' + hqlista[i].titulo);
-
-          if (hqlista[i].titulo == titulo) {
-
-            let plus = "";
-
-            if (UserHQ != undefined && UserHQ != '') {
-              plus = UserHQ + ",";
-            }
-            this.db.database.ref('usuarios/').child(uid).child('hqs').set("");
-            return this.db.database.ref('usuarios/').child(uid).child('hqs').set(plus + titulo);
-          } else {
-            console.log('não');
-          }
-
-        }
-
-      }, error => {
-        console.log("HQ ano encontrada");
-
-      });
-
-    }, error => {
-      console.log("HQ ano encontrada");
-
-    });
-    return null;
-
+  AddNewComicsForUser(texto, uid) {
+    this.db.database.ref('usuarios/').child(uid).child('hqs').set("");
+    return this.db.database.ref('usuarios/').child(uid).child('hqs').set(texto);
   }
 
   GetToAdm(){
