@@ -20,14 +20,24 @@
   <ion-label class="titleGreat">CONTATE-NOS!</ion-label>
 <p class="titleNormal">Elogios, sugestões, repotar algo, bugs, nos envie um email</p>
 
+      <p>Titulo</p>
         <ion-input type="text" placdholder="Titulo" [(ngModel)]="title"></ion-input>
-      
+    
+      <p>Assunto</p>
         <ion-input type="text" placdholder="Assunto" [(ngModel)]="subject" ></ion-input>
 
+      <p>Mensagem</p>
         <ion-input class="big" type="text" placdholder="Mensagem" [(ngModel)]="body" ></ion-input>
-     
+
       <div>
        <button class="Great" (click)="SendEmail()">ENVIAR</button>
       </div>
+
+      <div class="line"></div>
+<h2>Nossas redes sociais</h2>
+      <a href="https://www.facebook.com/SeagullComics/">
+        <ion-icon name="logo-facebook"></ion-icon></a>
+        <a href="https://www.instagram.com/seagull.comics/?hl=pt-br">
+          <ion-icon name="logo-instagram"></ion-icon></a>
 
 </ion-content>

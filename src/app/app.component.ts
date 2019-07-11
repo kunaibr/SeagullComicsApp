@@ -66,20 +66,15 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.storage.get('user').then((res) => {
+        if (res == null) {
+          this.rootPage = LoginPage;
+        } else {
+          this.globalvars.setUser(res);
+         
+          this.rootPage = NovidadesPage;
+        }
     });
-
-    this.storage.get('user').then((res) => {
-      if (res == null) {
-        this.rootPage = LoginPage;
-      } else {
-        this.globalvars.setUser(res);
-       
-        this.rootPage = NovidadesPage;
-      }
-      
-  });
-  
-
     this.storage.get('intro_storage').then((int) => {
       if(int == null){
         this.rootPage = IntroPage;   
@@ -88,6 +83,8 @@ export class MyApp {
 
     
     this.languageProvider.setInitialAppLanguage();
+      
+  });
 
   }
 
