@@ -270,9 +270,8 @@ export class AdministradorPage {
               duration: 3000
             });
             toast.present();
-           
-            // this.keyComics = response.key;
-            // this.storage.set('KeyComic',response.key);
+         
+            
             this.FechaCarregador();
            
            
@@ -334,24 +333,24 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,info,numero,descricao).then(() =>{
+      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,numero,res.metadata,descricao).then((response) => {
         let toast = this.toastCtrl.create({
-              message: "Seu envio da Pagina foi um Sucesso",
+              message: "Seu envio de Season foi um Sucesso " + response.key,
               duration: 3000
             });
             toast.present();
-
+           
             this.FechaCarregador();
-
-            this.imgPath = "";
+          
       });
     });
     
+    this.FechaCarregador();
   }
  
   AddComicsPage(){
     let inputAlert = this.AlertCtrl.create({
-      title: 'Criar Comics',
+      title: 'Criar Page',
       inputs: [
         {
           name: 'info',

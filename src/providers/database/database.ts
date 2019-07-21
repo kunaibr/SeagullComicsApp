@@ -4,7 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 import { Storage } from '@ionic/Storage';
-import { SelectorContext } from '@angular/compiler';
+
 
 
 @Injectable()
@@ -155,7 +155,7 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsSeason(key: string, imagem: string,numero:string, metainfo,descricao:string)
+  SaveToDatabaseComicsSeason(keyComic: string, imagem: string,numero:string, metainfo,descricao:string)
   {
     
     let toSave = {
@@ -167,11 +167,9 @@ export class DatabaseProvider {
       pages: imagem,
     };
 
-    let ref = this.db.list('comics/'+key+'/season').push(toSave);
-    this.db.database.ref('comics/' + key + '/season/' +  ref.key + '/key').set(ref.key);
-
+    let ref = this.db.list('comics/' + keyComic + '/season').push(toSave);
+    this.db.database.ref('comics/'+ keyComic + '/season/' + ref.key + '/key').set(ref.key);
     return ref;
-    
   }
 
   SaveToDatabaseComicsPage(keyComic: string,keySeason: string, imagem: string,numero:string, metainfo)
@@ -179,7 +177,7 @@ export class DatabaseProvider {
     
     let toSave = {
       numero: numero,
-      //fullPath: metainfo.fullPath,
+    
       imagem: imagem,
     };
 
