@@ -45,7 +45,7 @@ export class HqsPage {
 
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
-    console.log("user: " + this.usuario);
+   
 
     this.GetRetornarComics();
   }
@@ -79,7 +79,7 @@ export class HqsPage {
     this.hqlista.subscribe(res => {
    
     this.hqsUser = res[1];
-    console.log(this.hqsUser);
+   
     });
    
     let aux: any[];
@@ -101,40 +101,8 @@ export class HqsPage {
 
   isBuy(aux: any[]) {
 
-    // if(this.hqsUser != undefined){
-      
-    //   this.hqsArrayUser = this.hqsUser.split(',');
-
-    //   //aqui a uma busca das hqs existentes e  se encontrar ele deixa com os dados
-    //   //se nao é iguala-do a indefinido, entao não é colocado na lista
-
-    //   for (let i = 0; i < this.hqsArrayUser.length; i++) {
-       
-  
-    //     aux[i].comprado = '';
-        
-    //     for (let j: number = 0; j < this.hqsArrayUser.length; j++) {
-    
-    //       if (aux[i].titulo == this.hqsArrayUser[j]) {
-    //         aux[i].comprado = 'true';
-    //         j = this.hqsArrayUser.length;
- 
-    //       }
-  
-    //     }
-    //   }
-    // }else{
-    //     //se nao é iguala-do a indefinido, entao não é colocado na lista
-    //     for (let i: number = 0; this.hqlista.length; i++) {
-  
-    //       aux[i].comprado = '';
-
-    //     }
-    // }
-
     this.searchHqs = aux;
-    console.log(this.searchHqs);
-   
+  
   }
 
   OpenHq(codigo): any {

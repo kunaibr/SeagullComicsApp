@@ -1,21 +1,22 @@
 import { Component, Injectable } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { HqviewPage } from '../hqview/hqview';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
-import { SeasonPage } from '../season/season';
 
 
 @IonicPage()
 @Component({
-  selector: 'page-biblioteca',
-  templateUrl: 'biblioteca.html',
+  selector: 'page-season',
+  templateUrl: 'season.html',
 })
 
 @Injectable()
-export class BibliotecaPage {
+export class SeasonPage {
+
   hqlista:any;
   hqsUser:string; 
   hqsArrayUser:string[]; 
@@ -25,6 +26,18 @@ export class BibliotecaPage {
 
   auxHq: Observable<any[]>;
   
+  keyComic: any = {
+    key: "",
+    titulo: "",
+    edicao: "",
+    imagem: "",
+    data: "",
+  };
+
+  keySeason: any;
+
+  titulo: string;
+
   public isSearchOpen = false;
 
   public loader;
@@ -48,9 +61,8 @@ export class BibliotecaPage {
 
   ionViewDidLoad() {
     this.usuario =  this.globalvars.getUser();
-
-
-    this.GetRetornarComics();
+    
+    this.GetRetornarSeason();
   }
 
 //Carrega a pagina
@@ -70,12 +82,15 @@ export class BibliotecaPage {
   this.refresher = refresher;
   this.isRefreshing = true;
 
-  this.GetRetornarComics();
+  this.GetRetornarSeason();
   }
 
   
   //Essa função é acionada ao recarregar a page
-  GetRetornarComics() {
+  GetRetornarSeason() {
+    this.keyComic = this.navParams.get("key");
+    console.log(this.keyComic);
+    this.titulo = this.keyComic.titulo;
 
     this.AbreCarregador();
 
@@ -83,12 +98,12 @@ export class BibliotecaPage {
     this.hqlista.subscribe(res => {
    
     this.hqsUser = res[1];
-  
-    });
    
+    });
+
     let aux: any[];
 
-    this.auxHq = this.dataProvider.GetAllComics().valueChanges();
+    this.auxHq = this.dataProvider.GetAllSeason(this.keyComic).valueChanges();
     this.auxHq.subscribe(res => {
       aux = res;
       this.isBuy(aux);
@@ -99,6 +114,7 @@ export class BibliotecaPage {
         this.refresher.complete();
         this.isRefreshing = false;
       }
+      
     });
 
   }
@@ -124,13 +140,23 @@ export class BibliotecaPage {
 
   }
 
-  OpenHq(key):any{
-    if(key != undefined){
-      this.navCtrl.push(SeasonPage, {key: key});
-    }
+  OpenSeason(key):any{
+   
+    console.log(key);
+
+     if(key != undefined){
+    
+      this.keySeason = key;
+      
+        this.navCtrl.push(HqviewPage, {
+          keyComic: this.keyComic,
+          keySeason:  this.keySeason.key,
+        });
+     }
   }
 
 
 
 
 }
+

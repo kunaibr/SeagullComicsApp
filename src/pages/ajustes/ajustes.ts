@@ -48,7 +48,7 @@ export class AjustesPage {
     if (res != undefined) {
       this.dataProvider.GetUser(res).subscribe((u) => {
          let user: any[] = u;
-         console.log(user[0].status);
+     
          if(user[0].status == "Adm"){
            this.navCtrl.push(AdministradorPage);
          }

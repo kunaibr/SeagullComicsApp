@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { DatabaseProvider } from '../../providers/database/database';
 
@@ -11,25 +10,36 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class HqviewPage {
   public codigo;
-  key: any;
+  keyComic: any = {
+    key: "",
+    titulo: "",
+    edicao: "",
+    imagem: "",
+    data: "",
+  };
+
+  keySeason: any;
   hqslist: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public http: Http,
     private dataProvider: DatabaseProvider,
   ) {
+    this.GetPages();
   }
 
   ionViewDidEnter() {
-    this.key = this.navParams.get("key");
-    console.log(this.key.key);
+    this.keyComic = this.navParams.get("keyComic");
+    this.keySeason = this.navParams.get("keySeason");
     this.GetPages();
-
   }
 
   GetPages() {
-    this.hqslist = this.dataProvider.GetAllComisPages(this.key.key);
+    console.log(this.keyComic.key);
+    console.log(this.keySeason);
+
+    this.hqslist = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + this.keySeason);
+   
   }
 }

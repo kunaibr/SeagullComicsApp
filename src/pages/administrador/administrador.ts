@@ -25,7 +25,20 @@ export class AdministradorPage {
   filenews: Observable<any[]>;
 
   keyComics:string;
+  keySeason:string;
   public loader;
+
+  searchHqs:any[];
+  hqlista:any;
+  hqsUser:string; 
+  usuario:any;
+  auxHq: Observable<any[]>;
+
+  searchSeason:any[];
+  auxSeason: Observable<any[]>;
+
+  keyComic;
+  hqsPages: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -42,7 +55,13 @@ export class AdministradorPage {
     console.log('Key Comics : ' + this.storage.get('keyComic'));
    
     this.filenews = this.dataProvider.GetAllNoticia();
+
+    this.GetRetornarComics();
   }
+  ionViewDidOpen() {
+    this.GetRetornarComics();
+  }
+
 
   //Carrega a pagina
   AbreCarregador() {
@@ -180,6 +199,7 @@ export class AdministradorPage {
 
   }
 
+
    //-----------------------------------------------------------COMICS
 
   AddComics() {
@@ -200,10 +220,6 @@ export class AdministradorPage {
           placeholder: 'Escreva aqui o descricao',
         },
         {
-          name: 'preco',
-          placeholder: 'Escreva aqui o preco',
-        },
-        {
           name: 'edicao',
           placeholder: 'Escreva aqui o numero da edição',
         },
@@ -218,7 +234,7 @@ export class AdministradorPage {
           text: 'Salvar',
           handler: data => {
 
-            this.UploadComics(data.info,data.titulo,data.texto,data.preco,data.edicao);
+            this.UploadComics(data.info,data.titulo,data.texto,data.edicao);
           }
         }
       ]
@@ -227,7 +243,7 @@ export class AdministradorPage {
 
   }
 
-  UploadComics(info,titulo,texto,preco,edicao){
+  UploadComics(info,titulo,texto,edicao){
 
     this.AbreCarregador();
 
@@ -237,17 +253,17 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,preco,edicao).then((response) => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
             });
             toast.present();
            
-            this.keyComics = response.key;
-            this.storage.set('KeyComic',response.key);
+            // this.keyComics = response.key;
+            // this.storage.set('KeyComic',response.key);
             this.FechaCarregador();
-            this.UploadComicsPage(info,'1');
+           
            
            
       });
@@ -255,6 +271,66 @@ export class AdministradorPage {
     
   }
 
+  AddComicsSeason(){
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Criar Season',
+      inputs: [
+        {
+          name: 'info',
+          placeholder: 'Escreva aqui o informação',
+        },
+        {
+          name: 'idcomic',
+          placeholder: 'Escreva aqui o id da comic',
+        },
+        {
+          name: 'numerodaseason',
+          placeholder: 'Escreva aqui o numero da season',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.UploadComicsSeason(data.info,data.idcomic,data.numerodaseason);
+          
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
+
+  UploadComicsSeason(info,idcomic,numero){
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStorageComicsPage(info,this.imgPath);
+
+    console.log('upload' + upload);
+
+    upload.then().then(res => {
+      console.log('res' + res.metadata);
+      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,info,numero).then(() =>{
+        let toast = this.toastCtrl.create({
+              message: "Seu envio da Pagina foi um Sucesso",
+              duration: 3000
+            });
+            toast.present();
+
+            this.FechaCarregador();
+
+            this.imgPath = "";
+      });
+    });
+    
+  }
+ 
   AddComicsPage(){
     let inputAlert = this.AlertCtrl.create({
       title: 'Criar Comics',
@@ -262,6 +338,14 @@ export class AdministradorPage {
         {
           name: 'info',
           placeholder: 'Escreva aqui o informação',
+        },
+        {
+          name: 'idcomic',
+          placeholder: 'Escreva aqui o id da comic',
+        },
+        {
+          name: 'idseason',
+          placeholder: 'Escreva aqui o numero da season',
         },
         {
           name: 'numerodapagina',
@@ -277,7 +361,7 @@ export class AdministradorPage {
         {
           text: 'Salvar',
           handler: data => {
-            this.UploadComicsPage(data.info,data.numero);
+            this.UploadComicsPage(data.info,data.idcomic,data.idseason,data.numerodapagina);
           
           }
         }
@@ -287,8 +371,10 @@ export class AdministradorPage {
 
   }
 
-  UploadComicsPage(info,numero){
+  UploadComicsPage(info,idcomic,idseason,numero){
     this.AbreCarregador();
+
+    
 
     let upload = this.dataProvider.UploadToStorageComicsPage(info,this.imgPath);
 
@@ -296,7 +382,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsPage(this.keyComics,this.imgPath,info,numero).then(() =>{
+      this.dataProvider.SaveToDatabaseComicsPage(idcomic,idseason,this.imgPath,info,numero).then(() =>{
         let toast = this.toastCtrl.create({
               message: "Seu envio da Pagina foi um Sucesso",
               duration: 3000
@@ -344,7 +430,7 @@ export class AdministradorPage {
 
   //-------------------------------------------------------------USER
 
-AddUser(){
+  AddUser(){
   let inputAlert = this.AlertCtrl.create({
     title: 'Add Comics para o Usuario',
     inputs: [
@@ -374,7 +460,7 @@ AddUser(){
   });
   inputAlert.present();
 
-}
+  }
 
   AddComicsForUser(texto,uid){
 
@@ -393,6 +479,58 @@ AddUser(){
     this.FechaCarregador();
 
   }
+
+//---------------------------------------------------------------LIST
+
+GetRetornarComics() {
+
+  this.AbreCarregador();
+
+  this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+  this.hqlista.subscribe(res => {
+ 
+  this.hqsUser = res[1];
+
+  });
+
+  this.auxHq = this.dataProvider.GetAllComics().valueChanges();
+  this.auxHq.subscribe(res => {
+    
+  this.searchHqs = res;
+
+  this.FechaCarregador();
+    
+  });
+
 }
+
+GetRetornarSeason(keyComic) {
+
+  
+  this.AbreCarregador();
+  
+  this.keyComic = keyComic;
+
+  this.auxSeason = this.dataProvider.GetAllSeason(keyComic).valueChanges();
+  this.auxSeason.subscribe(res => {
+   
+    this.searchSeason = res;
+    
+    this.FechaCarregador();
+  });
+
+}
+
+GetPages(keySeason) {
+  this.hqsPages = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + keySeason.key);
+}
+
+
+
+
+
+}
+
+
 
 

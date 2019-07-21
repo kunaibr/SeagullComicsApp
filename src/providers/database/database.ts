@@ -74,6 +74,15 @@ export class DatabaseProvider {
 
   }
 
+  GetAllSeason(key)
+  {
+    
+    let ref = this.db.list('comics/' + key.key + '/season');
+   
+    return ref;
+
+  }
+
   UploadToStoregedComics(info, imageURI): AngularFireUploadTask {
 
     let newName = `${new Date().getTime()}.txt`;
@@ -96,7 +105,7 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, preco, edicao) {
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao) {
 
     let toSave = {
       key: '',
@@ -105,10 +114,8 @@ export class DatabaseProvider {
       data: metainfo.timeCreated,
       fullPath: metainfo.fullPath,
       imagem: imagemComics,
-      preco: preco,
       edicao: edicao,
-      comprado: '',
-      pages: imagemComics,
+      season: imagemComics,
     };
 
     let ref = this.db.list('comics').push(toSave);
@@ -116,7 +123,7 @@ export class DatabaseProvider {
     return ref;
   }
 
-  GetAllComisPages(key) {
+  GetAllComicsPages(key) {
     let ref = this.db.list('comics/' + key + '/pages');
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
@@ -146,7 +153,24 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsPage(key: string, imagem: string,numero:string, metainfo)
+  SaveToDatabaseComicsSeason(key: string, imagem: string,numero:string, metainfo)
+  {
+    
+    let toSave = {
+      key: '',
+      numero: numero,
+      imagem: imagem,
+      pages: imagem,
+    };
+
+    let ref = this.db.list('comics/'+key+'/season').push(toSave);
+    this.db.database.ref('comics/' + key + '/season/' +  ref.key + '/key').set(ref.key);
+
+    return ref;
+    
+  }
+
+  SaveToDatabaseComicsPage(keyComic: string,keySeason: string, imagem: string,numero:string, metainfo)
   {
     
     let toSave = {
@@ -155,7 +179,7 @@ export class DatabaseProvider {
       imagem: imagem,
     };
 
-    return this.db.list('comics/'+key+'/pages').push(toSave);
+    return this.db.list('comics/'+keyComic + '/season/' + keySeason + "/pages").push(toSave);
     
     
 
@@ -265,7 +289,7 @@ export class DatabaseProvider {
   GetUser(uid) {
     let ref = this.db.list('usuarios/' + uid).valueChanges();
 
-    console.log(ref);
+  
     return ref;
   }
 

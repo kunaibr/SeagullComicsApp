@@ -12,7 +12,7 @@ export class PdfPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PdfPage');
+   
   }
 
 }

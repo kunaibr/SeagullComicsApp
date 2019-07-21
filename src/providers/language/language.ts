@@ -22,7 +22,6 @@ export class LanguageProvider {
     console.log(language);
     this.storage.get(LNG_KEY).then(val => {
       if (val) {
-        console.log(val);
         this.setLanguage(val);
         this.selected = val;
       }

@@ -13,23 +13,27 @@
    <button class="Great" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>  Escolher Imagens</button>
    <img src="{{ imgPath }}" alt="" />
 
+  <h2>Lista de HQs</h2>
+
+  <p *ngFor="let hqs of searchHqs" (click)="GetRetornarSeason(hqs)">{{hqs.key}}</p>
+
+  <h3>Lista de Seasons</h3>
+
+  <p *ngFor="let sea of searchSeason" (click)="GetPages(sea)" >{{sea.key}}</p>
+
+  <h3>Lista de Paginas</h3>
+  <img *ngFor="let page of hqsPages | async" [src]="page.imagem">
+ 
+
    <ion-fab slot="fixed" right bottom>
  
     <button ion-fab color="primary">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="ios-image"></ion-icon>
     </button>
     <ion-fab-list side="top">
 
       <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddNews()">
         <ion-icon name="paper"></ion-icon>
-      </button>
-
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComics()">
-        <ion-icon name="ios-book"></ion-icon>
-      </button>
-
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsPage()">
-        <ion-icon name="md-document"></ion-icon>
       </button>
     
       <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddSlides()">
@@ -39,6 +43,30 @@
         <button ion-fab color="primary" (click)="AddUser()">
             <ion-icon name="ios-happy"></ion-icon>
           </button>
+    </ion-fab-list>
+
+ </ion-fab>
+ 
+ <ion-fab slot="fixed" left bottom>
+ 
+    <button ion-fab color="primary">
+      <ion-icon name="md-bookmarks"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+    
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComics()">
+        <ion-icon name="ios-bookmarks"></ion-icon>
+      </button>
+
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsSeason()">
+          <ion-icon name="ios-book"></ion-icon>
+        </button>
+
+      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsPage()">
+        <ion-icon name="ios-paper-outline"></ion-icon>
+      </button>
+    
     </ion-fab-list>
 
  </ion-fab>

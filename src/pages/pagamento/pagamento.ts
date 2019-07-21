@@ -27,7 +27,7 @@ uid:any;
      private globalvars: GlobalvarsProvider,
      ) {
       this.uid = this.globalvars.getUser();
-      console.log("user: " + this.uid);
+      console.log("userid: " + this.uid);
   }
 
   ionViewDidLoad() {

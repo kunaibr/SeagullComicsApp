@@ -54,6 +54,8 @@ import { PagamentoPage } from '../pages/pagamento/pagamento';
 import { PagamentoPageModule } from '../pages/pagamento/pagamento.module';
 import { PdfPage } from '../pages/pdf/pdf';
 import { PdfPageModule } from '../pages/pdf/pdf.module';
+import { SeasonPage } from '../pages/season/season';
+import { SeasonPageModule } from '../pages/season/season.module';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
@@ -94,6 +96,7 @@ export function createTranslateLoader(http: HttpClient) {
     CadastroPageModule,
     DetalheNoticiaPageModule,
     PdfPageModule,
+    SeasonPageModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
@@ -125,6 +128,7 @@ export function createTranslateLoader(http: HttpClient) {
     CadastroPage,
     PagamentoPage,
     PdfPage,
+    SeasonPage,
   ],
   providers: [
     StatusBar,
