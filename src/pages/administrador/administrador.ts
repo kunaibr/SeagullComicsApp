@@ -28,17 +28,24 @@ export class AdministradorPage {
   keySeason:string;
   public loader;
 
+  //COMICS
   searchHqs:any[];
   hqlista:any;
   hqsUser:string; 
   usuario:any;
   auxHq: Observable<any[]>;
 
+  //SEASON
   searchSeason:any[];
   auxSeason: Observable<any[]>;
 
+  //PAGES
   keyComic;
   hqsPages: Observable<any[]>;
+
+  //
+  stringComicId:string;
+  stringSeasonId:string;
 
   constructor(
     public navCtrl: NavController,
@@ -209,7 +216,7 @@ export class AdministradorPage {
       inputs: [
         {
           name: 'info',
-          placeholder: 'Escreva aqui o informação',
+          placeholder: '',
         },
         {
           name: 'titulo',
@@ -223,6 +230,10 @@ export class AdministradorPage {
           name: 'edicao',
           placeholder: 'Escreva aqui o numero da edição',
         },
+        {
+          name: 'selo',
+          placeholder: 'Escreva aqui o Selo do Arco',
+        },
 
       ],
       buttons: [
@@ -234,7 +245,7 @@ export class AdministradorPage {
           text: 'Salvar',
           handler: data => {
 
-            this.UploadComics(data.info,data.titulo,data.texto,data.edicao);
+            this.UploadComics(data.info,data.titulo,data.texto,data.edicao,data.selo);
           }
         }
       ]
@@ -243,7 +254,7 @@ export class AdministradorPage {
 
   }
 
-  UploadComics(info,titulo,texto,edicao){
+  UploadComics(info,titulo,texto,edicao,selo){
 
     this.AbreCarregador();
 
@@ -253,7 +264,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao).then((response) => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
@@ -272,6 +283,7 @@ export class AdministradorPage {
   }
 
   AddComicsSeason(){
+
     let inputAlert = this.AlertCtrl.create({
       title: 'Criar Season',
       inputs: [
@@ -282,11 +294,17 @@ export class AdministradorPage {
         {
           name: 'idcomic',
           placeholder: 'Escreva aqui o id da comic',
+          value: this.stringComicId,
+        },
+        {
+          name: 'descricao',
+          placeholder: 'Escreva aqui a descrição',
         },
         {
           name: 'numerodaseason',
           placeholder: 'Escreva aqui o numero da season',
         },
+        
 
       ],
       buttons: [
@@ -297,7 +315,7 @@ export class AdministradorPage {
         {
           text: 'Salvar',
           handler: data => {
-            this.UploadComicsSeason(data.info,data.idcomic,data.numerodaseason);
+            this.UploadComicsSeason(data.info,data.idcomic,data.numerodaseason,data.descricao);
           
           }
         }
@@ -307,7 +325,7 @@ export class AdministradorPage {
 
   }
 
-  UploadComicsSeason(info,idcomic,numero){
+  UploadComicsSeason(info,idcomic,numero,descricao){
     this.AbreCarregador();
 
     let upload = this.dataProvider.UploadToStorageComicsPage(info,this.imgPath);
@@ -316,7 +334,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,info,numero).then(() =>{
+      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,info,numero,descricao).then(() =>{
         let toast = this.toastCtrl.create({
               message: "Seu envio da Pagina foi um Sucesso",
               duration: 3000
@@ -342,10 +360,12 @@ export class AdministradorPage {
         {
           name: 'idcomic',
           placeholder: 'Escreva aqui o id da comic',
+          value: this.stringComicId,
         },
         {
           name: 'idseason',
           placeholder: 'Escreva aqui o numero da season',
+          value: this.stringSeasonId,
         },
         {
           name: 'numerodapagina',
@@ -506,6 +526,7 @@ GetRetornarComics() {
 
 GetRetornarSeason(keyComic) {
 
+  this.stringComicId = keyComic.key;
   
   this.AbreCarregador();
   
@@ -522,6 +543,9 @@ GetRetornarSeason(keyComic) {
 }
 
 GetPages(keySeason) {
+
+  this.stringSeasonId = keySeason.key;
+
   this.hqsPages = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + keySeason.key);
 }
 

@@ -11,15 +11,15 @@
 <ion-content padding>
       
    <button class="Great" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>  Escolher Imagens</button>
-   <img src="{{ imgPath }}" alt="" />
+   <img src="{{ imgPath }}" alt="" class="imgBig"/>
 
   <h2>Lista de HQs</h2>
 
-  <p *ngFor="let hqs of searchHqs" (click)="GetRetornarSeason(hqs)">{{hqs.key}}</p>
+  <p *ngFor="let hqs of searchHqs" (click)="GetRetornarSeason(hqs)">{{hqs.titulo}} - {{hqs.key}}</p>
 
   <h3>Lista de Seasons</h3>
 
-  <p *ngFor="let sea of searchSeason" (click)="GetPages(sea)" >{{sea.key}}</p>
+  <p *ngFor="let sea of searchSeason" (click)="GetPages(sea)" >{{sea.numero}} - {{sea.key}}</p>
 
   <h3>Lista de Paginas</h3>
   <img *ngFor="let page of hqsPages | async" [src]="page.imagem">

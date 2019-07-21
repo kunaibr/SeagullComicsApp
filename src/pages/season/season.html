@@ -36,18 +36,21 @@
       
       </ion-item>
      
-      <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
+      <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
             <ion-grid>
                 <ion-row>
                   <ion-col size="4">
-                      <img [src]="hqs.imagem" class="imgCp">
+                      <img [src]="hqs.imagem" class="imgCpmin">
                   </ion-col>
                   <ion-col size="8">
+                      <p class="textCard">{{hqs.numero}}</p>
                       <p class="dataCard">{{hqs.data | date: 'mediumDate'}}</p>
                   </ion-col>
                 </ion-row>
+                
             </ion-grid>
+           
           </div> 
       </ion-item>
     
