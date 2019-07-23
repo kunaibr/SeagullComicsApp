@@ -50,6 +50,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DatabaseProvider } from '../providers/database/database';
 import { Camera} from '@ionic-native/camera';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { PagamentoPage } from '../pages/pagamento/pagamento';
 import { PagamentoPageModule } from '../pages/pagamento/pagamento.module';
 import { PdfPage } from '../pages/pdf/pdf';
@@ -97,6 +98,7 @@ export function createTranslateLoader(http: HttpClient) {
     DetalheNoticiaPageModule,
     PdfPageModule,
     SeasonPageModule,
+    PinchZoomModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({

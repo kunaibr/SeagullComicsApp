@@ -40,12 +40,13 @@
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
             <ion-grid>
                 <ion-row>
-                  <ion-col size="4">
+                  <ion-col size="2">
                       <img [src]="hqs.imagem" class="imgCpmin">
                   </ion-col>
-                  <ion-col size="8">
-                      <p class="textCard">{{hqs.numero}}</p>
-                      <p class="dataCard">{{hqs.data | date: 'mediumDate'}}</p>
+                  <ion-col size="10">
+                      <p class="titleCardSeason">{{hqs.descricao}}</p>
+                      <p class="textSeason">{{hqs.numero}}º Temporada</p>
+                      <p class="dataCardSeason">{{hqs.data | date: 'mediumDate'}}</p>
                   </ion-col>
                 </ion-row>
                 
