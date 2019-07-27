@@ -6,6 +6,7 @@ import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { SeasonPage } from '../season/season';
+import { PagamentoPage } from '../pagamento/pagamento';
 
 
 @IonicPage()
@@ -78,35 +79,29 @@ export class BibliotecaPage {
   GetRetornarComics() {
 
     this.AbreCarregador();
-
-    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
-    this.hqlista.subscribe(res => {
-   
-    this.hqsUser = res[1];
-  
-    });
    
     let aux: any[];
 
     this.auxHq = this.dataProvider.GetAllComics().valueChanges();
     this.auxHq.subscribe(res => {
       aux = res;
-      this.isBuy(aux);
+      this.searchHqs = aux;
       
       this.FechaCarregador();
 
+      this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+      this.hqlista.subscribe(res => {
+  
+      this.hqsUser = res[1];
+    
+      });
+      
       if (this.isRefreshing) {
         this.refresher.complete();
         this.isRefreshing = false;
       }
     });
 
-  }
-
-  isBuy(aux: any[]) {
-
-    this.searchHqs = aux;
-    
   }
 
   OnSearch(ev: any){
@@ -124,12 +119,19 @@ export class BibliotecaPage {
 
   }
 
-  OpenHq(key):any{
+  OpenSeason(key):any{
     if(key != undefined){
-      this.navCtrl.push(SeasonPage, {key: key});
+      this.navCtrl.push(SeasonPage, 
+        {
+          key: key, 
+          page: 'biblioteca',
+      });
     }
   }
 
+  OpenPagamento(){
+    this.navCtrl.push(PagamentoPage);
+  }
 
 
 

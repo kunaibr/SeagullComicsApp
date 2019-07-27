@@ -24,6 +24,7 @@
   <h3>Lista de Paginas</h3>
   <img *ngFor="let page of hqsPages | async" [src]="page.imagem">
  
+  <button class="Great" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button>
 
    <ion-fab slot="fixed" right bottom>
  

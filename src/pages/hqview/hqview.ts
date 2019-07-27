@@ -20,26 +20,59 @@ export class HqviewPage {
 
   keySeason: any;
   hqslist: Observable<any[]>;
+  hqsPages: any[];
+
+  preview: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataProvider: DatabaseProvider,
   ) {
-    this.GetPages();
+    
   }
 
   ionViewDidEnter() {
     this.keyComic = this.navParams.get("keyComic");
     this.keySeason = this.navParams.get("keySeason");
+    this.preview= this.navParams.get("preview");
+    
     this.GetPages();
   }
+    
 
   GetPages() {
-    console.log(this.keyComic.key);
-    console.log(this.keySeason);
-
     this.hqslist = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + this.keySeason);
-   
+    this.hqslist.subscribe(res => 
+      {
+      
+        if(this.preview == 'False'){
+          this.hqsPages = res;
+        }else{
+          let aux: any = [
+           { 
+            imagem: res[0].imagem,
+            numero: res[0].numero,
+            key: res[0].key,
+           },
+           { 
+            imagem: res[1].imagem,
+            numero: res[1].numero,
+            key: res[1].key,
+           },
+           { 
+            imagem: res[2].imagem,
+            numero: res[2].numero,
+            key: res[2].key,
+           },
+          ];
+          
+
+          this.hqsPages = aux;
+        }
+
+      });
+      
+    
   }
 }

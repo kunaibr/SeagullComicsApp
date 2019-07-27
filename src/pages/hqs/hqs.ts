@@ -6,7 +6,7 @@ import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { PagamentoPage } from '../pagamento/pagamento';
-import { BibliotecaPage } from '../biblioteca/biblioteca';
+import { SeasonPage } from '../season/season';
 
 @IonicPage()
 @Component({
@@ -87,7 +87,7 @@ export class HqsPage {
     this.auxHq = this.dataProvider.GetAllComics().valueChanges();
     this.auxHq.subscribe(res => {
       aux = res;
-      this.isBuy(aux);
+      this.searchHqs = aux;
       
       this.FechaCarregador();
 
@@ -99,17 +99,7 @@ export class HqsPage {
 
   }
 
-  isBuy(aux: any[]) {
 
-    this.searchHqs = aux;
-  
-  }
-
-  OpenHq(codigo): any {
-    if (codigo != undefined) {
-
-    }
-  }
 
   OpenPagamento(){
     this.navCtrl.push(PagamentoPage);
@@ -132,8 +122,15 @@ export class HqsPage {
 
   }
 
-  OpenBiblioteca(){
-    this.navCtrl.push(BibliotecaPage);
+  OpenSeason(key){
+   
+      this.navCtrl.push(SeasonPage, 
+        {
+          key: key, 
+          page: 'hqs',
+      });
+  
+   
   }
 
 }

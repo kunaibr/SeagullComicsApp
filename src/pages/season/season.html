@@ -32,10 +32,11 @@
           <img [src]="keyComic.imagem">
           <p>Edição: {{keyComic.edicao}}</p>
           <p>Data: {{keyComic.data | date: 'mediumDate'}}</p>
+          <p class="textSeason" >Descrição: {{keyComic.descricao}}</p>
         </div>
       
       </ion-item>
-     
+      <button *ngIf="hqsUser != 'True'" class="GreatNegative">Só Preview</button>
       <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
             <ion-grid>
@@ -54,8 +55,9 @@
            
           </div> 
       </ion-item>
-    
-  
-  
-  </ion-content>
+    <ion-item *ngIf="hqsUser == 'False'">
+      <img src="../../assets/images/contrato.png">
+      <button class="AssinarButton" (click)="OpenPagamento()">ASSINAR AGORA!</button>
+    </ion-item>
+    </ion-content>
   

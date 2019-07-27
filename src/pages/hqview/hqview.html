@@ -2,6 +2,7 @@
 <ion-header>
 
   <ion-navbar>
+      <ion-title *ngIf="preview == 'True'" >Preview</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,11 +10,10 @@
 
 <ion-content fullscreen="true" direction="xy">
     
-    <div *ngFor="let page of hqslist | async">
+    <div *ngFor="let page of hqsPages">
         <pinch-zoom zoom-button="False" double-tap="true">
         <img [src]="page.imagem">
       </pinch-zoom>
     </div>
   
-
 </ion-content>

@@ -290,14 +290,14 @@ export class DatabaseProvider {
 
   GetUser(uid) {
     let ref = this.db.list('usuarios/' + uid).valueChanges();
-
-  
+    console.log(uid);
     return ref;
   }
 
   GetComicsUser(uid) {
     let ref = this.db.list('usuarios/' + uid);
-
+    console.log(uid);
+    
     return ref;
   }
 

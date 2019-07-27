@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
+import { PagamentoPage } from '../pagamento/pagamento';
 
 
 @IonicPage()
@@ -60,6 +61,7 @@ export class SeasonPage {
   
 
   ionViewDidLoad() {
+
     this.usuario =  this.globalvars.getUser();
     
     this.GetRetornarSeason();
@@ -88,18 +90,12 @@ export class SeasonPage {
   
   //Essa função é acionada ao recarregar a page
   GetRetornarSeason() {
+
     this.keyComic = this.navParams.get("key");
-    console.log(this.keyComic);
     this.titulo = this.keyComic.titulo;
 
     this.AbreCarregador();
 
-    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
-    this.hqlista.subscribe(res => {
-   
-    this.hqsUser = res[1];
-   
-    });
 
     let aux: any[];
 
@@ -110,6 +106,13 @@ export class SeasonPage {
       
       this.FechaCarregador();
 
+      this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+      this.hqlista.subscribe(res => {
+     
+      this.hqsUser = res[1];
+     
+      });
+      
       if (this.isRefreshing) {
         this.refresher.complete();
         this.isRefreshing = false;
@@ -141,20 +144,31 @@ export class SeasonPage {
   }
 
   OpenSeason(key):any{
-   
-    console.log(key);
+  
 
-     if(key != undefined){
+     if(key != undefined && this.hqsUser == 'True'){
     
       this.keySeason = key;
       
         this.navCtrl.push(HqviewPage, {
           keyComic: this.keyComic,
           keySeason:  this.keySeason.key,
+          preview: 'False',
         });
+     }else{
+      this.keySeason = key;
+      
+      this.navCtrl.push(HqviewPage, {
+        keyComic: this.keyComic,
+        keySeason:  this.keySeason.key,
+        preview: 'True',
+      });
      }
   }
 
+  OpenPagamento(){
+    this.navCtrl.push(PagamentoPage);
+  }
 
 
 

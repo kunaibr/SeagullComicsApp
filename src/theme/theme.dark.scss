@@ -45,6 +45,16 @@
         display: block;
     }
 
+    .GreatNegative{
+        width: 100%;
+        height: 40px;
+        background-color: hsl(0, 76%, 50%);
+        color:#ffffff;
+        font-size: 22px;
+        border-radius: 10px;
+        display: block;
+    }
+
     .Normal{
         
         background-color: #222222;
@@ -226,4 +236,17 @@
     }
 
 
+    .AssinarButton{
+        width: 100%;
+        height: 40px;
+        background-color: #092b75;
+        color:#191919;
+        font-size: 22px;
+        border-radius: 10px;
+        display: block;
+
+        text-shadow: -1px 2px 0 #027def;
+        font-weight: bold;
+        font-weight: bolder;
+    }
 }

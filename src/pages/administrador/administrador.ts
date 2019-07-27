@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController, Platform } from 'ionic-angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/Storage';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 @IonicPage()
 @Component({
@@ -57,6 +58,8 @@ export class AdministradorPage {
     private camera: Camera,
     public loadingCtrl: LoadingController,
     private storage: Storage,
+    private localnotification: LocalNotifications,
+    private plt : Platform,
 
   ) {
     console.log('Key Comics : ' + this.storage.get('keyComic'));
@@ -64,6 +67,25 @@ export class AdministradorPage {
     this.filenews = this.dataProvider.GetAllNoticia();
 
     this.GetRetornarComics();
+
+    this.plt.ready().then(() => {
+      
+      this.localnotification.on('click').subscribe(res => {
+        console.log('click', res);
+
+        let msg = res.data ? res.data.mydata: '';
+        this.showAlert(res.title, res.text, msg);
+
+      });
+
+      // this.localnotification.on('trigger').subscribe(res => {
+      //   console.log('trigger', res);
+
+      //   let msg = res.data ? res.data.mydata: '';
+      //   this.showAlert(res.title, res.text, msg);
+
+      // });
+    });
   }
   ionViewDidOpen() {
     this.GetRetornarComics();
@@ -71,6 +93,7 @@ export class AdministradorPage {
 
 
   //Carrega a pagina
+
   AbreCarregador() {
     this.loader = this.loadingCtrl.create({
       content: "Carregando",
@@ -393,8 +416,6 @@ export class AdministradorPage {
   UploadComicsPage(info,idcomic,idseason,numero){
     this.AbreCarregador();
 
-    
-
     let upload = this.dataProvider.UploadToStorageComicsPage(info,this.imgPath);
 
     console.log('upload' + upload);
@@ -549,8 +570,30 @@ GetPages(keySeason) {
 }
 
 
+//Notifications
 
+notificationSchedule(){
+  console.log('trigger');
+this.localnotification.schedule({
+  id: 1,
+  title: 'Atenção',
+  text: 'Seagull Comics notification',
+  data: {mydata: 'My hidden'},
+  trigger: {in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+  //foreground: true,
+});
+console.log('trigger2');
+}
 
+showAlert(header,sub,msg){
+ let alert = this.AlertCtrl.create({
+  title: header,
+  subTitle: sub,
+  message: msg,
+  buttons: ['OK'],
+ });
+alert.present();
+}
 
 }
 
