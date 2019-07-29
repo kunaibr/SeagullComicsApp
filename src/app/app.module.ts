@@ -58,6 +58,7 @@ import { PdfPageModule } from '../pages/pdf/pdf.module';
 import { SeasonPage } from '../pages/season/season';
 import { SeasonPageModule } from '../pages/season/season.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
@@ -148,6 +149,7 @@ export function createTranslateLoader(http: HttpClient) {
     DatabaseProvider,
     Camera,
     LocalNotifications,
+    FCM,
   ]
 })
 export class AppModule {}

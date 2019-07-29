@@ -15,7 +15,7 @@ import { Storage } from '@ionic/Storage';
 import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
-
+import { FCM } from '@ionic-native/fcm/ngx'
 
 @Component({
   templateUrl: 'app.html'
@@ -39,6 +39,7 @@ export class MyApp {
     public storage: Storage,
     private globalvars: GlobalvarsProvider,
     public languageProvider : LanguageProvider,
+    public fcm : FCM,
 
 
   ) {
@@ -84,7 +85,36 @@ export class MyApp {
     
     this.languageProvider.setInitialAppLanguage();
       
+
+    //Notifications
+
+    this.fcm.getToken().then(
+      (token: string) => {
+        console.log('Token dispositivo: ' + token);
+      }
+    ).catch(error =>{
+      console.log(error);
+    });
+
+
+    this.fcm.onTokenRefresh().subscribe((token: string) => {
+      console.log('atualização do token: ' + token);
+    });
+
+    this.fcm.onNotification().subscribe(data => {
+      if(data.wasTapped) {
+        console.log('em segundo plano' + JSON.stringify(data))
+      }else {
+        //ocorre em primeiro plano
+        console.log('estamos em primeiro plano' + JSON.stringify(data))
+      }
+    }, error => {
+      console.log('erro: ' + error); 
+    });
+
   });
+
+
 
   }
 

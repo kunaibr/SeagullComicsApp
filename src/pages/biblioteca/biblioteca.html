@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content padding *ngIf="hqs != undefined && hqsUser == 'True'">
+<ion-content padding *ngIf="hqs != undefined || hqsUser == 'True'">
     <!-- recarregador da lista de hqs que o usuario tem -->
     
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -51,7 +51,7 @@
 
 </ion-content>
 
-<ion-content padding *ngIf="hqs != undefined || hqsUser != 'True'">
+<ion-content padding *ngIf="hqs != undefined || hqsUser == 'False'">
   <!-- recarregador da lista de hqs que o usuario tem -->
   
   <ion-refresher (ionRefresh)="doRefresh($event)">
