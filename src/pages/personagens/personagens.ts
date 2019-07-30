@@ -16,6 +16,7 @@ export class PersonagensPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams) {
+      this.OpenPage(1);
   }
 
   OpenPage(per:number) {

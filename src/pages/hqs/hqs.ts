@@ -46,7 +46,7 @@ export class HqsPage {
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
    
-
+    this.isRefreshing = true;
     this.GetRetornarComics();
   }
 

@@ -105,6 +105,11 @@ export class SeasonPage {
       this.isBuy(aux);
       
       this.FechaCarregador();
+ 
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
 
       this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
       this.hqlista.subscribe(res => {
@@ -112,11 +117,7 @@ export class SeasonPage {
       this.hqsUser = res[1];
      
       });
-      
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
-      }
+     
       
     });
 
