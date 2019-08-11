@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component , ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides , LoadingController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
@@ -15,6 +15,8 @@ import { SeasonPage } from '../season/season';
 })
 export class HqsPage {
 
+  @ViewChild(Slides) slides: Slides;
+
   usuario: any;
   hqsUser: string;
   hqsArrayUser: string[];
@@ -23,6 +25,8 @@ export class HqsPage {
 
   searchHqs: any[];
   auxHq: Observable<any[]>;
+
+  slideChose: any;
 
   public isSearchOpen = false;
 
@@ -41,25 +45,58 @@ export class HqsPage {
     public globalvars: GlobalvarsProvider,
     private dataProvider: DatabaseProvider,
   ) {
+    
   }
 
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
-   
-    this.isRefreshing = true;
+    
     this.GetRetornarComics();
   }
 
+  slideChanged() {
+    this.goToSlide();
+  }
+
+  //aqui é a passagem automatico dos slides 
+  goToSlide() {
+    //Demora de 5 seg para passar de slide e 0,5 de transição
+    setTimeout(() => {
+
+       if (this.slides.isEnd() == true) {
+      this.slides.slideTo(0, 200, true);
+      
+       } else {
+        this.slides.slideNext(200, true);
+       }
+       
+    }, 10000);
+    
+    this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
+    console.log();
+  }
   //Carrega a pagina
   AbreCarregador() {
+    let gifs = ['<img src="../../assets/gifs/EstrelaFria.gif">',
+                '<img src="../../assets/gifs/SamuraiLunar.gif">',
+               ];
+    let rnd = this.getRandomInt(0,2);
+    
     this.loader = this.loadingCtrl.create({
-      content: "Carregando",
+      spinner: 'hide',
+      content: gifs[rnd],
     });
     this.loader.present();
   }
 
   FechaCarregador() {
     this.loader.dismiss();
+  }
+
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 
   //Recarrega a pagina
@@ -88,8 +125,13 @@ export class HqsPage {
     this.auxHq.subscribe(res => {
       aux = res;
       this.searchHqs = aux;
-      
+    
+      this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
+
+      this.slideChanged();
+
       this.FechaCarregador();
+      
 
       if (this.isRefreshing) {
         this.refresher.complete();

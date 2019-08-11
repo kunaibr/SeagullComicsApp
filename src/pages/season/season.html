@@ -18,7 +18,7 @@
   </ion-header>
   
   
-  <ion-content padding>
+  <ion-content>
     
     <!-- recarregador da lista de hqs que o usuario tem -->
       
@@ -26,27 +26,34 @@
           <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <!-- aqui começa a lista de hqs do usuario -->
-      <ion-item class="hqCard">
-        <div>
-          <h1>{{keyComic.titulo}}</h1>
+      <div class="backgroundFocus">
           <img [src]="keyComic.imagem">
+      </div>
+      <ion-item class="hqPanel">
+          
+          <img class="imgPanel" [src]="keyComic.imagem">
+          <h1>Titulo: {{keyComic.titulo}}</h1>
           <p>Edição: {{keyComic.edicao}}</p>
           <p>Data: {{keyComic.data | date: 'mediumDate'}}</p>
           <p class="textSeason" >Descrição: {{keyComic.descricao}}</p>
-        </div>
-      
+        
+          <hr />
+        <h2 style="margin: auto"><b>Episódios</b></h2>
       </ion-item>
       <button *ngIf="hqsUser != 'True'" class="GreatNegative">Só Preview</button>
       <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
             <ion-grid>
                 <ion-row>
-                  <ion-col size="2">
+                  <ion-col size="3">
                       <img [src]="hqs.imagem" class="imgCpmin">
                   </ion-col>
-                  <ion-col size="10">
+                  <ion-col size="8">
                       <p class="titleCardSeason">{{hqs.descricao}}</p>
                       <p class="textSeason">{{hqs.numero}}º Temporada</p>
+                     
+                  </ion-col>
+                  <ion-col size="8">
                       <p class="dataCardSeason">{{hqs.data | date: 'mediumDate'}}</p>
                   </ion-col>
                 </ion-row>

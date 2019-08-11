@@ -1,3 +1,51 @@
 page-hqs {
+  
+  .radius{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0px;
+    width: 90%;
+    height: 30%;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
 
-}
+    border: 1px solid;
+    background: transparent;
+    
+    
+  }
+
+  .backgroundFocus{
+    /* Add the blur effect */
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+  
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     
+     position: absolute;
+
+     overflow: hidden;
+     border: 1px solid;
+    border-radius: 100px;
+    margin-top: -70%;
+
+           }
+  
+      
+        // .list-md .item-block .item-inner {
+        //   border-bottom: 0px;
+        // }
+        
+      .textSlide {
+        margin-top: 2px;
+        font-size: 25px;
+      }
+        
+  }
+  

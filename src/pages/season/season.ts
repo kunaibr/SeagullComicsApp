@@ -108,6 +108,7 @@ export class SeasonPage {
  
       if (this.isRefreshing) {
         this.refresher.complete();
+        
         this.isRefreshing = false;
       }
 

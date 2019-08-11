@@ -155,7 +155,7 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsSeason(keyComic: string, imagem: string,numero:string, metainfo,descricao:string)
+  SaveToDatabaseComicsSeason(keyComic: string, imagem: string,numero:string, metainfo,descricao:string,creditos:string)
   {
     
     let toSave = {
@@ -163,6 +163,7 @@ export class DatabaseProvider {
       data: metainfo.timeCreated, 
       numero: numero,
       descricao: descricao,
+      creditos: creditos,
       imagem: imagem,
       pages: imagem,
     };

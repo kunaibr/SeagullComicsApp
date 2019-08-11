@@ -102,7 +102,7 @@
     }
 
     .imgCp{
-        width: 150px;
+        width: 80px;
     }
     .ion-item{
         background-color: transparent;
@@ -170,46 +170,25 @@
     }
 
     .hqCard{
-        background-color: #191919;
+        background-color: transparent;
+        border-radius: 15px;
+    
     }
-
-    .line{
-        border: 1px solid #ffffff;
-    }
-
 
 
     ion-title{
         text-align: left;
     }
-    
-    .item-ios {
-        padding-left: 16px;
-        padding-left: 16px;
-        border-radius: 0;
-        position: relative;
-        font-size: 1.7rem;
-        color: #ffffff;
-        background-color: #191919;
-        -webkit-transition: background-color 200ms linear;
-        transition: background-color 200ms linear;
-      }
 
-      .item-ios.item-block .item-inner {
-        padding-right: 8px;
-        padding-right: 8px;
-        /* border-bottom: 0.55px solid #c8c7cc; */
-        padding-bottom: 2px;
-      }
-
-      .imgCpmin{
-        width: 80px;
-      }
+    .imgCpmin{
+      width: 75px;
+    }
 
       
     .hqCardBlue{
         border-color: #014a8e;
         background-color: #014a8e;
+        border-radius: 15px;
     }
 
     .textSeason{

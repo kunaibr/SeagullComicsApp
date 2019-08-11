@@ -27,11 +27,7 @@ page-personagensview {
     	border-bottom: solid 1px #e6e6e6  !important;
     }
 
-    p{
-        padding: 0px 15px 0px 15px;
-        text-align: left;
-    }
-
+   
     h1{
         padding-top: 10px;
     
@@ -41,4 +37,36 @@ page-personagensview {
         overflow-y: scroll;
         display: block;
     }
+
+    .backgroundFocus{
+        /* Add the blur effect */
+        // filter: blur(8px);
+        // -webkit-filter: blur(8px);
+      
+         /* Center and scale the image nicely */
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+         
+         position: absolute, fixed;
+         opacity: 1;
+        
+               }
+  .item{
+    background: rgb(255, 255, 255); 
+    background: rgba(255, 255, 255, 0.8);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+    p{
+        padding: 0px 15px 0px 15px;
+        text-align: left;
+        white-space: pre-line;
+        color: black;
+        font-size: 17px;
+    }
+
+  }
 }

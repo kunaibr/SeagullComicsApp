@@ -311,7 +311,7 @@ export class AdministradorPage {
       inputs: [
         {
           name: 'info',
-          placeholder: 'Escreva aqui o informação',
+          placeholder: 'Escreva aqui as pessoas creditadas',
         },
         {
           name: 'idcomic',
@@ -356,7 +356,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,numero,res.metadata,descricao).then((response) => {
+      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,numero,res.metadata,descricao,info).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Season foi um Sucesso " + response.key,
               duration: 3000

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
-import { DatabaseProvider } from '../../providers/database/database';
+//import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { SeasonPage } from '../season/season';
 import { PagamentoPage } from '../pagamento/pagamento';
@@ -40,16 +40,13 @@ export class BibliotecaPage {
     public http: Http,
     public loadingCtrl: LoadingController,
     public globalvars: GlobalvarsProvider,
-    private dataProvider: DatabaseProvider,
+    //private dataProvider: DatabaseProvider,
     ) {
       
   }
 
-  
-
   ionViewDidLoad() {
     this.usuario =  this.globalvars.getUser();
-
 
     this.GetRetornarComics();
   }
@@ -76,32 +73,7 @@ export class BibliotecaPage {
 
   
   //Essa função é acionada ao recarregar a page
-  GetRetornarComics() {
-
-    this.AbreCarregador();
-   
-    let aux: any[];
-
-    this.auxHq = this.dataProvider.GetAllComics().valueChanges();
-    this.auxHq.subscribe(res => {
-      aux = res;
-      this.searchHqs = aux;
-      
-      this.FechaCarregador();
-       
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
-      }
-
-      this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
-      this.hqlista.subscribe(res => {
-  
-      this.hqsUser = res[1];
-    
-      });
-     
-    });
+  GetRetornarComics() {    
 
   }
 

@@ -19,29 +19,47 @@
   </ion-header>
 
 <ion-content>
-  <!-- Recarregador da page -->
-  
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+
+  <!-- Slides coletados do bd na tabela slide -->
+  
+  <div class="backgroundFocus">
+      <img [src]="slideChose" alt="">
+  </div>
+
+  <div class="radius">
+  <ion-slides pager="true" style="padding: 0px" (ionSlideDidChange)="slideChanged()" >
+    <ion-slide *ngFor="let slide of searchHqs" (click)="OpenSeason(slide)">
+      <ion-thumbnail slot="start">
+      <img [src]="slide.imagem" alt="">
+      </ion-thumbnail>
+    </ion-slide>
+  </ion-slides>
+  </div>
+
+    
 <!-- Lista das hqs existentes no bd -->
 
     <ion-item *ngFor="let hqs of searchHqs " class="hqCard">
       <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
         <ion-grid>
             <ion-row>
-              <ion-col size="4">
+              <ion-col size="3">
                   <img class="imgCp" [src]="hqs.imagem" *ngIf="hqsUser != 'True'">
                   <img class="imgCp" [src]="hqs.imagem" *ngIf="hqsUser == 'True'">
               </ion-col>
               <ion-col size="8">
                  
-                  <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
-                      <button class="precoCard" *ngIf="hqsUser != 'True'">R${{hqs.preco}}</button>
+                  <h2 display="inline-block" class="titleCard">{{hqs.titulo}}</h2>
+                      <!-- <button class="precoCard" *ngIf="hqsUser != 'True'">R${{hqs.preco}}</button>
                       <button class="precoCard" *ngIf="hqsUser == 'True'"><ion-icon name="md-checkmark-circle-outline"></ion-icon></button>
-                    
+                     -->
                   <p class="textCard">Edição:{{hqs.edicao}}</p>
-                  <p class="textCard">{{hqs.descricao}}</p>
+                  
+              </ion-col>
+              <ion-col size="1">
                   <p class="dataCard">{{hqs.data | date: 'mediumDate'}}</p>
               </ion-col>
             </ion-row>

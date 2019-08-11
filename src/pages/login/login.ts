@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ServidorProvider } from '../../providers/servidor/servidor';
-import { NovidadesPage } from '../novidades/novidades';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { CadastroPage } from '../cadastro/cadastro';
 import { Storage } from '@ionic/Storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import { HqsPage } from '../hqs/hqs';
 
 @IonicPage()
 @Component({
@@ -52,7 +52,7 @@ export class LoginPage {
           this.globalvars.setUser(response.user.uid.toString());
           this.storage.set('user', response.user.uid.toString())
           .then(() => {
-            this.navCtrl.setRoot(NovidadesPage);
+            this.navCtrl.setRoot(HqsPage);
             
           });
       }).catch((error) =>{

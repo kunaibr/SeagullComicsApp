@@ -21,7 +21,7 @@ export class PersonagensviewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-
+    
     this.tabs = ['md-snow', 'md-moon', 'md-leaf', 'md-rose', 'md-cog', 'md-planet', 'md-speedometer', 'md-bulb', 'md-magnet'];
 
     this.personagens = [
@@ -32,6 +32,7 @@ export class PersonagensviewPage {
         'poderes': 'Abaixar a temperatura, congelar o ar, manipular o gelo',
         'armas': 'Anel Magicos, Armas de Fogo uma Pistola e uma picareta de escalador',
         'caracteristicas': 'Kalel Evans é branco com cabelos Loiros e olhos azuis',
+        'background': '../../assets/backgrounds/snow.jpg',
       },
       {
         'nome': 'Samurai Lunar',
@@ -40,6 +41,7 @@ export class PersonagensviewPage {
         'poderes': 'Não tem poderes, mas sabe muito sobre artes marciais',
         'armas': 'Ele utiliza de duas espadas, e braços robótico e pernas e um olho, além disso tem pequenos robôs em seu braços robótico q ele utiliza para vigiar a cidade, e ele possui um equipamento q cria uma plataforma ele tem duas uma q da impulsão melhor e outra q usa só como plataforma para salta, e tem 3 seringas uma vermelha, laranja e verde cada um com efeito diferente',
         'caracteristicas': 'Hayato akemi é branco tem cabelos bem pretos, olhos castanho escuro, uma Tatuagem de um triangulo na nunca ',
+        'background': '../../assets/backgrounds/lunar.jpg',
       },
       {
         'nome': 'Coruja Prateada',
@@ -72,6 +74,7 @@ export class PersonagensviewPage {
         'poderes': 'Logo que nascem, os guardiões já têm os poderes de um nivel estelar',
         'armas': 'Utiliza seu manto dos guardiôes',
         'caracteristicas': 'Guardião tem 1,85 metros de altura sua idade é de 637 anos (63 para sua raça) ',
+        'background': '../../assets/backgrounds/galaxy.jpg',
       },
       {
         'nome': 'Marcha 0',
@@ -105,6 +108,7 @@ export class PersonagensviewPage {
   ionViewDidEnter() {
     this.SwipedTabsIndicator = document.getElementById("indicator");
     this.SwipedTabsSlider.slideTo(this.navParams.get("cod"), 0);
+ 
   }
 
   selectTab(index) {

@@ -46,10 +46,10 @@ export class MyApp {
     this.initializeApp();
    
     this.pages = [
-      { title: 'Novidades', component: NovidadesPage, icon: "home" },
-      { title: 'Personagens', component: PersonagensPage, icon: "people" },
-      { title: 'HQs', component: HqsPage, icon: "paper" },
+      { title: 'Comics', component: HqsPage, icon: "paper" },
       { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
+      { title: 'Personagens', component: PersonagensPage, icon: "people" },
+      { title: 'Novidades', component: NovidadesPage, icon: "home" },
       { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
@@ -73,7 +73,7 @@ export class MyApp {
         } else {
           this.globalvars.setUser(res);
          
-          this.rootPage = NovidadesPage;
+          this.rootPage = HqsPage;
         }
     });
     this.storage.get('intro_storage').then((int) => {

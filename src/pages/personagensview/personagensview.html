@@ -27,19 +27,26 @@
 							[pager]="false"
 							[effect]="cube"
 							
-				>
-		<ion-slide *ngFor="let per of personagens">
-      <h1>{{per.nome}}</h1>
+        >
+       
+		<ion-slide *ngFor="let per of personagens" [style.backgroundImage]="'url(' + per.background + ')'">
+      
+      <div style="background-color: transparent">
+      
       <img [src]="per.imagem">
-      <div class="line"></div>
-      <p>Descricão: <br> {{per.descricao}}</p>
-      <div class="line"></div>
-      <p>Caracteristicas: <br> {{per.caracteristicas}}</p>
-      <div class="line"></div>
-      <p>Poderes: <br> {{per.poderes}}</p>
-      <div class="line"></div>
-      <p>Artefatos: <br> {{per.armas}}</p>
-
+    </div>
+      <hr />
+      <ion-item class="item">
+      <h1 >{{per.nome}}</h1>
+      <hr />
+      <p><b>Descricão:</b> <br> {{per.descricao}}</p>
+      <hr />
+      <p><b>Caracteristicas:</b> <br> {{per.caracteristicas}}</p>
+      <hr />
+      <p><b>Poderes: </b><br> {{per.poderes}} </p>
+      <hr />
+      <p><b> Artefatos:</b> <br> {{per.armas}}</p>
+    </ion-item>
 		</ion-slide>  
 
 	</ion-slides>

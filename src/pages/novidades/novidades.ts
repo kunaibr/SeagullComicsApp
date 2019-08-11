@@ -8,6 +8,7 @@ import { Storage } from '@ionic/Storage';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 
+
 @IonicPage()
 @Component({
   selector: 'page-novidades',
@@ -36,8 +37,9 @@ export class NovidadesPage {
     public storage: Storage,
     private dataProvider: DatabaseProvider,
     public loadingCtrl: LoadingController,
+
   ) {
-    
+
    }
 
 
@@ -47,7 +49,7 @@ export class NovidadesPage {
       this.globalvars.setUser(res);
       this.uid = res;
     });
-
+    
     this.AbreCarregador();
 
     this.noticias = this.dataProvider.GetAllNoticia();

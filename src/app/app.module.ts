@@ -60,6 +60,7 @@ import { SeasonPageModule } from '../pages/season/season.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 
+
 var firebaseConfig = {
   apiKey: "AIzaSyDMhKZpmtKglXfvOtS3EbUSjwXn_PfZ52w",
   authDomain: "seagull-comics.firebaseapp.com",
