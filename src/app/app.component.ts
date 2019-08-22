@@ -16,6 +16,7 @@ import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
 import { FCM } from '@ionic-native/fcm/ngx'
+import { SeasonPage } from '../pages/season/season';
 
 @Component({
   templateUrl: 'app.html'
@@ -38,13 +39,13 @@ export class MyApp {
     private settings: SettingsProvider,
     public storage: Storage,
     private globalvars: GlobalvarsProvider,
-    public languageProvider : LanguageProvider,
-    public fcm : FCM,
+    public languageProvider: LanguageProvider,
+    public fcm: FCM,
 
 
   ) {
     this.initializeApp();
-   
+
     this.pages = [
       { title: 'Comics', component: HqsPage, icon: "paper" },
       { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
@@ -54,10 +55,6 @@ export class MyApp {
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
     ];
-
-  
-
-   
 
   }
 
@@ -72,47 +69,47 @@ export class MyApp {
           this.rootPage = LoginPage;
         } else {
           this.globalvars.setUser(res);
-         
-          this.rootPage = HqsPage;
+
+          this.rootPage = SeasonPage;
         }
+      });
+      this.storage.get('intro_storage').then((int) => {
+        if (int == null) {
+          this.rootPage = IntroPage;
+        }
+      });
+
+
+      this.languageProvider.setInitialAppLanguage();
+
+
+      //Notifications
+
+      this.fcm.getToken().then(
+        (token: string) => {
+          console.log('Token dispositivo: ' + token);
+        }
+      ).catch(error => {
+        console.log(error);
+      });
+
+
+      this.fcm.onTokenRefresh().subscribe((token: string) => {
+        console.log('atualização do token: ' + token);
+      });
+
+      this.fcm.onNotification().subscribe(data => {
+        if (data.wasTapped) {
+          console.log('em segundo plano' + JSON.stringify(data))
+        } else {
+          //ocorre em primeiro plano
+          console.log('estamos em primeiro plano' + JSON.stringify(data))
+        }
+      }, error => {
+        console.log('erro: ' + error);
+      });
+
     });
-    this.storage.get('intro_storage').then((int) => {
-      if(int == null){
-        this.rootPage = IntroPage;   
-      }
-    });
-
-    
-    this.languageProvider.setInitialAppLanguage();
-      
-
-    //Notifications
-
-    this.fcm.getToken().then(
-      (token: string) => {
-        console.log('Token dispositivo: ' + token);
-      }
-    ).catch(error =>{
-      console.log(error);
-    });
-
-
-    this.fcm.onTokenRefresh().subscribe((token: string) => {
-      console.log('atualização do token: ' + token);
-    });
-
-    this.fcm.onNotification().subscribe(data => {
-      if(data.wasTapped) {
-        console.log('em segundo plano' + JSON.stringify(data))
-      }else {
-        //ocorre em primeiro plano
-        console.log('estamos em primeiro plano' + JSON.stringify(data))
-      }
-    }, error => {
-      console.log('erro: ' + error); 
-    });
-
-  });
 
 
 

@@ -57,6 +57,8 @@ if(this.check == true){
         desconto: '',
       })
         .then(() => {
+          this.db.database.ref('usuarios/').child(response.user.uid).child('hqs').set("");
+          this.db.database.ref('usuarios/').child(response.user.uid).child('biblioteca').set("");
 
           this.navCtrl.pop();
           this.Toast("Conta criada com sucesso!");

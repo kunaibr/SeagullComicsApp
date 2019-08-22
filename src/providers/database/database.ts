@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 import { Storage } from '@ionic/Storage';
+import { Observable } from 'rxjs';
 
 
 
@@ -75,11 +76,10 @@ export class DatabaseProvider {
 
   }
 
-  GetAllSeason(key)
-  {
-    
+  GetAllSeason(key) {
+
     let ref = this.db.list('comics/' + key.key + '/season');
-   
+
     return ref;
 
   }
@@ -106,7 +106,7 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo:string) {
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string) {
 
     let toSave = {
       key: '',
@@ -121,7 +121,7 @@ export class DatabaseProvider {
     };
 
     let ref = this.db.list('comics').push(toSave);
-    this.db.database.ref('comics/'+ ref.key + '/key').set(ref.key);
+    this.db.database.ref('comics/' + ref.key + '/key').set(ref.key);
     return ref;
   }
 
@@ -132,7 +132,14 @@ export class DatabaseProvider {
     });
   }
 
- 
+  GetAllSeasonPages(key) {
+    let ref = this.db.list('comics/' + key);
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+  }
+
+
   UploadToStorageComicsPage(info, imageURI) {
 
     let newName = `${new Date().getTime()}.txt`;
@@ -155,12 +162,11 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsSeason(keyComic: string, imagem: string,numero:string, metainfo,descricao:string,creditos:string)
-  {
-    
+  SaveToDatabaseComicsSeason(keyComic: string, imagem: string, numero: string, metainfo, descricao: string, creditos: string) {
+
     let toSave = {
       key: '',
-      data: metainfo.timeCreated, 
+      data: metainfo.timeCreated,
       numero: numero,
       descricao: descricao,
       creditos: creditos,
@@ -169,22 +175,21 @@ export class DatabaseProvider {
     };
 
     let ref = this.db.list('comics/' + keyComic + '/season').push(toSave);
-    this.db.database.ref('comics/'+ keyComic + '/season/' + ref.key + '/key').set(ref.key);
+    this.db.database.ref('comics/' + keyComic + '/season/' + ref.key + '/key').set(ref.key);
     return ref;
   }
 
-  SaveToDatabaseComicsPage(keyComic: string,keySeason: string, imagem: string,numero:string, metainfo)
-  {
-    
+  SaveToDatabaseComicsPage(keyComic: string, keySeason: string, imagem: string, numero: string, metainfo) {
+
     let toSave = {
       numero: numero,
-    
+
       imagem: imagem,
     };
 
-    return this.db.list('comics/'+keyComic + '/season/' + keySeason + "/pages").push(toSave);
-    
-    
+    return this.db.list('comics/' + keyComic + '/season/' + keySeason + "/pages").push(toSave);
+
+
 
   }
 
@@ -297,8 +302,7 @@ export class DatabaseProvider {
 
   GetComicsUser(uid) {
     let ref = this.db.list('usuarios/' + uid);
-    console.log(uid);
-    
+
     return ref;
   }
 
@@ -307,8 +311,37 @@ export class DatabaseProvider {
     return this.db.database.ref('usuarios/').child(uid).child('hqs').set(texto);
   }
 
-  GetToAdm(){
-  return this.storage.get('user');
+  AddToBibliotecaComic(titulo, uid) {
+    let UserHQ: any;
+
+    let auxHq: Observable<any[]>;
+
+    let plus = "";
+    
+    auxHq = this.db.list('usuarios/' + uid).valueChanges();
+    auxHq.subscribe(res => {
+      let aux: any[];
+      aux = res;
+      UserHQ = aux[1];
+    });
+
+    
+    if (UserHQ == "") {
+      plus = titulo; 
+
+    }else{
+      plus = UserHQ + ","  + titulo;
+     
+    }
+
+    console.log("Plus: " + plus);
+    return this.db.database.ref('usuarios/' + uid + '/biblioteca').set(plus);
+  }
+
+
+
+  GetToAdm() {
+    return this.storage.get('user');
 
   }
 

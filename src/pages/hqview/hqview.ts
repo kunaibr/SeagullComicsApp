@@ -29,50 +29,66 @@ export class HqviewPage {
     public navParams: NavParams,
     private dataProvider: DatabaseProvider,
   ) {
-    
+
   }
 
   ionViewDidEnter() {
     this.keyComic = this.navParams.get("keyComic");
     this.keySeason = this.navParams.get("keySeason");
-    this.preview= this.navParams.get("preview");
-    
-    this.GetPages();
+    this.preview = this.navParams.get("preview");
+
+    if (this.keySeason == "Complete") {
+      this.GetCompleteSeason();
+    } else {
+      this.GetPages();
+    }
+
   }
-    
+
+  GetCompleteSeason() {
+    this.hqslist = this.dataProvider.GetAllSeasonPages(this.keyComic.key + '/season/' + this.keySeason);
+    this.hqslist.subscribe(res => {
+      for(let i = 0; i < res.length ; i++){
+        console.log("comics = " + res[i]);
+      }
+      
+      // this.hqsPages = res;
+
+    });
+
+  }
 
   GetPages() {
     this.hqslist = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + this.keySeason);
-    this.hqslist.subscribe(res => 
-      {
-      
-        if(this.preview == 'False'){
-          this.hqsPages = res;
-        }else{
-          let aux: any = [
-           { 
+    this.hqslist.subscribe(res => {
+
+      if (this.preview == 'False') {
+        this.hqsPages = res;
+      } else {
+        let aux: any = [
+          {
             imagem: res[0].imagem,
             numero: res[0].numero,
             key: res[0].key,
-           },
-           { 
+          },
+          {
             imagem: res[1].imagem,
             numero: res[1].numero,
             key: res[1].key,
-           },
-           { 
+          },
+          {
             imagem: res[2].imagem,
             numero: res[2].numero,
             key: res[2].key,
-           },
-          ];
-          
+          },
+        ];
 
-          this.hqsPages = aux;
-        }
 
-      });
-      
-    
+        this.hqsPages = aux;
+      }
+
+    });
+
+
   }
 }

@@ -95,8 +95,7 @@ export class SeasonPage {
     this.titulo = this.keyComic.titulo;
 
     this.AbreCarregador();
-
-
+    this.FechaCarregador();
     let aux: any[];
 
     this.auxHq = this.dataProvider.GetAllSeason(this.keyComic).valueChanges();
@@ -115,7 +114,7 @@ export class SeasonPage {
       this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
       this.hqlista.subscribe(res => {
      
-      this.hqsUser = res[1];
+      this.hqsUser = res[2];
      
       });
      
@@ -145,9 +144,29 @@ export class SeasonPage {
 
   }
 
+  OpenCompleteSeason(){
+
+    if(this.hqsUser == 'True'){
+      
+        this.navCtrl.push(HqviewPage, {
+          keyComic: this.keyComic,
+          keySeason:  'Complete',
+          preview: 'False',
+        });
+
+     }else{
+      
+      this.navCtrl.push(HqviewPage, {
+        keyComic: this.keyComic,
+        keySeason:  this.keySeason.key,
+        preview: 'True',
+      });
+     }
+
+  }
+
   OpenSeason(key):any{
   
-
      if(key != undefined && this.hqsUser == 'True'){
     
       this.keySeason = key;
@@ -173,6 +192,10 @@ export class SeasonPage {
   }
 
 
-
+  ClickAddBiblioteca(titulo) {
+   this.dataProvider.AddToBibliotecaComic(titulo,this.usuario).then(res => {
+     console.log("favoritado!");
+   });
+  }
 }
 

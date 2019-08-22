@@ -1,14 +1,14 @@
-
 <ion-header>
 
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-    <ion-title *ngIf="!isSearchOpen" >Biblioteca</ion-title>
-    
-    <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)" (ionCancel)="!isSearchOpen=false"></ion-searchbar>
-    
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!isSearchOpen">Biblioteca</ion-title>
+
+    <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)"
+      (ionCancel)="!isSearchOpen=false"></ion-searchbar>
+
     <ion-buttons end>
       <button ion-button icon-only *ngIf="!isSearchOpen" (click)="isSearchOpen=true">
         <ion-icon name="search"></ion-icon>
@@ -20,36 +20,38 @@
 
 
 <ion-content padding>
-    <!-- recarregador da lista de hqs que o usuario tem -->
-    
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-    <!-- aqui começa a lista de hqs do usuario -->
+  <!-- recarregador da lista de hqs que o usuario tem -->
 
-   
-    <ion-item *ngFor="let hqs of searchHqs" class="hqCard">
-      <div *ngIf="hqs != undefined && hqsUser == 'True'" (click)="OpenSeason(hqs)">
-          <ion-grid>
-              <ion-row>
-                <ion-col size="3">
-                    <img [src]="hqs.imagem" class="imgCp">
-                </ion-col>
-                <ion-col size="8">
-                    
-                    <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
-                    <p class="textCard">Edicao:{{hqs.edicao}}</p>
-                    <p class="textCard">{{hqs.descricao}}</p>
-                   
-                </ion-col>
-                <ion-col size="1">
-                    <p class="dataCard">{{hqs.data | date: 'mediumDate'}}</p>
-                </ion-col>
-              </ion-row>
-          </ion-grid>
-        </div> 
-    </ion-item>
-  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- aqui começa a lista de hqs do usuario -->
+
+  <div *ngIf="hqsUser == 'True'">
+    <div *ngFor="let hqs of searchHqs" class="hqCard">
+      <ion-item (click)="OpenSeason(hqs)" *ngIf="hqs.titulo != ''">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <img [src]="hqs.imagem" class="imgCp">
+            </ion-col>
+            <ion-col size="8">
+
+              <h2 display="inline-block" class="titleCard">Titulo:{{hqs.titulo}}</h2>
+              <p class="textCard">Edicao:{{hqs.edicao}}</p>
+
+
+            </ion-col>
+            <ion-col size="1">
+              <p class="dataCard">{{hqs.data | date: 'mediumDate'}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </div>
+  </div>
+
 
 
 </ion-content>

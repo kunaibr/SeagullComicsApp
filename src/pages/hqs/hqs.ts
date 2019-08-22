@@ -1,5 +1,5 @@
-import { Component , ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides , LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides, LoadingController } from 'ionic-angular';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
@@ -7,6 +7,8 @@ import { DatabaseProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { PagamentoPage } from '../pagamento/pagamento';
 import { SeasonPage } from '../season/season';
+
+
 
 @IonicPage()
 @Component({
@@ -45,12 +47,12 @@ export class HqsPage {
     public globalvars: GlobalvarsProvider,
     private dataProvider: DatabaseProvider,
   ) {
-    
+
   }
 
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
-    
+
     this.GetRetornarComics();
   }
 
@@ -63,25 +65,25 @@ export class HqsPage {
     //Demora de 5 seg para passar de slide e 0,5 de transição
     setTimeout(() => {
 
-       if (this.slides.isEnd() == true) {
-      this.slides.slideTo(0, 200, true);
-      
-       } else {
+      if (this.slides.isEnd() == true) {
+        this.slides.slideTo(0, 200, true);
+
+      } else {
         this.slides.slideNext(200, true);
-       }
-       
+      }
+
     }, 10000);
+
+    // this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
     
-    this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
-    console.log();
   }
   //Carrega a pagina
   AbreCarregador() {
     let gifs = ['<img src="../../assets/gifs/EstrelaFria.gif">',
-                '<img src="../../assets/gifs/SamuraiLunar.gif">',
-               ];
-    let rnd = this.getRandomInt(0,2);
-    
+      '<img src="../../assets/gifs/SamuraiLunar.gif">',
+    ];
+    let rnd = this.getRandomInt(0, 1);
+
     this.loader = this.loadingCtrl.create({
       spinner: 'hide',
       content: gifs[rnd],
@@ -111,27 +113,28 @@ export class HqsPage {
   GetRetornarComics() {
 
     this.AbreCarregador();
-
+    this.FechaCarregador();
     this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
     this.hqlista.subscribe(res => {
-   
-    this.hqsUser = res[1];
-   
+
+      this.hqsUser = res[2];
+      //res[1] = biblioteca de hqs
+      //res[2] = assinatura atual
+
     });
-   
+
     let aux: any[];
 
     this.auxHq = this.dataProvider.GetAllComics().valueChanges();
     this.auxHq.subscribe(res => {
       aux = res;
       this.searchHqs = aux;
-    
-      this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
+      
 
       this.slideChanged();
 
       this.FechaCarregador();
-      
+
 
       if (this.isRefreshing) {
         this.refresher.complete();
@@ -143,13 +146,13 @@ export class HqsPage {
 
 
 
-  OpenPagamento(){
+  OpenPagamento() {
     this.navCtrl.push(PagamentoPage);
   }
 
   OnSearch(ev: any) {
 
-    
+
     let searchWord = ev.target.value;
 
     if (searchWord && searchWord.trim() != "") {
@@ -164,15 +167,17 @@ export class HqsPage {
 
   }
 
-  OpenSeason(key){
-   
-      this.navCtrl.push(SeasonPage, 
-        {
-          key: key, 
-          page: 'hqs',
+  OpenSeason(key) {
+
+    this.navCtrl.push(SeasonPage,
+      {
+        key: key,
+        page: 'hqs',
       });
-  
-   
+
+
   }
+
+ 
 
 }
