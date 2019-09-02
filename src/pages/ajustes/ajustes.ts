@@ -44,7 +44,7 @@ export class AjustesPage {
 
   OpenAdm() {
     
-   this.dataProvider.GetToAdm().then((res) => {
+   this.dataProvider.GetUidUser().then((res) => {
     if (res != undefined) {
       this.dataProvider.GetUser(res).subscribe((u) => {
          let user: any[] = u;

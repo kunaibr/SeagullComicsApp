@@ -26,5 +26,51 @@ page-season {
             margin-bottom: 30%;
             margin-top: 30%;
         }
-       
+
+        .SwipedTabs-indicatorSegment
+    {
+        -webkit-transition: 0.3s all;
+        -moz-transition:  0.3s all;
+        -o-transition:  0.3s all;
+        transition:  0.3s all;
+        transform-origin: top 0 left 0;
+        height: 1px;
+	    position: relative;
+	    top: -2px;
+	    background-color: black !important;
+    }
+    .SwipedTabs-tabs ion-segment-button
+    {
+    	border:none !important;
+    	color:gray!important;
+    	background-color:white!important;
+    }
+     .SwipedTabs-tabs ion-segment-button.SwipedTabs-activeTab
+    {
+        color:black !important;
+    }
+    .SwipedTabs-tabs
+    {
+    	border-bottom: solid 1px #e6e6e6  !important;
+    }
+
+    .swiper-slide {
+        overflow-y: scroll;
+        display: block;
+    }
+
+    .SeasonGreat{
+        
+            width: 80%;
+            height: 30px;
+            background-color: #014a8e;
+            color:#fcfcfc;
+            font-size: 15px;
+            border-radius: 10px;
+            display: block;
+            margin-right: auto;
+        
+    }
+
+    
 }

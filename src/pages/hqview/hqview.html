@@ -7,13 +7,12 @@
 
 </ion-header>
 
-
 <ion-content fullscreen="true" direction="xy">
     
-    <div *ngFor="let page of hqsPages">
-        <pinch-zoom zoom-button="False" double-tap="true">
-        <img [src]="page.imagem">
-      </pinch-zoom>
-    </div>
-  
+  <div *ngFor="let page of hqsPages">
+      <pinch-zoom zoom-button="False" double-tap="true">
+      <img [src]="page.imagem">
+    </pinch-zoom>
+  </div>
+
 </ion-content>

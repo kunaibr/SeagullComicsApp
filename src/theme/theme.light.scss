@@ -184,8 +184,11 @@
     .hqCard{
         background-color: #fcfcfc;
         border-radius: 15px;
-       margin: 0 auto;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
     }
+
   
   
     ion-title{
@@ -193,14 +196,16 @@
     }
 
       .imgCpmin{
-        width: 75px;
+        width: 70px;
       }
 
       .hqCardBlue{
         border-color: #fcfcfc;
         background-color: #fcfcfc;
         border-radius: 15px;
-        margin: 0 auto;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
     }
 
     .titleCardSeason{
@@ -236,5 +241,9 @@
         font-weight: bolder;
     }
      
+    h3{
+        text-align: left;
+        font-size: 18px;
+    }
 
 }   

@@ -77,7 +77,7 @@ export class BibliotecaPage {
 
     this.AbreCarregador();
     let aux: any[];
-    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+    this.hqlista = this.dataProvider.GetUser(this.usuario);
     this.hqlista.subscribe(res => {
 
       aux = res;

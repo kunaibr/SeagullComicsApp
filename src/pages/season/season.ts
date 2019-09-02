@@ -1,5 +1,5 @@
-import { Component, Injectable } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component, Injectable, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides, LoadingController } from 'ionic-angular';
 import { HqviewPage } from '../hqview/hqview';
 import { ServidorProvider } from '../../providers/servidor/servidor';
 import { Http } from '@angular/http';
@@ -17,6 +17,12 @@ import { PagamentoPage } from '../pagamento/pagamento';
 
 @Injectable()
 export class SeasonPage {
+
+  @ViewChild('SwipedTabsSlider') SwipedTabsSlider: Slides;
+
+  SwipedTabsIndicator: any = null;
+
+  tabs: any = [];
 
   hqlista:any;
   hqsUser:string; 
@@ -55,6 +61,10 @@ export class SeasonPage {
     public globalvars: GlobalvarsProvider,
     private dataProvider: DatabaseProvider,
     ) {
+      this.tabs = ['Episódios', 'Detalhes'];
+      this.usuario = this.globalvars.getUser();
+
+      this.GetRetornarSeason();
       
   }
 
@@ -62,9 +72,8 @@ export class SeasonPage {
 
   ionViewDidLoad() {
 
-    this.usuario =  this.globalvars.getUser();
-    
-    this.GetRetornarSeason();
+    this.SwipedTabsIndicator = document.getElementById("indicator");
+    this.SwipedTabsSlider.slideTo(this.navParams.get("cod"), 0);
   }
 
 //Carrega a pagina
@@ -95,7 +104,7 @@ export class SeasonPage {
     this.titulo = this.keyComic.titulo;
 
     this.AbreCarregador();
-    this.FechaCarregador();
+    
     let aux: any[];
 
     this.auxHq = this.dataProvider.GetAllSeason(this.keyComic).valueChanges();
@@ -111,11 +120,11 @@ export class SeasonPage {
         this.isRefreshing = false;
       }
 
-      this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+      this.hqlista = this.dataProvider.GetUser(this.usuario);
       this.hqlista.subscribe(res => {
      
       this.hqsUser = res[2];
-     
+    
       });
      
       
@@ -147,10 +156,10 @@ export class SeasonPage {
   OpenCompleteSeason(){
 
     if(this.hqsUser == 'True'){
-      
+      console.log("1");
         this.navCtrl.push(HqviewPage, {
           keyComic: this.keyComic,
-          keySeason:  'Complete',
+          keySeason: 'Complete',
           preview: 'False',
         });
 
@@ -158,7 +167,7 @@ export class SeasonPage {
       
       this.navCtrl.push(HqviewPage, {
         keyComic: this.keyComic,
-        keySeason:  this.keySeason.key,
+        keySeason: this.keySeason.key,
         preview: 'True',
       });
      }
@@ -197,5 +206,27 @@ export class SeasonPage {
      console.log("favoritado!");
    });
   }
+  
+
+  selectTab(index) {
+    this.SwipedTabsIndicator.style.webkitTransform = 'translate3d(' + (100 * index) + '%,0,0)';
+    this.SwipedTabsSlider.slideTo(index, 500);
+  }
+
+  updateIndicatorPosition() {
+    // A condição não pode ser maior que o index
+    if (this.SwipedTabsSlider.length() > this.SwipedTabsSlider.getActiveIndex()) {
+      this.SwipedTabsIndicator.style.webkitTransform = 'translate3d(' + (this.SwipedTabsSlider.getActiveIndex() * 100) + '%,0,0)';
+    }
+
+  }
+  //Animação do indicador 
+  animateIndicator($event) {
+    if (this.SwipedTabsIndicator)
+      this.SwipedTabsIndicator.style.webkitTransform = 'translate3d(' + (($event.progress * (this.SwipedTabsSlider.length() - 1)) * 100) + '%,0,0)';
+  }
+
+
+
 }
 

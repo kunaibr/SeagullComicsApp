@@ -15,8 +15,8 @@ import { Storage } from '@ionic/Storage';
 import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
-import { FCM } from '@ionic-native/fcm/ngx'
-import { SeasonPage } from '../pages/season/season';
+import { FCM } from '@ionic-native/fcm/ngx';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -70,7 +70,7 @@ export class MyApp {
         } else {
           this.globalvars.setUser(res);
 
-          this.rootPage = SeasonPage;
+          this.rootPage = HqsPage;
         }
       });
       this.storage.get('intro_storage').then((int) => {

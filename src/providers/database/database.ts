@@ -106,9 +106,10 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string) {
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string, creditos) {
 
     let toSave = {
+      creditos: creditos,
       key: '',
       titulo: titulo,
       descricao: texto,
@@ -133,7 +134,7 @@ export class DatabaseProvider {
   }
 
   GetAllSeasonPages(key) {
-    let ref = this.db.list('comics/' + key);
+    let ref = this.db.list('comics/' + key + '/completeSeason');
     return ref.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
@@ -162,14 +163,13 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/pages/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComicsSeason(keyComic: string, imagem: string, numero: string, metainfo, descricao: string, creditos: string) {
+  SaveToDatabaseComicsSeason(keyComic: string, imagem: string, numero: string, metainfo, descricao: string) {
 
     let toSave = {
       key: '',
       data: metainfo.timeCreated,
       numero: numero,
       descricao: descricao,
-      creditos: creditos,
       imagem: imagem,
       pages: imagem,
     };
@@ -183,10 +183,15 @@ export class DatabaseProvider {
 
     let toSave = {
       numero: numero,
-
       imagem: imagem,
     };
 
+    let toSaveComplete = {
+      imagem: imagem,
+    }
+
+    
+    this.db.list('comics/' + keyComic + '/completeSeason').push(toSaveComplete);  
     return this.db.list('comics/' + keyComic + '/season/' + keySeason + "/pages").push(toSave);
 
 
@@ -295,15 +300,10 @@ export class DatabaseProvider {
   //------------------------------------------------USER
 
   GetUser(uid) {
-    let ref = this.db.list('usuarios/' + uid).valueChanges();
-    console.log(uid);
-    return ref;
-  }
-
-  GetComicsUser(uid) {
     let ref = this.db.list('usuarios/' + uid);
+    console.log(uid);
 
-    return ref;
+    return ref.valueChanges();
   }
 
   AddNewComicsForUser(texto, uid) {
@@ -340,7 +340,7 @@ export class DatabaseProvider {
 
 
 
-  GetToAdm() {
+  GetUidUser() {
     return this.storage.get('user');
 
   }

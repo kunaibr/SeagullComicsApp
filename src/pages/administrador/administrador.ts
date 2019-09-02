@@ -239,7 +239,7 @@ export class AdministradorPage {
       inputs: [
         {
           name: 'info',
-          placeholder: '',
+          placeholder: 'Escreva aqui as pessoas creditadas',
         },
         {
           name: 'titulo',
@@ -287,7 +287,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo).then((response) => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo,info).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
@@ -311,7 +311,7 @@ export class AdministradorPage {
       inputs: [
         {
           name: 'info',
-          placeholder: 'Escreva aqui as pessoas creditadas',
+          placeholder: '',
         },
         {
           name: 'idcomic',
@@ -356,7 +356,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,numero,res.metadata,descricao,info).then((response) => {
+      this.dataProvider.SaveToDatabaseComicsSeason(idcomic,this.imgPath,numero,res.metadata,descricao).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Season foi um Sucesso " + response.key,
               duration: 3000
@@ -526,7 +526,7 @@ GetRetornarComics() {
 
   this.AbreCarregador();
 
-  this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+  this.hqlista = this.dataProvider.GetUser(this.usuario);
   this.hqlista.subscribe(res => {
  
   this.hqsUser = res[1];

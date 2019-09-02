@@ -173,7 +173,9 @@
     .hqCard{
         background-color: #212121;
         border-radius: 15px;
-        margin: 0 auto;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
     }
 
 
@@ -182,14 +184,16 @@
     }
 
     .imgCpmin{
-      width: 75px;
+      width: 70px;
     }
 
     .hqCardBlue{
         border-color: #212121;
         background-color: #212121;
         border-radius: 15px;
-        margin: 0 auto;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
     }
 
     .textSeason{
@@ -229,5 +233,11 @@
         text-shadow: -1px 2px 0 #027def;
         font-weight: bold;
         font-weight: bolder;
+    }
+
+    h3{
+        text-align: left;
+        font-size: 18px;
+        color: #fcfcfc;
     }
 }

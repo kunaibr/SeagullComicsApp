@@ -15,7 +15,6 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -33,12 +32,30 @@
   <ion-item class="hqPanel">
 
     <img class="imgPanel" [src]="keyComic.imagem">
-    <h1>Titulo: {{keyComic.titulo}}</h1>
-    <p>Edição: {{keyComic.edicao}}</p>
-    <p>Data: {{keyComic.data | date: 'mediumDate'}}</p>
-    <p class="textSeason">Descrição: {{keyComic.descricao}}</p>
+   
   </ion-item>
   <hr />
+  <ion-segment  class="SwipedTabs-tabs"  >
+    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
+    [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' >
+    {{tab}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Aqui é a linha do indicador dos slides-->
+  <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
+
+
+  <ion-slides #SwipedTabsSlider  (ionSlideDrag)="animateIndicator($event)"
+  (ionSlideWillChange)="updateIndicatorPosition()"
+  (ionSlideDidChange)="updateIndicatorPosition()"
+  (pan)="updateIndicatorPosition()"
+  [pager]="false"
+  [effect]="cube"
+  
+>
+
+<ion-slide>
 
   <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
     <ion-icon name="star"></ion-icon>
@@ -50,7 +67,7 @@
   <hr />
 
   <ion-item>
-    <h2>Temporada Completa</h2>
+    <button class="SeasonGreat" (click)="OpenCompleteSeason()">Ler a Temporada Completa</button>
   </ion-item>
 
   <hr />
@@ -83,4 +100,17 @@
   <ion-item *ngIf="hqsUser == 'False'">
     <button class="AssinarButton" (click)="OpenPagamento()">ASSINAR AGORA!</button>
   </ion-item>
+
+</ion-slide>  
+<ion-slide>
+ <h3><b>Titulo:</b> {{keyComic.titulo}}</h3>
+  <h3><b>Edição:</b> {{keyComic.edicao}}</h3>
+    <h3><b>Data:</b> {{keyComic.data | date: 'mediumDate'}}</h3>
+    <h3><b>Descrição:</b> {{keyComic.descricao}}</h3>
+    <h3><b>Criadores:</b> {{keyComic.credits}}</h3>
+</ion-slide>
+</ion-slides>
+
+
+ 
 </ion-content>

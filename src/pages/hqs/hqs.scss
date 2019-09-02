@@ -17,7 +17,10 @@ page-hqs {
     
     
   }
-
+  
+  .grid, .col, .row{
+    padding: 0px;
+  }
   .backgroundFocus{
     /* Add the blur effect */
     filter: blur(10px);

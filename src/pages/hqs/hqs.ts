@@ -52,7 +52,7 @@ export class HqsPage {
 
   ionViewDidLoad() {
     this.usuario = this.globalvars.getUser();
-
+    
     this.GetRetornarComics();
   }
 
@@ -113,8 +113,8 @@ export class HqsPage {
   GetRetornarComics() {
 
     this.AbreCarregador();
-    this.FechaCarregador();
-    this.hqlista = this.dataProvider.GetComicsUser(this.usuario).valueChanges();
+    
+    this.hqlista = this.dataProvider.GetUser(this.usuario);
     this.hqlista.subscribe(res => {
 
       this.hqsUser = res[2];

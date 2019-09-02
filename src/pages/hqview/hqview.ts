@@ -46,14 +46,10 @@ export class HqviewPage {
   }
 
   GetCompleteSeason() {
-    this.hqslist = this.dataProvider.GetAllSeasonPages(this.keyComic.key + '/season/' + this.keySeason);
+    this.hqslist = this.dataProvider.GetAllSeasonPages(this.keyComic.key);
     this.hqslist.subscribe(res => {
-      for(let i = 0; i < res.length ; i++){
-        console.log("comics = " + res[i]);
-      }
       
-      // this.hqsPages = res;
-
+      this.hqsPages = res;
     });
 
   }
@@ -89,6 +85,6 @@ export class HqviewPage {
 
     });
 
-
   }
+  
 }
