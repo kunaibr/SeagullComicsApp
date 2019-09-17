@@ -45,7 +45,11 @@ export class CadastroPage {
 
   EfetuarCadastro() {
 
-if(this.check == true){
+if( this.registerForm.value.senha !=  this.registerForm.value.senhaConfirm){
+  this.Toast("As duas senhas não estão iguais");
+}else{
+
+
     this.afAuth.auth.createUserWithEmailAndPassword(
       this.registerForm.value.email,
       this.registerForm.value.senha
@@ -81,7 +85,7 @@ if(this.check == true){
             break;
         }
       });
-    }
+    }    
   }
 
   Toast(text: string) {

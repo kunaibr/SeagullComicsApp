@@ -39,15 +39,17 @@
 
   
     //BIG TEXT
-    .Great{
-        width: 100%;
+    .btn-big{
+        background-image: linear-gradient(to right, #014c8d 0%, #0161b4 51%, #0276db 100%);
+        width: 80%;
         height: 40px;
-        background-color: #014a8e;
         color:#ffffff;
-        font-size: 22px;
-        margin-top: 100px;
+        font-size: 18px;
         border-radius: 10px;
         display: block;
+        margin: 0 auto;
+        font-family: Arial;
+        font-weight: bold;
     }
 
     .GreatNegative{
@@ -55,7 +57,7 @@
         height: 40px;
         background-color: hsl(0, 76%, 50%);
         color:#ffffff;
-        font-size: 22px;
+        font-size: 18px;
         border-radius: 10px;
         display: block;
     }

@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "index",
+    "site": "seagullcomics",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",

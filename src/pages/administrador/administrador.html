@@ -10,7 +10,7 @@
 
 <ion-content padding>
       
-   <button class="Great" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>  Escolher Imagens</button>
+   <button class="btn-big" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>Escolher Imagens</button>
    <img src="{{ imgPath }}" alt="" class="imgBig"/>
 
   <h2>Lista de HQs</h2>
@@ -24,7 +24,7 @@
   <h3>Lista de Paginas</h3>
   <img *ngFor="let page of hqsPages | async" [src]="page.imagem">
  
-  <button class="Great" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button>
+  <button class="btn-big" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button>
 
    <ion-fab slot="fixed" right bottom>
  
