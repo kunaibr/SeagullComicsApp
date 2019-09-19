@@ -5,23 +5,23 @@
     CRIE SUA CONTA!
 </ion-label>
 
-<form novalidate [formGroup]="registerForm" (ngSubmit)="EfetuarCadastro()">
+<form novalidate [formGroup]="registerForm" (ngSubmit)="EfetuarCadastro()" >
   <ion-list>
     <ion-item>
-     <ion-input type="text" formControlName="nome" placeholder="Nome"></ion-input>
+     <ion-input type="text" formControlName="nome" placeholder="Nome" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+      <ion-input type="text" formControlName="email" placeholder="Email" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+      <ion-input type="password" formControlName="senha" placeholder="Senha" ></ion-input>
     </ion-item>
     <ion-item>
     <ion-input type="password" formControlName="senhaConfirm" placeholder="Confirme a senha" ></ion-input>
     </ion-item>
   </ion-list>
 <div>
-  <button type="submit" class="btn-big" style="margin-top: 80px" [disabled]="check == false">Cadastrar</button>
+  <button type="submit" class="btn-big" style="margin-top: 80px" [disabled]="check == false" >Cadastrar</button>
 </div>
 </form>
 

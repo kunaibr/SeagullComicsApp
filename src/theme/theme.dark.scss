@@ -1,243 +1,268 @@
 .dark-theme{
-    ion-content{
-        background-color: #222222;
-        color: #fff;
-    }
-
-
-    .header .toolbar-title{
-        color: #000000;
-        display: block;
-        vertical-align: 50%;
-        font-size: 20px;
-    }
-
-    .toolbar-background{
-        background-color: #014a8e;
-    }
-
-    .text-input{
-        background-color: #222222;
-        color: #ffffff;
-        box-shadow: -6px 3px #c1c1c1;
-        border: solid;
-        border-color:#c1c1c1;
-        border-radius: 8px;
-        height: 35px;
-    }
-
-    ion-label{
-        padding-left: 5px;
-        font-size: 15px;
-        color: #ffffff;
-    }
-    
-  
-
-    .Great{
-        width: 100%;
-        height: 40px;
-        background-color: #014a8e;
-        color:#222222;
-        font-size: 22px;
-        margin-top: 100px;
-        border-radius: 10px;
-        display: block;
-    }
-
-    .GreatNegative{
-        width: 100%;
-        height: 40px;
-        background-color: hsl(0, 76%, 50%);
-        color:#ffffff;
-        font-size: 22px;
-        border-radius: 10px;
-        display: block;
-    }
-
-    .Normal{
-        
-        background-color: #222222;
-        color:#014a8e;
-        font-size: 17px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 20px;
-        display: block;
-    }
-
-    .logo{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 50px;
-        margin-bottom: 100px;
-        width:60%;
-    }
-
-    .titleGreat{
-        font-size: 28px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        color: #014a8e;
-        text-align: center;
-        font-weight: bold;
-        font-weight: bolder;
-
-        padding-bottom: 40px;
-        text-shadow: -1px 2px 0 #027def;
-    }
-
-    .titleNormal{
-        font-size: 28px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        color: #014a8e;
-        text-align: center;
-        font-weight: bold;
-        font-weight: bolder;
-
-    }
-
-    .imgCp{
-        width: 80px;
-    }
-    .ion-item{
-        background-color: transparent;
-        border: 0px;
-    }
-
-    .imgCard{
-        max-width: 100px;
-        float: left;
-        margin-right: 10px;
-        border: 1px solid #222222;
-        border-radius: 2px;
-        padding: 2px;
-      }
-
-      .bigimg{
-        border: 1px solid #191919;
-        border-radius: 4px;
-        padding: 5px;
-      }
-
-    .cardNews{
-        background-color: #191919;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        border-color: transparent;
-    }
-
-    .dataCard{
-        font-size: 13px;
-        color: #fcfcfc;
-        text-align: right;
-       
-    }
-
-    .textCard{
-        font-size: 15px;
-        color: #ffffff;
-        text-align: left, top;
-        white-space: pre-line;
-    }
-
-    .textSpace{
-        font-size: 17px;
-        color: #ffffff;
-    }
-
-    .titleCard{
-        white-space: pre-line;
-        text-align: left, top;
-        color: #ffffff;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    
-    .precoCard{
-        align-items: right, top;
-        text-align: center;
-        color: #191919;
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #014a8e;
-        float: right;
-        height: 25px;
-    }
-
-  
-    .hqCard{
-        background-color: #212121;
-        border-radius: 15px;
-        padding: 0px;
-        margin: 0px;
-        height: 125px;
-    }
-
-
-    ion-title{
-        text-align: left;
-    }
-
-    .imgCpmin{
-      width: 70px;
-    }
-
-    .hqCardBlue{
-        border-color: #212121;
-        background-color: #212121;
-        border-radius: 15px;
-        padding: 0px;
-        margin: 0px;
-        height: 125px;
-    }
-
-    .textSeason{
-        color: #ffffff;
-    }
-
-    
-    .titleCardSeason{
-        white-space: pre-line;
-        text-align: left, top;
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .textSeason{
-        color: #ffffff;
-        white-space: pre-line;
-    }
-
-    .dataCardSeason{
-        font-size: 13px;
-        color: #fcfcfc;
-        text-align: right;
-    }
-
-
-    .AssinarButton{
-        width: 100%;
-        height: 40px;
-        background-color: #092b75;
-        color:#191919;
-        font-size: 22px;
-        border-radius: 10px;
-        display: block;
-
-        text-shadow: -1px 2px 0 #027def;
-        font-weight: bold;
-        font-weight: bolder;
-    }
-
-    h3{
-        text-align: left;
-        font-size: 18px;
-        color: #fcfcfc;
-    }
+//CONTENT
+ion-content{
+    background-color: #222222;
+    color: #ffffff;
 }
+
+
+//TITLE HEAD
+.header .toolbar-title{
+    color: #222222;
+    display: block;
+    vertical-align: 50%;
+    font-size: 20px;
+
+}
+
+//NAVBAR
+.toolbar-background{
+    background-color: #014a8e;
+}
+
+//INPUT
+
+.text-input{
+    background-color: #222222;
+    color: #ffffff;
+    box-shadow: -6px 3px  #838383;
+    border: solid;
+    border-color:#838383;
+    border-radius: 8px;
+    height: 35px;
+}
+ion-label{
+    padding-left:5px;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+
+//BIG TEXT
+.btn-big{
+    background-image: linear-gradient(to right, #014c8d 0%, #0161b4 51%, #0276db 100%);
+    width: 80%;
+    height: 40px;
+    color:#222222;
+    font-size: 18px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.GreatNegative{
+    width: 100%;
+    height: 40px;
+    background-color: hsl(0, 76%, 50%);
+    color:#222222;
+    font-size: 18px;
+    border-radius: 10px;
+    display: block;
+}
+
+//TEXT
+.Normal{
+    
+    background-color: #222222;
+    color:#014a8e;
+    font-size: 17px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    display: block;
+}
+
+//LOGIN PAGE
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width:60%;
+}
+
+//CADASTRO PAGE
+.titleGreat{
+    font-size: 28px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: #014a8e;
+    text-align: center;
+    font-weight: bold;
+    font-weight: bolder;
+
+    padding-bottom: 40px;
+    text-shadow: -1px 2px 0 #027def;
+}
+
+.titleNormal{
+    font-size: 28px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: #014a8e;
+    text-align: center;
+    font-weight: bold;
+    font-weight: bolder;
+}
+
+
+
+//HQ PAGE
+.imgCp{
+    width: 80px;
+}
+
+
+.ion-item{
+    background-color: transparent;
+    //border: 0px;
+}
+
+//CARD NOTICIA
+.imgCard{
+    max-width: 75px;
+    float: left;
+    margin-right: 10px;
+    border: 1px solid #222222;
+    border-radius: 2px;
+    padding: 2px;
+    margin: 0 auto;
+  }
+
+  .bigimg{
+    border: 1px solid #212121;
+    border-radius: 4px;
+    padding: 5px;
+  }
+.cardNews{
+    background-color: #212121;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    //border-color: transparent;
+}
+
+.dataCard{
+    font-size: 13px;
+    color: #0a2e4f;
+    text-align: right;
+   
+}
+
+.textCard{
+    font-size: 15px;
+    color: #014c8d;
+    text-align: left, top;
+    white-space: pre-line;
+}
+
+.textSpace{
+    font-size: 17px;
+    color: #014c8d;
+}
+
+.titleCard{
+    white-space: pre-line;
+    text-align: left, top;
+    color: #014c8d;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.precoCard{
+    align-items: right, top;
+    text-align: center;
+    color: #212121;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #014a8e;
+    float: right;
+    height: 25px;
+}
+
+.hqCard{
+    background-color: #212121;
+    border-radius: 15px;
+    padding: 0px;
+    margin: 0px;
+    height: 125px;
+
+}
+
+.item-md {
+    padding-left: 16px;
+    padding-right: 0;
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: normal;
+    text-transform: none;
+    color: #ffffff;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+ion-title{
+    text-align: left;
+}
+
+  .imgCpmin{
+    width: 70px;
+    padding: 0px 0px 0px 10px;
+  }
+
+  .hqCardBlue{
+    border-color: #212121;
+    background-color: #212121;
+    border-radius: 15px;
+    padding: 0px;
+    margin: 0px;
+    height: 125px;
+}
+
+.titleCardSeason{
+    white-space: pre-line;
+    text-align: left, top;
+    color: #014c8d;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.textSeason{
+    color: #014a8e;
+    white-space: pre-line;
+}
+
+.dataCardSeason{
+    font-size: 13px;
+    color: #0a2e4f;
+    text-align: right;
+}
+
+.AssinarButton{
+    width: 100%;
+    height: 40px;
+    background-color: #092b75;
+    color:#222222;
+    font-size: 22px;
+    border-radius: 10px;
+    display: block;
+
+    text-shadow: -1px 2px 0 #027def;
+    font-weight: bold;
+    font-weight: bolder;
+}
+ 
+h3{
+    text-align: left;
+    font-size: 18px;
+}
+
+}   

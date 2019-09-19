@@ -239,7 +239,7 @@ export class AdministradorPage {
       inputs: [
         {
           name: 'info',
-          placeholder: 'Escreva aqui as pessoas creditadas',
+          placeholder: '',
         },
         {
           name: 'titulo',
@@ -287,7 +287,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo,info).then((response) => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
@@ -519,6 +519,69 @@ export class AdministradorPage {
     this.FechaCarregador();
 
   }
+
+
+  AddCreditsComics() {
+
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Add creditos',
+      inputs: [
+    
+        {
+          name: 'nome',
+          placeholder: 'Escreva aqui o nome',
+        },
+        {
+          name: 'funcao',
+          placeholder: 'Escreva aqui a função',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+
+            this.UploadCreditsComics(data.nome,data.funcao);
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
+
+  UploadCreditsComics(nome,funcao){
+
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStoregedCreditsComics(nome,this.imgPath);
+
+    console.log('upload' + upload);
+
+    upload.then().then(res => {
+     
+      this.dataProvider.SaveToDatabaseCreditsComics(this.keyComic.key,this.imgPath,nome,funcao).then((response) => {
+        let toast = this.toastCtrl.create({
+              message: "Seu envio de Creditos foi um Sucesso " + response.key,
+              duration: 3000
+            });
+            toast.present();
+          
+            
+            this.FechaCarregador();
+           
+           
+           
+      });
+   });
+    
+  }
+
 
 //---------------------------------------------------------------LIST
 

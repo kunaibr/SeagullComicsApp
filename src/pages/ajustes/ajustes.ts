@@ -17,7 +17,7 @@ export class AjustesPage {
 
   toggleValue: boolean = false;
 
-  imgSrc: String = "../../assets/images/logodev2.jpg";
+  checked:boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -31,10 +31,10 @@ export class AjustesPage {
   ToggleAppTheme() {
     if (this.selectTheme == 'dark-theme') {
       this.settings.SetActiveTheme('light-theme');
-      this.imgSrc = "../../assets/images/logodev2.jpg";
+      this.checked = false;
     } else {
       this.settings.SetActiveTheme('dark-theme');
-      this.imgSrc = "../../assets/images/logodev.jpg";
+      this.checked = true;
     }
   }
 

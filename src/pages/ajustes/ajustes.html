@@ -21,7 +21,7 @@
             </ion-col>
             <ion-col>
 
-                <ion-toggle style="padding-top: 10px" (ionChange)="ToggleAppTheme()"></ion-toggle>
+                <ion-toggle style="padding-top: 20px" (ionChange)="ToggleAppTheme()" [(ngModel)]="checked"></ion-toggle>
             </ion-col>
         </ion-row>
         <ion-row>
@@ -53,7 +53,7 @@
 
     <div>
         <p class="titleNormal">Desenvolvido por</p>
-        <img class="img" [src]="imgSrc" (click)="OpenAdm()">
+        <img class="img" src="../../assets/images/logodev.png" (click)="OpenAdm()">
         <p style="font-size: 25px" class="titleNormal" (click)="OpenAdm()">SEAGULL DEVELOPERS</p>
     </div>
 

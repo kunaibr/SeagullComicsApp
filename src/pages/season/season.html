@@ -32,13 +32,13 @@
   <ion-item class="hqPanel">
 
     <img class="imgPanel" [src]="keyComic.imagem">
-   
+
   </ion-item>
   <hr />
-  <ion-segment  class="SwipedTabs-tabs"  >
+  <ion-segment class="SwipedTabs-tabs">
     <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
-    [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' >
-    {{tab}}
+      [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }'>
+      {{tab}}
     </ion-segment-button>
   </ion-segment>
 
@@ -46,71 +46,84 @@
   <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
 
 
-  <ion-slides #SwipedTabsSlider  (ionSlideDrag)="animateIndicator($event)"
-  (ionSlideWillChange)="updateIndicatorPosition()"
-  (ionSlideDidChange)="updateIndicatorPosition()"
-  (pan)="updateIndicatorPosition()"
-  [pager]="false"
-  [effect]="cube"
-  
->
+  <ion-slides #SwipedTabsSlider (ionSlideDrag)="animateIndicator($event)"
+    (ionSlideWillChange)="updateIndicatorPosition()" (ionSlideDidChange)="updateIndicatorPosition()"
+    (pan)="updateIndicatorPosition()" [pager]="false" [effect]="cube">
 
-<ion-slide>
+    <ion-slide>
 
-  <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
-    <ion-icon name="star"></ion-icon>
-  </button>
-  <button class="precoCard" *ngIf="hqsUser == 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
-    <ion-icon name="star-outline"></ion-icon>
-  </button>
+      <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button class="precoCard" *ngIf="hqsUser == 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
+        <ion-icon name="star-outline"></ion-icon>
+      </button>
 
-  <hr />
+      <hr />
 
-  <ion-item>
-    <button class="SeasonGreat" (click)="OpenCompleteSeason()">Ler a Temporada Completa</button>
-  </ion-item>
+      <ion-item>
+        <button class="SeasonGreat" (click)="OpenCompleteSeason()">Ler a Temporada Completa</button>
+      </ion-item>
 
-  <hr />
+      <hr />
 
-  <h2 style="margin: auto"><b>Episódios</b></h2>
+      <h2 style="margin: auto"><b>Episódios</b></h2>
 
-  <button *ngIf="hqsUser != 'True'" class="GreatNegative">Só Preview</button>
-  
-  <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
-    <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="3">
-            <img [src]="hqs.imagem" class="imgCpmin">
-          </ion-col>
-          <ion-col size="8">
-            <p class="titleCardSeason">{{hqs.descricao}}</p>
-            <p class="textSeason">{{hqs.numero}}º Temporada</p>
+      <button *ngIf="hqsUser != 'True'" class="GreatNegative">Só Preview</button>
 
-          </ion-col>
-          <ion-col size="8">
-            <p class="dataCardSeason">{{hqs.data | date: 'mediumDate'}}</p>
-          </ion-col>
-        </ion-row>
+      <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
+        <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                <img [src]="hqs.imagem" class="imgCpmin">
+              </ion-col>
+              <ion-col size="8">
+                <p class="titleCardSeason">{{hqs.descricao}}</p>
+                <p class="textSeason">{{hqs.numero}}º Temporada</p>
 
-      </ion-grid>
+              </ion-col>
+              <ion-col size="8">
+                <p class="dataCardSeason">{{hqs.data | date: 'mediumDate'}}</p>
+              </ion-col>
+            </ion-row>
 
-    </div>
-  </ion-item>
-  <ion-item *ngIf="hqsUser == 'False'">
-    <button class="AssinarButton" (click)="OpenPagamento()">ASSINAR AGORA!</button>
-  </ion-item>
+          </ion-grid>
 
-</ion-slide>  
-<ion-slide>
- <h3><b>Titulo:</b> {{keyComic.titulo}}</h3>
-  <h3><b>Edição:</b> {{keyComic.edicao}}</h3>
-    <h3><b>Data:</b> {{keyComic.data | date: 'mediumDate'}}</h3>
-    <h3><b>Descrição:</b> {{keyComic.descricao}}</h3>
-    <h3><b>Criadores:</b> {{keyComic.credits}}</h3>
-</ion-slide>
-</ion-slides>
+        </div>
+      </ion-item>
+      <ion-item *ngIf="hqsUser == 'False'">
+        <button class="AssinarButton" (click)="OpenPagamento()">ASSINAR AGORA!</button>
+      </ion-item>
+
+    </ion-slide>
+
+    <ion-slide>
+
+      <h3><b>Titulo:</b> {{keyComic.titulo}}</h3>
+      <h3><b>Edição:</b> {{keyComic.edicao}}</h3>
+      <h3><b>Data:</b> {{keyComic.data | date: 'mediumDate'}}</h3>
+      <h3><b>Descrição:</b> {{keyComic.descricao}}</h3>
+      <h3><b>Criadores:</b></h3>
+
+      <div *ngFor="let credits of creditos" class="hqCard">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <img [src]="credits.foto" class="imgCredits">
+            </ion-col>
+            <ion-col size="6">
+              <p class="titleCardSeason">{{credits.nome}}</p>
+              <p class="textSeason">{{credits.funcao}}</p>
+            </ion-col>
+            <ion-col size="4" style="margin-left: 20%"></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+    </ion-slide>
+  </ion-slides>
 
 
- 
+
 </ion-content>

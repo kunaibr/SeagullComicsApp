@@ -106,10 +106,9 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string, creditos) {
-
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string) {
     let toSave = {
-      creditos: creditos,
+      creditos: '',
       key: '',
       titulo: titulo,
       descricao: texto,
@@ -193,14 +192,44 @@ export class DatabaseProvider {
     
     this.db.list('comics/' + keyComic + '/completeSeason').push(toSaveComplete);  
     return this.db.list('comics/' + keyComic + '/season/' + keySeason + "/pages").push(toSave);
+  }
 
+ 
+  SaveToDatabaseCreditsComics(keyComic: string, imagem: string, nome: string, funcao:string) {
 
+    let toSave = {
+      foto: imagem,
+      nome: nome,
+      funcao: funcao,
+    };
+    
+   
+    return this.db.list('comics/' + keyComic + '/creditos').push(toSave);
 
   }
 
 
+  UploadToStoregedCreditsComics(info, imageURI) {
+
+    let newName = `${new Date().getTime()}.txt`;
+
+    new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('comics/credits').child(newName);
+      this.EncodeImageUri(imageURI, function (image64) {
+        imageRef.putString(image64, 'data_url')
+          .then(snapshot => {
+            resolve(snapshot.downloadURL);
+            console.log("snapshot" + snapshot.downloadURL);
+          }, err => {
+            reject(err);
+          })
+      })
+    });
 
 
+    return this.afStorage.ref(`comics/credits/${newName}`).putString(info);
+  }
 
   //------------------------------------------------SLIDES
 
@@ -343,6 +372,13 @@ export class DatabaseProvider {
   GetUidUser() {
     return this.storage.get('user');
 
+  }
+
+  GetCreditsComics(keyComic){
+    let ref = this.db.list('comics/' + keyComic + '/creditos');
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
 }

@@ -45,6 +45,8 @@ export class SeasonPage {
 
   titulo: string;
 
+  public creditos:any[];
+
   public isSearchOpen = false;
 
   public loader;
@@ -111,7 +113,10 @@ export class SeasonPage {
     this.auxHq.subscribe(res => {
       aux = res;
       this.isBuy(aux);
+     
       
+      this.BuscarCreditos();
+
       this.FechaCarregador();
  
       if (this.isRefreshing) {
@@ -129,7 +134,7 @@ export class SeasonPage {
      
       
     });
-
+   
   }
 
   isBuy(aux: any[]) {
@@ -200,6 +205,12 @@ export class SeasonPage {
     this.navCtrl.push(PagamentoPage);
   }
 
+  BuscarCreditos(){
+    this.auxHq = this.dataProvider.GetCreditsComics(this.keyComic.key);
+    this.auxHq.subscribe(res => {
+      this.creditos = res;
+    })
+  }
 
   ClickAddBiblioteca(titulo) {
    this.dataProvider.AddToBibliotecaComic(titulo,this.usuario).then(res => {

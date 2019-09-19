@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AjustesPage } from '../pages/ajustes/ajustes';
 import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 import { HqsPage } from '../pages/hqs/hqs';
-import { NovidadesPage } from '../pages/novidades/novidades';
+//import { NovidadesPage } from '../pages/novidades/novidades';
 import { PersonagensPage } from '../pages/personagens/personagens';
 import { ContatoPage } from '../pages/contato/contato';
 import { LoginPage } from '../pages/login/login';
@@ -50,7 +50,7 @@ export class MyApp {
       { title: 'Comics', component: HqsPage, icon: "paper" },
       { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
-      { title: 'Novidades', component: NovidadesPage, icon: "home" },
+      //{ title: 'Novidades', component: NovidadesPage, icon: "home" },
       { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },
@@ -59,8 +59,9 @@ export class MyApp {
   }
 
   initializeApp() {
+    
     this.settings.GetActiveTheme().subscribe(val => this.selectTheme = val);
-    this.settings.SetActiveTheme('light-theme');
+    // this.settings.SetActiveTheme('light-theme');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -70,7 +71,7 @@ export class MyApp {
         } else {
           this.globalvars.setUser(res);
 
-          this.rootPage = HqsPage;
+          this.rootPage = AjustesPage;
         }
       });
       this.storage.get('intro_storage').then((int) => {
