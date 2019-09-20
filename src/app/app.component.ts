@@ -16,6 +16,7 @@ import { IntroPage } from '../pages/intro/intro';
 import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { ArtistsPage } from '../pages/artists/artists';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class MyApp {
       { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
       //{ title: 'Novidades', component: NovidadesPage, icon: "home" },
+      { title: 'Artistas', component: ArtistsPage, icon: "ios-create" },
       { title: 'Contato', component: ContatoPage, icon: "md-chatbubbles" },
       { title: 'Ajustes', component: AjustesPage, icon: "bulb" },
       { title: 'Sair', component: LoginPage, icon: "log-out" },

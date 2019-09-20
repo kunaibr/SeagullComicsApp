@@ -16,14 +16,31 @@
   <h2>Lista de HQs</h2>
 
   <p *ngFor="let hqs of searchHqs" (click)="GetRetornarSeason(hqs)">{{hqs.titulo}} - {{hqs.key}}</p>
-
-  <h3>Lista de Seasons</h3>
+  <hr />
+  <h2>Lista de Seasons</h2>
 
   <p *ngFor="let sea of searchSeason" (click)="GetPages(sea)" >{{sea.numero}} - {{sea.key}}</p>
-
-  <h3>Lista de Paginas</h3>
+  <hr />
+  <h2>Lista de Paginas</h2>
   <img *ngFor="let page of hqsPages | async" [src]="page.imagem">
- 
+
+  <hr />
+  <h2>Lista de Artistas</h2>
+  <div *ngFor="let credits of artists" class="hqCard" (click)="SetArtist(credits)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <img [src]="credits.foto" class="imgCredits">
+        </ion-col>
+        <ion-col size="8">
+          <p class="titleCardSeason">{{credits.nome}}</p>
+          <p class="textSeason">{{credits.funcao}}</p>
+        </ion-col>
+     
+      </ion-row>
+    </ion-grid>
+  </div>
+
   <button class="btn-big" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button>
 
    <ion-fab slot="fixed" right bottom>
@@ -72,6 +89,10 @@
 
       <button ion-fab color="primary"  (click)="AddCreditsComics()">
           <ion-icon name="md-contact"></ion-icon>
+        </button>
+
+        <button ion-fab color="primary"   [disabled]="!imgPath"  (click)="AddArtista()">
+          <ion-icon name="ios-create"></ion-icon>
         </button>
     
     </ion-fab-list>

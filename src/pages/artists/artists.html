@@ -1,0 +1,34 @@
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  <ion-title *ngIf="!isSearchOpen" >Artists</ion-title>
+  
+  <ion-searchbar *ngIf="isSearchOpen" showCancelButton="true" (search)="OnSearch($event)" (ionCancel)="!isSearchOpen=false"></ion-searchbar>
+  
+  <ion-buttons end>
+    <button ion-button icon-only *ngIf="!isSearchOpen" (click)="isSearchOpen=true">
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let credits of searchArtists" class="hqCard">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <img [src]="credits.foto" class="imgCredits">
+        </ion-col>
+        <ion-col size="8">
+          <p class="titleCardSeason">{{credits.nome}}</p>
+          <p class="textSeason">{{credits.funcao}}</p>
+        </ion-col>
+      
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

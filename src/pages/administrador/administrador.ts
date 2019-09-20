@@ -48,6 +48,18 @@ export class AdministradorPage {
   stringComicId:string;
   stringSeasonId:string;
 
+
+  //Artists
+  artist = {
+    foto:"",
+    nome:"",
+    funcao:"",
+  }
+
+  aux: Observable<any[]>;
+  
+  artists:any[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -86,9 +98,6 @@ export class AdministradorPage {
 
       // });
     });
-  }
-  ionViewDidOpen() {
-    this.GetRetornarComics();
   }
 
 
@@ -524,16 +533,18 @@ export class AdministradorPage {
   AddCreditsComics() {
 
     let inputAlert = this.AlertCtrl.create({
-      title: 'Add creditos',
+      title: 'Quer adicionar esse artista aos creditos?',
       inputs: [
     
         {
           name: 'nome',
           placeholder: 'Escreva aqui o nome',
+          value: this.artist.nome,
         },
         {
           name: 'funcao',
           placeholder: 'Escreva aqui a função',
+          value:this.artist.funcao,
         },
 
       ],
@@ -559,13 +570,8 @@ export class AdministradorPage {
 
     this.AbreCarregador();
 
-    let upload = this.dataProvider.UploadToStoregedCreditsComics(nome,this.imgPath);
-
-    console.log('upload' + upload);
-
-    upload.then().then(res => {
-     
-      this.dataProvider.SaveToDatabaseCreditsComics(this.keyComic.key,this.imgPath,nome,funcao).then((response) => {
+  
+      this.dataProvider.SaveToDatabaseCreditsComics(this.keyComic.key,this.artist.foto,nome,funcao).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Creditos foi um Sucesso " + response.key,
               duration: 3000
@@ -576,6 +582,67 @@ export class AdministradorPage {
             this.FechaCarregador();
            
            
+           
+      });
+    
+  }
+
+
+  AddArtista() {
+
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Add artista',
+      inputs: [
+    
+        {
+          name: 'nome',
+          placeholder: 'Escreva aqui o nome',
+        },
+        {
+          name: 'funcao',
+          placeholder: 'Escreva aqui a função',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+
+            this.UploadArtist(data.nome,data.funcao);
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
+
+  UploadArtist(nome,funcao){
+
+    this.AbreCarregador();
+
+    let upload = this.dataProvider.UploadToStoregedCreditsComics(nome,this.imgPath);
+
+    console.log('upload' + upload);
+
+    upload.then().then(res => {
+     
+      this.dataProvider.SaveToDatabaseArtists(this.imgPath,nome,funcao).then((response) => {
+        let toast = this.toastCtrl.create({
+              message: "Seu envio de Artista foi um Sucesso " + response.key,
+              duration: 3000
+            });
+            toast.present();
+          
+            
+            this.FechaCarregador();
+           
+            this.GetArtists();
            
       });
    });
@@ -603,6 +670,7 @@ GetRetornarComics() {
 
   this.FechaCarregador();
     
+  this.GetArtists();
   });
 
 }
@@ -632,6 +700,20 @@ GetPages(keySeason) {
   this.hqsPages = this.dataProvider.GetAllComicsPages(this.keyComic.key + '/season/' + keySeason.key);
 }
 
+GetArtists(){
+ 
+  this.AbreCarregador();
+  this.aux = this.dataProvider.GetAllArtists();
+
+  this.aux.subscribe(res =>{
+    this.artists = res;
+   this.FechaCarregador();
+  });
+}
+
+SetArtist(credits){
+  this.artist = credits;
+}
 
 //Notifications
 

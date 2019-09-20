@@ -59,6 +59,8 @@ import { SeasonPage } from '../pages/season/season';
 import { SeasonPageModule } from '../pages/season/season.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { ArtistsPageModule } from '../pages/artists/artists.module';
+import { ArtistsPage } from '../pages/artists/artists';
 
 
 var firebaseConfig = {
@@ -98,6 +100,7 @@ export function createTranslateLoader(http: HttpClient) {
     PersonagensPageModule,
     PersonagensviewPageModule,
     CadastroPageModule,
+    ArtistsPageModule,
     DetalheNoticiaPageModule,
     PdfPageModule,
     SeasonPageModule,
@@ -134,6 +137,7 @@ export function createTranslateLoader(http: HttpClient) {
     PagamentoPage,
     PdfPage,
     SeasonPage,
+    ArtistsPage,
   ],
   providers: [
     StatusBar,

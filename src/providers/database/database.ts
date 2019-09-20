@@ -195,7 +195,7 @@ export class DatabaseProvider {
   }
 
  
-  SaveToDatabaseCreditsComics(keyComic: string, imagem: string, nome: string, funcao:string) {
+  SaveToDatabaseArtists(imagem: string, nome: string, funcao:string) {
 
     let toSave = {
       foto: imagem,
@@ -203,7 +203,19 @@ export class DatabaseProvider {
       funcao: funcao,
     };
     
-   
+    return this.db.list('artists/').push(toSave); 
+  
+
+  }
+
+  SaveToDatabaseCreditsComics(keyComic: string, imagem: string, nome: string, funcao:string) {
+
+    let toSave = {
+      foto: imagem,
+      nome: nome,
+      funcao: funcao,
+    };
+     
     return this.db.list('comics/' + keyComic + '/creditos').push(toSave);
 
   }
@@ -381,6 +393,12 @@ export class DatabaseProvider {
     });
   }
 
+  GetAllArtists(){
+    let ref = this.db.list('artists');
+    return ref.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+  }
 }
 
 
