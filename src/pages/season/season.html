@@ -52,24 +52,25 @@
 
     <ion-slide>
 
-      <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
+      <!-- <button class="precoCard" *ngIf="hqsUser != 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
         <ion-icon name="star"></ion-icon>
       </button>
       <button class="precoCard" *ngIf="hqsUser == 'True'" (click)="ClickAddBiblioteca(keyComic.titulo)">
         <ion-icon name="star-outline"></ion-icon>
-      </button>
+      </button> -->
 
       <hr />
 
       <ion-item>
-        <button class="SeasonGreat" (click)="OpenCompleteSeason()">Ler a Temporada Completa</button>
+        <button *ngIf="encerrado == 'True'" class="SeasonGreat" (click)="OpenCompleteSeason()">Ler a Temporada Completa</button>
       </ion-item>
 
       <hr />
 
       <h2 style="margin: auto"><b>Episódios</b></h2>
 
-      <button *ngIf="hqsUser != 'True'" class="GreatNegative">Só Preview</button>
+      <button *ngIf="hqsUser != 'True' && hqsUser != 'Gratis'" class="GreatNegative">Só Preview</button>
+      <button *ngIf="hqsUser == 'Gratis'" class="GreatPositive">Grátis</button>
 
       <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">
@@ -92,18 +93,21 @@
 
         </div>
       </ion-item>
-      <ion-item *ngIf="hqsUser == 'False'">
+      <ion-item *ngIf="hqsUser != 'True' || hqsUser == 'Gratis'">
         <button class="AssinarButton" (click)="OpenPagamento()">ASSINAR AGORA!</button>
       </ion-item>
 
     </ion-slide>
 
-    <ion-slide>
+    <ion-slide style="margin-right: 10px; margin-left: 10px;">
 
       <h3><b>Titulo:</b> {{keyComic.titulo}}</h3>
-      <h3><b>Edição:</b> {{keyComic.edicao}}</h3>
+      <h3><b>Edição:</b> #{{keyComic.edicao}}</h3>
       <h3><b>Data:</b> {{keyComic.data | date: 'mediumDate'}}</h3>
       <h3><b>Descrição:</b> {{keyComic.descricao}}</h3>
+      <h3 *ngIf="encerrado == 'True'"><b>Encerrado:</b> Sim</h3>
+      <h3 *ngIf="encerrado != 'True'"><b>Encerrado:</b> Não</h3>
+      <h3><b>Frequencia:</b> Toda sexta-feira</h3>
       <h3><b>Criadores:</b></h3>
 
       <div *ngFor="let credits of creditos" class="hqCard">

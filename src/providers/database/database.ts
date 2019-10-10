@@ -110,6 +110,7 @@ export class DatabaseProvider {
     let toSave = {
       creditos: '',
       key: '',
+      encerrado: 'False',
       titulo: titulo,
       descricao: texto,
       data: metainfo.timeCreated,
@@ -123,6 +124,10 @@ export class DatabaseProvider {
     let ref = this.db.list('comics').push(toSave);
     this.db.database.ref('comics/' + ref.key + '/key').set(ref.key);
     return ref;
+  }
+
+  CloseComicsToDatabase(key,mens){
+    return this.db.database.ref('comics/' + key + '/encerrado').set(mens);
   }
 
   GetAllComicsPages(key) {

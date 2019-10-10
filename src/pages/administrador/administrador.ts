@@ -445,6 +445,55 @@ export class AdministradorPage {
     });
     
   }
+
+  EncerrarComic(){
+    let inputAlert = this.AlertCtrl.create({
+      title: 'Encerrar/Prosseguir com uma Comic',
+      inputs: [
+        {
+          name: 'valor',
+          placeholder: 'True = Encerrar | False = Prosseguir',
+        },
+        {
+          name: 'idcomic',
+          placeholder: 'Escreva aqui o id da comic',
+          value: this.stringComicId,
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'Cancel',
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            this.AbreCarregador()
+            this.dataProvider.CloseComicsToDatabase(data.idcomic,data.valor).then(() => {
+              let toast = this.toastCtrl.create({
+                message: "Seu envio de Enceramento/Prosseguir foi um Sucesso",
+                duration: 3000
+              });
+          
+              toast.present();
+              this.FechaCarregador();
+            }).catch(() =>{
+              let toast = this.toastCtrl.create({
+                message: "Ocorreu um erro",
+                duration: 3000
+              });
+          
+              toast.present();
+              this.FechaCarregador();
+            })
+          
+          }
+        }
+      ]
+    });
+    inputAlert.present();
+
+  }
  
 
   //-------------------------------------------------------------IMAGENS

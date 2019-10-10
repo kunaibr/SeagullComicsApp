@@ -25,13 +25,13 @@
 
   <!-- Slides coletados do bd na tabela slide -->
   
-  <div class="backgroundFocus">
+  <!-- <div class="backgroundFocus">
       <img [src]="slideChose" alt="">
-  </div>
+  </div> -->
 
   <div class="radius">
   <ion-slides pager="true" style="padding: 0px" (ionSlideDidChange)="slideChanged()" >
-    <ion-slide *ngFor="let slide of searchHqs" (click)="OpenSeason(slide)">
+    <ion-slide *ngFor="let slide of slidesNew | async" (click)="OpenSeason(slide)">
       <ion-thumbnail slot="start">
       <img [src]="slide.imagem" alt="">
       </ion-thumbnail>

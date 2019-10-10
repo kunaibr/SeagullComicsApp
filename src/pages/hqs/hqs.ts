@@ -27,8 +27,7 @@ export class HqsPage {
 
   searchHqs: any[];
   auxHq: Observable<any[]>;
-
-  slideChose: any;
+  slidesNew: Observable<any[]>;
 
   public isSearchOpen = false;
 
@@ -74,7 +73,6 @@ export class HqsPage {
 
     }, 10000);
 
-    // this.slideChose = this.searchHqs[this.slides._activeIndex].imagem;
     
   }
   //Carrega a pagina
@@ -82,7 +80,8 @@ export class HqsPage {
     let gifs = ['<img src="../../assets/gifs/EstrelaFria.gif">',
       '<img src="../../assets/gifs/SamuraiLunar.gif">',
     ];
-    let rnd = this.getRandomInt(0, 1);
+
+    let rnd = this.getRandomInt(0, 2);
 
     this.loader = this.loadingCtrl.create({
       spinner: 'hide',
@@ -114,6 +113,8 @@ export class HqsPage {
 
     this.AbreCarregador();
     
+    this.slidesNew = this.dataProvider.GetAllSlides();
+
     this.hqlista = this.dataProvider.GetUser(this.usuario);
     this.hqlista.subscribe(res => {
 

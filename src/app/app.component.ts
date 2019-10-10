@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AjustesPage } from '../pages/ajustes/ajustes';
-import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
+//import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 import { HqsPage } from '../pages/hqs/hqs';
 //import { NovidadesPage } from '../pages/novidades/novidades';
 import { PersonagensPage } from '../pages/personagens/personagens';
@@ -17,6 +17,7 @@ import { GlobalvarsProvider } from '../providers/globalvars/globalvars';
 import { LanguageProvider } from '../providers/language/language';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { ArtistsPage } from '../pages/artists/artists';
+
 
 
 @Component({
@@ -49,7 +50,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Comics', component: HqsPage, icon: "paper" },
-      { title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
+      //{ title: 'Minha biblioteca', component: BibliotecaPage, icon: "book" },
       { title: 'Personagens', component: PersonagensPage, icon: "people" },
       //{ title: 'Novidades', component: NovidadesPage, icon: "home" },
       { title: 'Artistas', component: ArtistsPage, icon: "ios-create" },
@@ -73,7 +74,7 @@ export class MyApp {
         } else {
           this.globalvars.setUser(res);
 
-          this.rootPage = AjustesPage;
+          this.rootPage = HqsPage;
         }
       });
       this.storage.get('intro_storage').then((int) => {

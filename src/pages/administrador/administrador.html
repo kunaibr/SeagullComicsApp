@@ -13,19 +13,51 @@
    <button class="btn-big" (click)="EscolherFoto()"><ion-icon name="ios-image"></ion-icon>Escolher Imagens</button>
    <img src="{{ imgPath }}" alt="" class="imgBig"/>
 
-  <h2>Lista de HQs</h2>
+   <hr />
+   <h1>Comics</h1>
+    <button class="btn-big" color="primary"  [disabled]="!imgPath" (click)="AddSlides()">Adicionar Slides  
+      <ion-icon name="md-albums"></ion-icon>
+    </button>
+    <br />
+    <button class="btn-big" color="primary"  [disabled]="!imgPath" (click)="AddComics()">Adicionar uma Comic  
+      <ion-icon name="ios-bookmarks"></ion-icon>
+    </button>
+    <br />
+    <button class="btn-big" color="primary"  [disabled]="!imgPath" (click)="AddComicsSeason()">Adicionar uma Temporada
+        <ion-icon name="ios-book"></ion-icon>
+      </button>
+      <br />
+    <button class="btn-big" color="primary"  [disabled]="!imgPath" (click)="AddComicsPage()">Adicionar uma Pagina
+      <ion-icon name="ios-paper-outline"></ion-icon>
+    </button>
+    <br />
+    <button class="btn-big" color="primary"  [disabled]="KeyComic == undefined || KeyComic == null" (click)="EncerrarComic()">Encerrar/Prosseguir uma Comic
+      <ion-icon name="md-close"></ion-icon>
+    </button>
+    
+    <hr />
+  <h4>Lista de HQs</h4>
 
   <p *ngFor="let hqs of searchHqs" (click)="GetRetornarSeason(hqs)">{{hqs.titulo}} - {{hqs.key}}</p>
   <hr />
-  <h2>Lista de Seasons</h2>
+  <h4>Lista de Seasons</h4>
 
   <p *ngFor="let sea of searchSeason" (click)="GetPages(sea)" >{{sea.numero}} - {{sea.key}}</p>
   <hr />
-  <h2>Lista de Paginas</h2>
+  <h4>Lista de Paginas</h4>
   <img *ngFor="let page of hqsPages | async" [src]="page.imagem">
 
   <hr />
-  <h2>Lista de Artistas</h2>
+
+  <button class="btn-big" color="primary"   [disabled]="!imgPath"  (click)="AddArtista()">Adicionar um Artista
+      <ion-icon name="ios-create"></ion-icon>
+    </button>
+    <br />
+  <button class="btn-big" color="primary"  (click)="AddCreditsComics()">Adicionar Créditos a Comic
+      <ion-icon name="md-contact"></ion-icon>
+    </button>
+<hr />
+  <h4>Lista de Artistas</h4>
   <div *ngFor="let credits of artists" class="hqCard" (click)="SetArtist(credits)">
     <ion-grid>
       <ion-row>
@@ -40,63 +72,15 @@
       </ion-row>
     </ion-grid>
   </div>
-
-  <button class="btn-big" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button>
-
-   <ion-fab slot="fixed" right bottom>
- 
-    <button ion-fab color="primary">
-      <ion-icon name="ios-image"></ion-icon>
-    </button>
-    <ion-fab-list side="top">
-
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddNews()">
-        <ion-icon name="paper"></ion-icon>
+  <hr />
+<h1>Usuario</h1>
+<button class="btn-big" color="primary"  [disabled]="!imgPath" (click)="AddNews()">Adicionar uma Noticia
+    <ion-icon name="paper"></ion-icon>
+  </button>
+<br />
+    <button class="btn-big" color="primary" (click)="AddUser()">Adicionar Assinatura ao Usuario
+        <ion-icon name="ios-happy"></ion-icon>
       </button>
-    
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddSlides()">
-          <ion-icon name="md-albums"></ion-icon>
-        </button>
-
-        <button ion-fab color="primary" (click)="AddUser()">
-            <ion-icon name="ios-happy"></ion-icon>
-          </button>
-
-         
-    </ion-fab-list>
-
- </ion-fab>
- 
- <ion-fab slot="fixed" left bottom>
- 
-    <button ion-fab color="primary">
-      <ion-icon name="md-bookmarks"></ion-icon>
-    </button>
-    <ion-fab-list side="top">
-
-    
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComics()">
-        <ion-icon name="ios-bookmarks"></ion-icon>
-      </button>
-
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsSeason()">
-          <ion-icon name="ios-book"></ion-icon>
-        </button>
-
-      <button ion-fab color="primary"  [disabled]="!imgPath" (click)="AddComicsPage()">
-        <ion-icon name="ios-paper-outline"></ion-icon>
-      </button>
-
-      <button ion-fab color="primary"  (click)="AddCreditsComics()">
-          <ion-icon name="md-contact"></ion-icon>
-        </button>
-
-        <button ion-fab color="primary"   [disabled]="!imgPath"  (click)="AddArtista()">
-          <ion-icon name="ios-create"></ion-icon>
-        </button>
-    
-    </ion-fab-list>
-
- </ion-fab>
+<!-- <button class="btn-big" (click)="notificationSchedule()"><ion-icon name=""></ion-icon>Notificar</button> -->
 
 </ion-content>
