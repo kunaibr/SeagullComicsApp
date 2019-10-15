@@ -29,6 +29,7 @@ import { PersonagensviewPageModule } from '../pages/personagensview/personagensv
 import { PersonagensviewPage } from '../pages/personagensview/personagensview';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { CadastroPageModule } from '../pages/cadastro/cadastro.module';
+import { CarrinhoPageModule } from '../pages/carrinho/carrinho.module';
 import { DatePipe } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { ServidorProvider } from '../providers/servidor/servidor';
@@ -61,6 +62,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { ArtistsPageModule } from '../pages/artists/artists.module';
 import { ArtistsPage } from '../pages/artists/artists';
+import { PagseguroServiceProvider } from '../providers/pagseguro-service/pagseguro-service';
 
 
 var firebaseConfig = {
@@ -103,10 +105,10 @@ export function createTranslateLoader(http: HttpClient) {
     ArtistsPageModule,
     DetalheNoticiaPageModule,
     PdfPageModule,
+    CarrinhoPageModule,
     SeasonPageModule,
     PinchZoomModule,
     HttpClientModule,
-    IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -155,6 +157,7 @@ export function createTranslateLoader(http: HttpClient) {
     Camera,
     LocalNotifications,
     FCM,
+    PagseguroServiceProvider,
   ]
 })
 export class AppModule {}

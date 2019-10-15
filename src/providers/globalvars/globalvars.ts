@@ -6,13 +6,16 @@ import { Http } from '@angular/http';
 export class GlobalvarsProvider {
   
   public usuario:any;
+  public email:any;
+  public nome:any;
 
-  constructor(public http: Http) {
+  public statusPagSeg: boolean = false;
+  constructor(public http: Http) {}
 
-  }
 
   setUser(user:any){
     this.usuario = user;
+
   }
 
   getUser(){
@@ -20,5 +23,11 @@ export class GlobalvarsProvider {
   }
 
 
+  setStatusScript(status:boolean){
+    this.statusPagSeg = status;
+  }
 
+  getStatusScript(){
+    return this.statusPagSeg;
+  }
 }

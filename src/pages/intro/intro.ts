@@ -14,7 +14,7 @@ export class IntroPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public storage: Storage,
+    private storage: Storage,
     ) {
   }
 

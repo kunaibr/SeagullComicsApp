@@ -384,7 +384,9 @@ export class DatabaseProvider {
     return this.db.database.ref('usuarios/' + uid + '/biblioteca').set(plus);
   }
 
-
+  setStorageUser(user){
+    this.storage.set('user', user);
+  }
 
   GetUidUser() {
     return this.storage.get('user');

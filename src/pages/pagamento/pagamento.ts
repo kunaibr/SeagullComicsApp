@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { EmailComposer } from '@ionic-native/email-composer';
 import { DatabaseProvider } from '../../providers/database/database';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { CarrinhoPage } from '../carrinho/carrinho';
 
 @IonicPage()
 @Component({
@@ -110,6 +111,10 @@ uid:any;
     });
 
    
+  }
+
+  PagarPagSeguro(){
+    this.navCtrl.push(CarrinhoPage);
   }
 
   public SendEmail(){

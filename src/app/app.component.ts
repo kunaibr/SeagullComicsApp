@@ -39,7 +39,7 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private settings: SettingsProvider,
-    public storage: Storage,
+    private storage: Storage,
     private globalvars: GlobalvarsProvider,
     public languageProvider: LanguageProvider,
     public fcm: FCM,

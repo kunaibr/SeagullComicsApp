@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ServidorProvider } from '../../providers/servidor/servidor';
 import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
 import { CadastroPage } from '../cadastro/cadastro';
-import { Storage } from '@ionic/Storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HqsPage } from '../hqs/hqs';
+import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
@@ -23,10 +22,9 @@ export class LoginPage {
     public navCtrl: NavController,
      public navParams: NavParams, 
      public toastCtrl: ToastController,
-     public servidor:ServidorProvider,
+     public database:DatabaseProvider,
      public http: Http,
      public globalvars: GlobalvarsProvider,
-     public storage: Storage,
      public formBuilder: FormBuilder,
      public afAuth: AngularFireAuth,
      ) {
@@ -38,7 +36,7 @@ export class LoginPage {
 
   ionViewDidEnter(){
     this.globalvars.setUser(null);
-    this.storage.set('user', null);
+    this.database.setStorageUser(null);
   }
 
   PushCadastro(){
@@ -49,12 +47,11 @@ export class LoginPage {
     this.afAuth.auth.signInWithEmailAndPassword(
       this.loginForm.value.email, this.loginForm.value.senha
       ).then((response) =>{
-          this.globalvars.setUser(response.user.uid.toString());
-          this.storage.set('user', response.user.uid.toString())
-          .then(() => {
-            this.navCtrl.setRoot(HqsPage);
+        this.globalvars.setUser(response.user.uid.toString());
+         this.database.setStorageUser(response.user.uid.toString());
+         
+          this.navCtrl.setRoot(HqsPage);
             
-          });
       }).catch((error) =>{
         
         switch (error.code){
@@ -69,6 +66,9 @@ export class LoginPage {
       }
       );
   }
+
+ 
+ 
 
   Toast(text: string){
     let toast = this.toastCtrl.create({

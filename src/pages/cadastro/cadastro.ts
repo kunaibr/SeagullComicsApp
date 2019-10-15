@@ -8,6 +8,9 @@ import { ValidateConfirmPassword } from '../../validators/confirmPassword';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { PdfPage } from '../pdf/pdf';
+import { GlobalvarsProvider } from '../../providers/globalvars/globalvars';
+import { HqsPage } from '../hqs/hqs';
+import { DatabaseProvider } from '../../providers/database/database';
 
 
 @IonicPage()
@@ -32,6 +35,8 @@ export class CadastroPage {
     public formbuilder: FormBuilder,
     public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
+    public globalvars:GlobalvarsProvider,
+    public database:DatabaseProvider,
  
   ) {
 
@@ -64,7 +69,9 @@ if( this.registerForm.value.senha !=  this.registerForm.value.senhaConfirm){
           this.db.database.ref('usuarios/').child(response.user.uid).child('hqs').set("");
           this.db.database.ref('usuarios/').child(response.user.uid).child('biblioteca').set("");
 
-          this.navCtrl.pop();
+          this.globalvars.setUser(response.user.uid.toString());
+          this.database.setStorageUser(response.user.uid.toString());
+          this.navCtrl.setRoot(HqsPage);
           this.Toast("Conta criada com sucesso!");
         })
         .catch((error) => {
@@ -86,6 +93,28 @@ if( this.registerForm.value.senha !=  this.registerForm.value.senhaConfirm){
         }
       });
     }    
+  }
+
+  EfetuarLogin(){
+    this.afAuth.auth.signInWithEmailAndPassword(
+      this.registerForm.value.email, this.registerForm.value.senha
+      ).then((response) =>{
+          this.globalvars.setUser(response.user.uid.toString());
+         
+            this.navCtrl.setRoot(HqsPage);
+      }).catch((error) =>{
+        
+        switch (error.code){
+          case 'auth/user-not-found':
+          this.Toast("Usuario não cadastrado");
+          break;
+          case 'auth/wrong-password':
+          this.Toast("Senha invalida");
+          this.registerForm.controls['senha'].setValue(null);
+          break;
+      }
+      }
+      );
   }
 
   Toast(text: string) {

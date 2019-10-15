@@ -1,0 +1,114 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Carrinho</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    
+    
+      <hr />
+      <h2>Dados do cartão</h2>
+    <ion-item>
+      <ion-label stacked>Numero do Cartão</ion-label>
+      <ion-input (blur)="pagseg.buscaBandeira()" type="text" name="numCard" [(ngModel)]="pagseg.dados.numCard"  #numCard="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Validade do Cartão (MM)</ion-label>
+      <ion-input type="number" name="mesValidadeCard" [(ngModel)]="pagseg.dados.mesValidadeCard" #mesValidadeCard="ngModel"></ion-input>
+    </ion-item>    
+
+    <ion-item>
+      <ion-label stacked>Validade Cartão (AA)</ion-label>
+      <ion-input type="number" name="anoValidadeCard" [(ngModel)]="pagseg.dados.anoValidadeCard" #anoValidadeCard="ngModel"></ion-input>
+    </ion-item>  
+    
+    <ion-item>
+      <ion-label stacked>Cod Segurança</ion-label>
+      <ion-input type="number" name="codSegCard" [(ngModel)]="pagseg.dados.codSegCard" #codSegCard="ngModel"></ion-input>
+    </ion-item>     
+
+    
+    <hr />
+    <h2>Dados Pessoais</h2>
+
+    <ion-item>
+      <ion-label stacked>Nome</ion-label>
+      <ion-input type="text" name="nome" [(ngModel)]="pagseg.dados.nome" #nome="ngModel"></ion-input>
+    </ion-item>     
+
+    <ion-item>
+      <ion-label stacked>CPF</ion-label>
+      <ion-input type="text" name="cpf" [(ngModel)]="pagseg.dados.cpf" #cpf="ngModel"></ion-input>
+    </ion-item>       
+    
+    <ion-item>
+      <ion-label stacked>Data Nascimento</ion-label>
+      <ion-input type="text" name="nascimento" [(ngModel)]="pagseg.dados.nascimento" #nascimento="ngModel"></ion-input>
+    </ion-item> 
+
+    <ion-item>
+      <ion-label stacked>Telegone (DD) 123456789</ion-label>
+      <ion-input type="text" name="telefone" [(ngModel)]="pagseg.dados.telefone" #telefone="ngModel"></ion-input>
+    </ion-item>     
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="pagseg.dados.email" #email="ngModel"></ion-input>
+    </ion-item>    
+    
+    
+    <hr />
+    <h2>Dados de Endereço</h2>
+
+    <ion-item>
+      <ion-label stacked>Endereço</ion-label>
+      <ion-input type="text" name="logradouro" [(ngModel)]="pagseg.dados.logradouro" #logradouro="ngModel"></ion-input>
+    </ion-item>     
+
+    <ion-item>
+      <ion-label stacked>Número</ion-label>
+      <ion-input type="text" name="numero" [(ngModel)]="pagseg.dados.numero" #numero="ngModel"></ion-input>
+    </ion-item>    
+
+    <ion-item>
+      <ion-label stacked>Bairro</ion-label>
+      <ion-input type="text" name="bairro" [(ngModel)]="pagseg.dados.bairro" #bairro="ngModel"></ion-input>
+    </ion-item>       
+
+    <ion-item>
+      <ion-label stacked>CEP</ion-label>
+      <ion-input type="text" name="cep" [(ngModel)]="pagseg.dados.cep" #cep="ngModel"></ion-input>
+    </ion-item>     
+    
+    <ion-item>
+      <ion-label stacked>Estado</ion-label>
+      <ion-input type="text" name="estado" [(ngModel)]="pagseg.dados.estado" #estado="ngModel"></ion-input>
+    </ion-item>      
+
+    <ion-item>
+      <ion-label stacked>Cidade</ion-label>
+      <ion-input type="text" name="cidade" [(ngModel)]="pagseg.dados.cidade" #cidade="ngModel"></ion-input>
+    </ion-item>    
+    
+    
+    <hr />
+    <h2>Opções de compra</h2>
+
+    <ion-item>
+      <ion-label stacked>Parcela</ion-label>
+      <ion-select [(ngModel)]="pagseg.dados.parcelas" name="parcelas" #parcelas="ngModel">
+        <ion-option *ngFor="let p of pagseg.dados.parcelas" [value]="[{ quantity: p['quantity'], installmentAmount: p['installmentAmount'] }]">
+          {{ p['quantity'] + "X " + p['installmentAmount'] }}
+        </ion-option>
+    </ion-select>    
+         
+    </ion-item>   
+
+  </ion-list>
+
+  <button class="btn-big" style="margin-top: 80px" (click)="pagseg.pagar()">Finalizar</button>
+
+</ion-content>

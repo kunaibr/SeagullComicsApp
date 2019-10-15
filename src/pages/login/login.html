@@ -3,7 +3,7 @@
  
 <img src="../../assets/images/logo-mini.png" class="logo" alt="">
   
-<form [formGroup]="loginForm" (ngSubmit)="EfetuarLogin()" >
+<form [formGroup]="loginForm" (ngSubmit)="EfetuarLogin(email,senha)" >
   <ion-list>
     <ion-item>
       <ion-input type="email"  placeholder="E-mail" formControlName="email" ></ion-input>
