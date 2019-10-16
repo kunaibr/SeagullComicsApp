@@ -29,13 +29,18 @@ export class HqviewPage {
     public navParams: NavParams,
     private dataProvider: DatabaseProvider,
   ) {
-
+   
   }
 
+  ngOnDestroy(){
+    this.dataProvider.setVerifyViewComic(true);
+  }
+  
   ionViewDidEnter() {
     this.keyComic = this.navParams.get("keyComic");
     this.keySeason = this.navParams.get("keySeason");
     this.preview = this.navParams.get("preview");
+   
 
     if (this.keySeason == "Complete") {
       this.GetCompleteSeason();

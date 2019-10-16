@@ -196,15 +196,26 @@
 
     .hqCard{
         background-color: #fcfcfc;
+        width: 115px;
         border-radius: 15px;
+        border: #fcfcfc solid 3px;
         padding: 0px;
         margin: 0px;
         height: 125px;
 
     }
 
+    .artistCard{
+        background-color: #fcfdfc;
+            border-radius: 15px;
+            padding: 0px;
+            margin: 0px;
+            height: 125px;
+    }
+    
+
     .item-md {
-        padding-left: 16px;
+        padding-left: 10px;
         padding-right: 0;
         position: relative;
         font-size: 1.6rem;

@@ -32,6 +32,8 @@ export class SeasonPage {
   hqsBiblioteca:any[];
   searchHqs:any[];
 
+  preview:any;
+
   auxHq: Observable<any[]>;
   
   keyComic: any = {
@@ -57,7 +59,7 @@ export class SeasonPage {
   public isRefreshing: boolean = false;
 
   to: string = "seagullcomics.editora@gmail.com";
-  subject: string = "Feedback ";
+  subject: string = "Feedback";
 
   constructor(
     public navCtrl: NavController,
@@ -72,7 +74,7 @@ export class SeasonPage {
     ) {
       this.tabs = ['Episódios', 'Detalhes'];
       this.usuario = this.globalvars.getUser();
-
+      this.dataProvider.setVerifyViewComic(false);
       this.GetRetornarSeason();
       
   }
@@ -86,32 +88,44 @@ export class SeasonPage {
   }
 
   ngOnDestroy(){
-    let inputAlert = this.alertCtrl.create({
-      title: 'Dê o seu Feedback!',
-      subTitle: 'O que você achou da historia que acabou de ler? Envie sua mensagem',
-      inputs: [
+    
+  this.dataProvider.getVerifyViewComic().then((res) => {
+    console.log(res);
+    if(res)
+    {
+      let inputAlert = this.alertCtrl.create({
+        title: 'Dê o seu Feedback!',
+        subTitle: 'O que você achou da historia que acabou de ler? Envie sua mensagem',
+        inputs: [
+          {
+            name: 'mensagem',
+            placeholder: 'Escreva sua mensagem',
+          },
+        ],
+        buttons: [
         {
-          name: 'mensagem',
-          placeholder: 'Escreva sua mensagem',
-        },
-      ],
-      buttons: [
-      {
-
-          text: 'Cancelar',
-          role: 'Cancel',
-        },
-        {
-          text: 'Enviar',
-          handler: data => {
-            this.SendEmail(data.mensagem);
-          }
-       },
-      ]
-    });
+  
+            text: 'Cancelar',
+            role: 'Cancel',
+          },
+          {
+            text: 'Enviar',
+            handler: data => {
+              this.SendEmail(data.mensagem);
+            }
+         },
+        ]
+      });
+     
+      inputAlert.present();
+      
+    }
    
-    inputAlert.present();
+
+  });
+     
   }
+   
 
   public SendEmail(msg){
     let email = {
@@ -181,14 +195,9 @@ export class SeasonPage {
       this.hqlista = this.dataProvider.GetUser(this.usuario);
       this.hqlista.subscribe(res => {
      
-        if(this.titulo == "Estrela fria"){
-          this.hqsUser = "Gratis";
-        }else{
+        
           this.hqsUser = res[2];
-        }
-
-     
-    
+      
       });
      
       
@@ -241,7 +250,7 @@ export class SeasonPage {
 
   OpenSeason(key):any{
 
-     if(key != undefined && this.hqsUser == 'True'){
+     if((key != undefined && this.hqsUser == 'True') || this.keyComic.price == "Gratis"){
     
       this.keySeason = key;
       

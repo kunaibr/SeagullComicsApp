@@ -197,11 +197,21 @@ ion-label{
 
 .hqCard{
     background-color: #212121;
-    border-radius: 15px;
-    padding: 0px;
-    margin: 0px;
-    height: 125px;
+    width: 115px;
+        border-radius: 15px;
+        border: #202020 solid 3px;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
 
+}
+
+.artistCard{
+    background-color: #212121;
+        border-radius: 15px;
+        padding: 0px;
+        margin: 0px;
+        height: 125px;
 }
 
 .item-md {

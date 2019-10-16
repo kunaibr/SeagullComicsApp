@@ -69,8 +69,8 @@
 
       <h2 style="margin: auto"><b>Episódios</b></h2>
 
-      <button *ngIf="hqsUser != 'True' && hqsUser != 'Gratis'" class="GreatNegative">Só Preview</button>
-      <button *ngIf="hqsUser == 'Gratis'" class="GreatPositive">Grátis</button>
+      <button *ngIf="hqsUser != 'True' && keyComic.price != 'Gratis'" class="GreatNegative">Só Preview</button>
+      <button *ngIf="keyComic.price == 'Gratis'" class="GreatPositive">Grátis</button>
 
       <ion-item *ngFor="let hqs of searchHqs" class="hqCardBlue">
         <div *ngIf="hqs != undefined" (click)="OpenSeason(hqs)">

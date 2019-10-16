@@ -106,7 +106,7 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/${newName}`).putString(info);
   }
 
-  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string) {
+  SaveToDatabaseComics(imagemComics: string, metainfo, titulo, texto, edicao, selo: string,price) {
     let toSave = {
       creditos: '',
       key: '',
@@ -119,6 +119,8 @@ export class DatabaseProvider {
       edicao: edicao,
       selo: selo,
       season: imagemComics,
+      price: price,
+      likes: 0,
     };
 
     let ref = this.db.list('comics').push(toSave);
@@ -248,6 +250,14 @@ export class DatabaseProvider {
     return this.afStorage.ref(`comics/credits/${newName}`).putString(info);
   }
 
+  setVerifyViewComic(view){
+    console.log(view);
+    this.storage.set("viewcomic",view);
+  }
+  getVerifyViewComic(){
+    return this.storage.get("viewcomic");
+     
+  }
   //------------------------------------------------SLIDES
 
   GetAllSlides() {
@@ -406,6 +416,8 @@ export class DatabaseProvider {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
   }
+
+  
 }
 
 

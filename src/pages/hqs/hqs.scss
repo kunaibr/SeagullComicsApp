@@ -49,6 +49,20 @@ page-hqs {
         margin-top: 2px;
         font-size: 25px;
       }
-        
+
+      .container {
+        width: 3    00px;
+        overflow: hidden; 
+        white-space: nowrap;
+        ::-webkit-scrollbar {
+          display: none;
+        }
+        .scroll {
+          overflow: auto;
+          width: 100%;
+        }
+      }
+  
   }
+
   

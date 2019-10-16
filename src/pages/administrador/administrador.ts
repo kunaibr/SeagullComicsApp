@@ -266,6 +266,10 @@ export class AdministradorPage {
           name: 'selo',
           placeholder: 'Escreva aqui o Selo do Arco',
         },
+        {
+          name: 'preco',
+          placeholder: 'Preço: Gratis || Pago',
+        },
 
       ],
       buttons: [
@@ -277,7 +281,7 @@ export class AdministradorPage {
           text: 'Salvar',
           handler: data => {
 
-            this.UploadComics(data.info,data.titulo,data.texto,data.edicao,data.selo);
+            this.UploadComics(data.info,data.titulo,data.texto,data.edicao,data.selo,data.preco);
           }
         }
       ]
@@ -286,7 +290,7 @@ export class AdministradorPage {
 
   }
 
-  UploadComics(info,titulo,texto,edicao,selo){
+  UploadComics(info,titulo,texto,edicao,selo,pago){
 
     this.AbreCarregador();
 
@@ -296,7 +300,7 @@ export class AdministradorPage {
 
     upload.then().then(res => {
       console.log('res' + res.metadata);
-      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo).then((response) => {
+      this.dataProvider.SaveToDatabaseComics(this.imgPath,res.metadata,titulo,texto,edicao,selo,pago).then((response) => {
         let toast = this.toastCtrl.create({
               message: "Seu envio de Comic foi um Sucesso " + response.key,
               duration: 3000
